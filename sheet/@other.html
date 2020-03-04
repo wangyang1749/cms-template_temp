@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title th:text="${view.title}"></title>
-    <link rel="stylesheet" href="/css/markdown.css">
+    <link rel="stylesheet" href="/templates/resources/css/markdown.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/index.css">
-
+    <link rel="stylesheet" href="/templates/resources/css/index.css">
 </head>
 
 <body>
     <div class="container">
 
         <!--#include file="/components/header.html"-->
-        <div th:if="${isSave== null}">
-            <div th:insert="html/components/header :: #header"></div>
-        </div>
-        
+        <div th:if="${isSave== null}" th:insert="html/components/header :: #header"></div>
+
+
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">首页</li>
@@ -32,10 +29,10 @@
         <div>
             [(${view.formatContent})]
         </div>
+
         <!--#include file="/components/footer.html"-->
-        <div th:if="${isSave== null}">
-            <div th:insert="html/components/footer :: #footer"></div>
-        </div>
+        <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
+
     </div>
 </body>
 
