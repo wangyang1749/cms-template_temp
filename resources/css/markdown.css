@@ -5,6 +5,10 @@
     margin: 1px;
     
 }
+.markdown a{
+    display: block;
+    overflow: auto;
+}
 
 img {
     max-width: 100%;
