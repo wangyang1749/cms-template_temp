@@ -5,6 +5,11 @@
     margin: 1px;
     
 }
+.markdown .img{
+   
+    text-align: center;
+}
+
 .markdown a{
     display: block;
     overflow: auto;
@@ -38,7 +43,9 @@ h1, h2, h3, h4, h5, dl{
 p {
     margin-top: 8px;
     margin-bottom: 3px;
+
 }
+
 h1 {
     font-size: 48px;
     line-height: 54px;
