@@ -14,7 +14,7 @@
     <!-- <link rel="stylesheet" href="/templates/resources/themes/github.css">
     <link rel="stylesheet"
         href="https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext">-->
-    <link rel="stylesheet" href="/templates/resources/css/index.css"> 
+    <link rel="stylesheet" href="/templates/resources/css/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.css">
 </head>
 
@@ -23,10 +23,11 @@
 
     <div class="container">
         <!--#include file="/components/header.html"-->
-        <div th:if="${isSave== null}" th:insert="html/components/header :: #header"></div>
+        <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/header :: #header"></div>
 
 
-        <nav aria-label="breadcrumb">
+
+        <nav th:if="${notPdf==null}" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/index.html">首页</a></li>
                 <li class="breadcrumb-item">
@@ -38,14 +39,23 @@
         </nav>
 
 
-        <div class="card mb-3 markdown">
+        <div class="card mb-3 markdown" th:if="${notPdf==null}">
 
-            <img th:if="${view.picPath}" th:src="${view.picPath}"
-                class="card-img-top" alt="">
+           
+
+            <img th:if="${view.picPath}" th:src="${view.picPath}" class="card-img-top" alt="">
             <div class="card-body">
                 <h5 class="card-title" th:text="${view.title}">标题</h5>
                 <p class="card-text" th:text="${view.summary}">摘要</p>
                 <p class="card-text"><small th:text="${view.createDate}" class="text-muted">时间</small></p>
+            </div>
+            <div th:switch="${ view.pdfPath != null }">
+                <span th:case="true">
+                    <a th:href="'http://47.93.201.74:8080/'+${view.pdfPath}" target="_blank">点击下载PDF</a>
+                </span>
+                <span th:case="false" >
+                    <a th:href="'http://47.93.201.74:8080/download/articlePdf/'+${view.id}" target="_blank">点击下载PDF</a>
+                </span>
             </div>
         </div>
 
@@ -55,7 +65,7 @@
         </div>
 
         <!--#include file="/components/footer.html"-->
-        <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
+        <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/footer :: #footer"></div>
 
     </div>
 </body>
