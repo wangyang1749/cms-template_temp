@@ -13,7 +13,8 @@ if(arguments.length<2){
         console.log("准备生成文件"+arguments[1])
         const page = await browser.newPage();
         await page.goto(arguments[0], {waitUntil: 'networkidle2'});
-        await page.pdf({margin:{top:'60px'},displayHeaderFooter:false,printBackground:false,path: arguments[1], format: 'A4'});
+        await page.addStyleTag({ content: ".card { display: none} @page{margin: 27mm 16mm 27mm 16mm;}  #header{display:none} @font-face{font:'abc';src: url('./abc.ttf')} *{font-family: '楷体'}" })
+        await page.pdf({path: arguments[1],format: 'A4'});
         await browser.close();
         console.log("生成成功!!")
     }catch(err){

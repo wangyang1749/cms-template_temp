@@ -3,10 +3,10 @@
     --control-text-color: #777;
 }
 @media screen and (min-width: 1000px) {
-    .markdown {
+    /* .markdown {
         width: 842px;
         margin: 10px auto;
-    }
+    } */
 }
 
 @font-face {
@@ -46,8 +46,24 @@ body {
     color: rgb(51, 51, 51);
     line-height: 1.6;
 } */
+.markdown{
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+    background: #fff;
+}
+.markdown .img{
+    text-align: center;
+}
+.markdown a{
+    display: block;
+    overflow: auto;
+}
+img {
+    max-width: 100%;
+}
 
-#write {
+/* #write {
     max-width: 860px;
   	margin: 0 auto;
   	padding: 30px;
@@ -56,7 +72,7 @@ body {
 #write > ul:first-child,
 #write > ol:first-child{
     margin-top: 30px;
-}
+} */
 
 a {
     color: #4183C4;
