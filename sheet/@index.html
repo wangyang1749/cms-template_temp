@@ -12,7 +12,30 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         crossorigin="anonymous">
     <link rel="stylesheet" href="/templates/resources/css/index.css">
+    <style>
+        .home-card {
+            margin: 0;
+            text-decoration: none !important;
 
+        }
+
+        @keyframes mymove {
+            50% {text-shadow: 10px 20px 30px #000;}
+        }
+
+        /*Safari 和 Chrome:*/
+        @-webkit-keyframes mymove {
+            50% {text-shadow: 10px 20px 30px #000;}
+        }
+
+
+        .card:hover {
+            -webkit-animation: mymove 3s;
+            animation: mymove 3s;
+            animation-fill-mode: forwards;
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,12 +57,12 @@
 
         <br>
         <div class="row">
-            <div class="col">
+            <div class="col-lg">
                 <!--#include file="/components/newArticle.html"-->
                 <div th:if="${isSave== null}" th:insert="html/components/newArticle :: #newArticle"></div>
             </div>
 
-            <div class="col">
+            <div class="col-lg">
                 [(${view.formatContent})]
             </div>
         </div>
@@ -49,4 +72,5 @@
 
     </div>
 </body>
+
 </html>
