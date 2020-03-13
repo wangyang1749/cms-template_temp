@@ -8,7 +8,7 @@ if(arguments.length<2){
 }
 // http://127.0.0.1:5500/html/article/cc3d2502-dd9e-4c4d-b3f9-17dc50962c5b.html
 (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     try{
         console.log("准备生成文件"+arguments[1])
         const page = await browser.newPage();
