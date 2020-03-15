@@ -1,9 +1,27 @@
-
-
-<nav id="header" >
+<!-- <nav id="header" >
   <ul class="nav">
     <li class="nav-item" th:each="item : ${view}">
       <a class="nav-link active" th:href="'/'+${item.urlName}" th:text="${item.name}"></a>
     </li>
   </ul>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-light mb-3 fixed-top shadow-sm " id="header">
+  <div class="nav-title">
+    <a class="navbar-brand ">Biotechnology</a>
+  </div>
+
+  <div class=" navbar-collapse" id="navbarNav">
+    <ul class="nav navbar-nav mr-auto">
+      <li class="nav-item" th:each="item : ${view}">
+        <a class="nav-link " th:href="'/'+${item.urlName}" th:text="${item.name}"></a>
+      </li>
+
+    </ul>
+  </div>
+
+  <form class="form-inline ">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
 </nav>

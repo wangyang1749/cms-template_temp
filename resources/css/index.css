@@ -18,4 +18,66 @@ body{
 a:focus {
     outline: none;
 }
+.navbar{
+    background:#e9ecef;
+}
+ /*隐藏滚动条*/
+ .nav::-webkit-scrollbar {
+    width: 0 !important
+}
 
+.breadcrumb::-webkit-scrollbar {
+    width: 0 !important
+}
+
+.nav,
+.breadcrumb {
+    display: inherit;
+    white-space: nowrap;
+    overflow: auto;
+
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+}
+
+.nav .nav-item {
+    /* margin-top: 0.5rem; */
+    display: inline-block;
+}
+
+.breadcrumb .breadcrumb-item {
+    display: inline-block;
+}
+.navbar-collapse{
+    overflow: auto;
+}
+@media screen and (max-width: 992px) {
+  .nav .nav-link{
+    padding: .5rem 0.15rem;
+    
+  }
+  .navbar{
+      position: relative;
+      text-align: center;
+  }
+  .container{
+    margin-top: 0px !important;
+    }
+  .navbar .form-inline{
+    width: 100%;
+  }
+  .navbar .form-inline input{
+    width: 100%;
+  }
+  .nav-title{
+      width: 100%;
+      text-align: center;
+      display: none;
+  }  
+  .navbar .btn{
+      display: none;
+  }
+}
+.container{
+    margin-top: 72px;
+}
