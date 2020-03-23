@@ -1,4 +1,4 @@
-<div class="row row-cols-1 row-cols-md-3" id="category">
+<!-- <div class="row row-cols-1 row-cols-md-3" id="category">
     <div class="col mb-4 " th:each="item : ${view}">
         <div class="card h-100">
             <a th:href="'/articleList/'+${item.viewName}+'.html'" class="home-card text-secondary">
@@ -11,4 +11,10 @@
         </div>
     </div>
 
+</div>  -->
+
+<div class="list-group list-group-flush" id="category">
+
+    <a th:each="item : ${view}" th:href="'/articleList/'+${item.viewName}+'.html'"
+        class="list-group-item list-group-item-action" th:text="${item.name}">Dapibus ac facilisis in</a>
 </div>

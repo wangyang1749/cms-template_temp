@@ -70,27 +70,42 @@
             <ol class="breadcrumb">
                 <span class="text-secondary">当前位置：</span>
                 <li class="breadcrumb-item "><a href="/index.html" class="text-secondary">首页</a></li>
-                <li class="breadcrumb-item " th:if="${view.categories!=null}">
-                    <a class="text-secondary" th:each="item : ${view.categories}"
-                        th:href="'/articleList/'+${item.viewName}+'.html'" th:text="${item.name}">文章列表</a>
+                <li class="breadcrumb-item " th:if="${view.category!=null}">
+                    <a class="text-secondary" th:href="'/articleList/'+${view.category.viewName}+'.html'"
+                        th:text="${view.category.name}">文章列表</a>
                 </li>
                 <li class="breadcrumb-item active text-secondary" aria-current="page" th:text="${view.title}">文章详情</li>
             </ol>
         </nav>
 
-
-        <div class="card mb-3 shadow-sm rounded" th:if="${notPdf==null}">
+        <div class="card mb-3 shadow-sm rounded " th:if="${notPdf==null}">
             <img th:if="${view.picPath}" th:src="${view.picPath}" class="card-img-top" alt="">
             <div class="card-body">
                 <h5 class="card-title" th:text="${view.title}">标题</h5>
                 <p class="card-text" th:text="${view.summary}">摘要</p>
-                <p class="text-right">
-                    <small th:text="${view.createDate}" class="text-muted">时间</small>
+
+
+                <div class="d-flex justify-content-between">
+                    <small class="text-muted">
+                        <span class="mr-2">
+                            <svg class="bi bi-person-fill" width="1em" height="1em" viewBox="0 0 16 16"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <strong th:text="${view.user.username}"> </strong>
+                        </span>
+                        <span class="mr-2">最后发布时间:<strong th:text="${#dates.format( view.updateDate, 'yyyy-MM-dd HH:mm:ss')}">时间</strong></span>
+                        <span class="mr-2">浏览量:<strong id="visits"></strong></span>
+                    </small>
+                    
+                   
                     <small class="text-muted">
                         <a th:href="'http://47.93.201.74:8080/download/articlePdf/'+${view.id}"
-                            target="_blank">&nbsp;|&nbsp;点击下载PDF</a>
+                            target="_blank">&nbsp;&nbsp;点击下载PDF</a>
                     </small>
-                </p>
+                </div>
             </div>
         </div>
 
@@ -102,21 +117,21 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 app" id="boxFixed1">
+            <div class="col-lg-3" id="boxFixed1">
                 <div class="card mb-3  bg-white">
                     <div class="card-body">
                         <dl>
                             <dt class="text-muted">文章所属栏目</dt>
-                            <dd th:if="${view.categories!=null}">
-                                <a th:each="item : ${view.categories}" class="text-secondary"
-                                    th:href="'/articleList/'+${item.viewName}+'.html'" th:text="${item.name}"></a>
+                            <dd th:if="${view.category!=null}">
+                                <a class=" badge badge-success" th:href="'/articleList/'+${view.category.viewName}+'.html'"
+                                    th:text="${view.category.name}"></a>
                             </dd>
                         </dl>
 
                         <dl>
                             <dt class="text-muted">标签</dt>
                             <dd th:if="${view.tags!=null}">
-                                <a class="text-secondary" th:each="item : ${view.tags}" th:text="${item.name}"></a>
+                                <a class="badge badge-info mr-1" th:each="item : ${view.tags}" th:text="${item.name}"></a>
                             </dd>
                         </dl>
 
@@ -142,25 +157,35 @@
 
     </div>
 
-
-    <script src="/templates/resources/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>
+    <script src="/templates/resources/js/service.js"></script>
+    <script src="/templates/resources/js/vue-dev.js"></script>
     <!-- <script type="text/javascript" src="https://unpkg.com/vue@2.2.6/dist/vue.js"></script> -->
 
     <script>
         var app = new Vue({
-            el: '.app',
+            el: '#boxFixed1',
             data() {
                 return {
                     isFixed: false,
                     offsetTop: 0,
                     showToc: true,
                     boxWidth: 0,
-                    headerHeight: 0
+                    headerHeight: 0,
+                    name: "5555"
                 }
+            }, created() {
+                articleApi.getVisit([[${view.id}]]).then(response => {
+                    if (response.data.status == 200) {
+                        console.log(response.data.data)
+                        document.getElementById("visits").innerHTML = response.data.data
+                    }
+
+                })
             },
             mounted() {
                 var cNode = document.getElementById('boxFixed2').getElementsByTagName('li');
-                console.log(cNode)
+                // console.log(cNode)
 
                 if (document.body.clientWidth > 960) {
                     window.addEventListener('scroll', this.initHeight);
@@ -188,7 +213,7 @@
                     }
 
                     // console.log(this.headerHeight)
-                    console.log("scrollTop" + scrollTop)
+                    // console.log("scrollTop" + scrollTop)
                 },
             },
             destroyed() {

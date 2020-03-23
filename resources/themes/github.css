@@ -59,6 +59,13 @@ body {
     display: block;
     overflow: auto;
 }
+.footnote-backref, .footnote-ref{
+    display: inline !important; 
+     /* overflow: auto; */
+}
+.footnotes p{
+    display: inline-block;
+}
 img {
     max-width: 100%;
 }
