@@ -51,7 +51,12 @@ a:focus {
 .navbar-collapse{
     overflow: auto;
 }
+
+
 @media screen and (max-width: 992px) {
+    .footnotes p{
+        display: block;
+    }
   .nav .nav-link{
     padding: .5rem 0.15rem;
     
@@ -63,6 +68,9 @@ a:focus {
   .container{
     margin-top: 0px !important;
     }
+.bd-search{
+    width: 100%;
+}
   .navbar .form-inline{
     width: 100%;
   }

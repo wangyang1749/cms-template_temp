@@ -13,35 +13,18 @@
 
     <title th:text="${view.title}">Document</title>
     <style>
-        /* .navbar {
+        .navbar {
             position: relative;
-        } */
+        }
 
-        /* .container {
+        .container {
             margin-top: 0px !important;
-        } */
+        }
 
         @media screen and (min-width: 768px) {
             .bd-links {
                 display: block !important;
-                overflow-y: auto;
             }
-
-            .bd-sidebar {
-                position: sticky;
-                top: 4rem;
-                z-index: 1000;
-                height: calc(100vh - 4rem);
-            }
-
-            .container-fluid {
-                margin-top: 56px;
-            }
-
-        }
-
-        .navbar {
-            margin-bottom: 0 !important;
         }
     </style>
 </head>
@@ -50,31 +33,60 @@
     <!--#include file="/components/header.html"-->
     <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/header :: #header"></div>
 
-    <div class="container-fluid">
+    <div class="">
 
+
+
+
+        <!-- <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse"
+            data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="true"
+            aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                viewBox="0 0 30 30" role="img" focusable="false">
+                <title>Menu</title>
+                <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"
+                    d="M4 7h22M4 15h22M4 23h22"></path>
+            </svg></button> -->
+
+        <!-- <div class=" collapse " id="bd-docs-nav" aria-label="Main navigation">
+            <ul >
+                <li><a href="#">首页</a></li>
+                <li><a href="#">jQuery特效</a></li>
+
+                <li><a href="#">站长之家</a></li>
+                <li><a href="#">PPT下载</a></li>
+                <li><a href="#">QQ表情</a></li>
+                <li><a href="#">图片下载</a></li>
+                <li><a href="#">关于我们</a></li>
+            </ul>
+        </div> -->
         <div class="row ">
-            <div class="col-lg-3 collapse bd-links bd-sidebar" id="bd-docs-nav">
+            <div class="col-lg-3 collapse bd-links " id="bd-docs-nav">
+                <div class="overflow-auto">
 
-                <div class="card">
-                    <div class="card-header" th:text="${view.category.name}">
-                        文章列表
+                    <!--#include file="/[[${view.category.path}]]/[[${view.category.viewName}]].html"-->
+                    <div th:if="${isSave== null && notPdf==null}"
+                        th:insert="'html/'+${view.category.path}+'/'+${view.category.viewName} :: #category"></div>
+                    <div class="card-body" th:utext="${view.toc}">
+
                     </div>
+                </div>
+                
+                <div class="card mb-3  bg-white shadow-lg">
+                    <div class="card-header" th:text="${view.category.name}">栏目所有文章</div>
                     <div class="card-body p-0">
 
                         <!--#include file="/[[${view.category.path}]]/[[${view.category.viewName}]].html"-->
                         <div th:if="${isSave== null && notPdf==null}"
                             th:insert="'html/'+${view.category.path}+'/'+${view.category.viewName} :: #category"></div>
-                        <div class="card-body" th:utext="${view.toc}">
 
-                        </div>
-
-                       
                     </div>
                 </div>
+                <!-- 文章目录 -->
+                <div th:if="${view.toc!=''}" id="boxFixed2" class="card shadow-lg"
+                    :class="{'is_fixed' : isFixed,'is_show_toc' : !showToc}">
+                    <div class="card-header">本文列表</div>
 
-
-
-
+                </div>
             </div>
             <div class="col-lg-9">
                 <div class="  mb-1 mt-3 nav">
@@ -97,14 +109,11 @@
                         <a th:href="'http://47.93.201.74:8080/download/articlePdf/'+${view.id}"
                             target="_blank">&nbsp;&nbsp;点击下载PDF</a>
                     </small>
-                </div>
-                <div class="markdown shadow-lg p-3  bg-white rounded">
+            </div>
+                <div class="markdown shadow-lg p-3 mb-5 bg-white rounded">
 
                     [(${view.formatContent})]
                 </div>
-                 <!--#include file="/components/footer.html"-->
-                <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/footer :: #footer"></div>
-
             </div>
         </div>
     </div>
