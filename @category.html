@@ -1,3 +1,4 @@
+<!-- 给予AJAX的文章列表模板 -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,7 +93,7 @@
                 <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
                     class="list-group-item list-group-item-action" th:each="item : ${view.page.getContent()}">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1" th:text="${item.title}">List group item heading</h5>
+                        <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
                         <small th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</small>
                     </div>
                     <p class="mb-1" th:text="${item.summary}"></p>
@@ -115,7 +116,7 @@
             <a :href="'/'+item.path+'/'+item.viewName+'.html'" v-for="item in data"
                 class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{item.title}}</h5>
+                    <h5 class="mb-1 title">{{item.title}}</h5>
                     <small>{{item.updateDate}}</small>
                 </div>
                 <p class="mb-1">{{item.summary}}</p>

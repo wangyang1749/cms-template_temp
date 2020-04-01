@@ -1,3 +1,4 @@
+<!-- 单纯文件列表的模板 -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,10 +74,11 @@
                 <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
                     class="list-group-item list-group-item-action" th:each="item : ${view.page.getContent()}">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1" th:text="${item.title}">List group item heading</h5>
-                        <small th:text="${item.createDate}">3 days ago</small>
+                        <strong> <h5 class="mb-1 title" th:text="${item.title}">文章标题</h5></strong>
+                        <small th:text="${item.createDate}">发布时间</small>
                     </div>
-                    <p class="mb-1" th:text="${item.summary}"></p>
+                    <p class="mb-1" th:text="${item.summary}">文章摘要</p>
+                    <!-- 用户 -->
                     <small>
                         <div class="d-flex flex-row bd-highlight ">
                             <div class="p-2 bd-highlight" style="width: 2.3rem;">

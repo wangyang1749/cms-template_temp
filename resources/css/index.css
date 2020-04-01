@@ -89,3 +89,9 @@ a:focus {
 .container{
     margin-top: 72px;
 }
+
+/* 文章标题 */
+.title{
+    color: black;
+    /* font-weight: bold; */
+}

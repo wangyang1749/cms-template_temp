@@ -59,6 +59,20 @@ body {
     display: block;
     overflow: auto;
 }
+/* 代码块的样式 */
+.markdown pre{
+    background: #f3f4f4;
+    border: 1px solid #e7eaed;
+    padding: 1rem; 
+    /* overflow: auto; */
+}
+
+.markdown pre code{
+    background: none;
+    border: none;
+}
+
+
 .footnote-backref, .footnote-ref{
     display: inline !important; 
      /* overflow: auto; */
