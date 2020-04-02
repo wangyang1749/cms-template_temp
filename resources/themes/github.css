@@ -2,11 +2,15 @@
     --side-bar-bg-color: #fafafa;
     --control-text-color: #777;
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 768px) {
     /* .markdown {
         width: 842px;
         margin: 10px auto;
     } */
+    .markdown table {
+        display: table !important;
+    }
+   
 }
 
 @font-face {
@@ -65,6 +69,13 @@ body {
     border: 1px solid #e7eaed;
     padding: 1rem; 
     /* overflow: auto; */
+}
+/* 表格样式 */
+ .markdown table {
+    width: 100%;
+    display: block;
+    white-space: nowrap;
+    overflow: auto;
 }
 
 .markdown pre code{
