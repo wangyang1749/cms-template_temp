@@ -93,7 +93,7 @@
                 <!-- 文章列表 -->
                 <ul class="list-group list-group-flush">
                     <div class="list-group-item list-group-item-light">
-                        这个栏目一共收录文章<em th:text="${view.page.totalElements}"></em>篇，
+                        <strong th:text="${view.category.name}"></strong> 一共收录文章<em th:text="${view.page.totalElements}"></em>篇，
                         一共有<span th:text="${view.page.totalPages}"> </span>页，
                         每页显示<span th:text="${view.page.size}"> </span>篇
                     </div>
