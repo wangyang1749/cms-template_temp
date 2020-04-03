@@ -40,10 +40,11 @@
             [(${view.formatContent})]
         </div>
 
-        <!--#include file="/components/footer.html"-->
-        <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
-
     </div>
+
+    <!--#include file="/components/footer.html"-->
+    <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
+
 </body>
 
 </html>

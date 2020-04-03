@@ -95,3 +95,8 @@ a:focus {
     color: black;
     /* font-weight: bold; */
 }
+
+/* 底部导航设置 */
+.footer{
+    background: #e9ecef;
+}

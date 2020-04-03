@@ -165,10 +165,10 @@
 
 
 
-        <!--#include file="/components/footer.html"-->
-        <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/footer :: #footer"></div>
-
     </div>
+
+    <!--#include file="/components/footer.html"-->
+    <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/footer :: #footer"></div>
 
    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> -->
@@ -247,7 +247,7 @@
             //qq空间接口的传参
             if (stype == 'qzone') {
                 // console.log('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + document.location.href + '&sharesource=qzone&title=' + ftit + '&pics=' + flink + '&summary=' + "122")
-                window.open('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + document.location.href  + '&sharesource=qzone&title=' + ftit + '&pics=' + flink + '&summary=' + summary);
+                window.open('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + document.location.href + '&sharesource=qzone&title=' + ftit + '&pics=' + flink + '&summary=' + summary);
             }
 
 

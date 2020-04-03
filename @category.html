@@ -25,6 +25,24 @@
         .showloading {
             display: none;
         }
+
+
+
+        /* 分类导航样式 */
+        .categoryList {
+            /* background: #fff; */
+
+            font-size: 14px;
+            list-style: none;
+            margin: 0;
+            padding: 4px;
+        }
+
+        .categoryList li {
+            display: inline-block;
+            margin: 0px 10px;
+
+        }
     </style>
 </head>
 
@@ -34,7 +52,9 @@
     <!--#include file="/components/header.html"-->
 
     <div class="container" id="app">
-        <nav aria-label="breadcrumb">
+
+
+        <!-- <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <span class="text-secondary">当前位置：</span>
                 <li class="breadcrumb-item"><a href="/index.html" class="text-secondary">首页</a></li>
@@ -45,9 +65,9 @@
                 <li class="breadcrumb-item active text-secondary" aria-current="page" th:text="${view.category.name}">
                     分类列表页</li>
             </ol>
-        </nav>
+        </nav> -->
 
-        <div class="jumbotron jumbotron-fluid">
+        <!-- <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1 th:text="${view.category.name}" class="display-4">Fluid jumbotron</h1>
                 <p th:text="${view.category.description}" class="lead">
@@ -65,116 +85,90 @@
 
 
             </div>
-        </div>
+        </div> -->
 
 
-        <div th:if="${view.children!=null}">
-            <div class="row row-cols-1 row-cols-md-3" id="category">
-                <div class="col mb-4" th:each="item : ${view.children}">
-                    <div class="card h-100">
-                        <img th:src="${item.picPath}" class="card-img-top" alt="...">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- 文章列表 -->
+                <ul class="list-group list-group-flush">
+                    <div class="list-group-item list-group-item-light">
+                        这个栏目一共收录文章<em th:text="${view.page.totalElements}"></em>篇，
+                        一共有<span th:text="${view.page.totalPages}"> </span>页，
+                        每页显示<span th:text="${view.page.size}"> </span>篇
+                    </div>
+                    <div id="articleContent">
+                        <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
+                            class="list-group-item list-group-item-action" th:each="item : ${view.page.getContent()}">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
+                                <small th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</small>
+                            </div>
+                            <p class="mb-1" th:text="${item.summary}"></p>
+                            <small >   
+                                <div class="d-flex flex-row bd-highlight ">
+                                        <div class="p-2 bd-highlight" style="width: 2.3rem;">
+                                            <img th:src="${item.user.avatar}" alt=""class="img-fluid rounded-circle">  
+                                        </div>
+                                        <div class="p-2 bd-highlight">
+                                            <span th:text="${item.user.username}"></span>
+                                        </div>
+                                </div>
+                            
+                            </small>
+                        </a>
+
+                    </div>
+                </ul>
+            </div>
+
+            <div  class="col-lg-4">
+                <div>
+                     <!--#include file="/components/categoryList.html"-->
+                     <div th:if="${isSave== null}" th:insert="html/components/categoryList :: #category"></div>
+
+                </div>
+                    <div class="card mb-3  bg-white">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${item.name}">Card title</h5>
-                            <a th:href="'/articleList/'+${item.viewName}+'.html'">
-                                <p class="card-text" th:text="${item.description}"></p>
-                            </a>
+                            <span th:text="${view.category.name}"></span>
+                            <p th:text="${view.category.description}" ></p>
+
                         </div>
                     </div>
-                </div>
-
-
-
             </div>
-
         </div>
+        
 
-        <ul class="list-group ">
-            <div id="articleContent">
-                <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
-                    class="list-group-item list-group-item-action" th:each="item : ${view.page.getContent()}">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
-                        <small th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</small>
-                    </div>
-                    <p class="mb-1" th:text="${item.summary}"></p>
-                    <small >   
-                        <div class="d-flex flex-row bd-highlight ">
-                                <div class="p-2 bd-highlight" style="width: 2.3rem;">
-                                    <img th:src="${item.user.avatar}" alt=""class="img-fluid rounded-circle">  
-                                </div>
-                                <div class="p-2 bd-highlight">
-                                    <span th:text="${item.user.username}"></span>
-                                </div>
-                         </div>
-                       
-                    </small>
-                </a>
-
-            </div>
-
-            <!-- 基于Vue的动态加载 -->
-            <a :href="'/'+item.path+'/'+item.viewName+'.html'" v-for="item in data"
-                class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1 title">{{item.title}}</h5>
-                    <small>{{item.updateDate}}</small>
-                </div>
-                <p class="mb-1">{{item.summary}}</p>
-                <small>
-                        <div class="d-flex flex-row bd-highlight ">
-                                <div class="p-2 bd-highlight" style="width: 2.3rem;">
-                                    <img :src="item.user.avatar" alt=""class="img-fluid rounded-circle">  
-                                </div>
-                                <div class="p-2 bd-highlight">
-                                    <span>{{item.user.username}}</span>
-                                </div>
-                         </div>
-                </small>
-                <!-- {{item}} -->
-            </a>
-
-            <div class="d-flex justify-content-center  mt-3">
-                <div class="spinner-border text-secondary" role="status" :class="{ showloading: !loading }">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <span :class="{ showloading: loading }">我们是有底线的！！！</span>
-            </div>
-
-
-
-
-        </ul>
-
-        <!-- <div style="margin-top: 2rem;" th:if="${view.page.totalPages} gt '1'">
+        <div style="margin-top: 2rem;" th:if="${view.page.totalPages} gt '1'">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
 
                     <li class="page-item">
                         <a class="page-link"
-                            th:href="'http://47.93.201.74:8080/articleList/'+${view.category.viewName}+'.html'"
+                            th:href="'/articleList/'+${view.category.viewName}+'.html'"
                             aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
 
                     <li class="page-item" th:each="item : ${#numbers.sequence(1, view.page.totalPages)}">
-                        <a class="page-link"  th:href="'http://47.93.201.74:8080/articleList/category/'+${view.category.id}+'?page='+${item}" th:text="${item}">1</a>
+                        <a class="page-link"  th:href="'/articleList/category/'+${view.category.id}+'?page='+${item}" th:text="${item}">1</a>
                     </li>
 
                     <li class="page-item">
-                        <a class="page-link"  th:href="'http://47.93.201.74:8080/articleList/category/'+${view.category.id}+'?page='+${view.page.totalPages}" aria-label="Next">
+                        <a class="page-link"  th:href="'/articleList/category/'+${view.category.id}+'?page='+${view.page.totalPages}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </ul>
             </nav>
-        </div> -->
+        </div>
 
-
-        <!--#include file="/components/footer.html"-->
-        <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
 
     </div>
+
+    <!--#include file="/components/footer.html"-->
+    <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>
     <script src="/templates/resources/js/service.js"></script>
