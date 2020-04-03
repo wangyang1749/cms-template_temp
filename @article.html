@@ -106,7 +106,12 @@
                             <strong th:text="${view.user.username}"> </strong>
                         </span>
                         <span class="mr-2">最后发布时间:<strong th:text="${#dates.format( view.updateDate, 'yyyy-MM-dd HH:mm:ss')}">时间</strong></span>
+                    
+                        <span class="text-muted">分享到：</span>
+                        <img onclick="shareTo('qzone')" src="http://zixuephp.net/static/images/qqzoneshare.png" width="15"> 
+                  
                         <span class="mr-2">浏览量:<strong id="visits"></strong></span>
+
                     </small>
                     
                    
@@ -142,8 +147,14 @@
                             <dd th:if="${view.tags!=null}">
                                 <a class="badge badge-info mr-1" th:each="item : ${view.tags}" th:text="${item.name}"></a>
                             </dd>
+                            
                         </dl>
 
+
+                        <div onclick="shareTo('qzone')">
+                            <span>分享到：</span>
+                            <img src="http://zixuephp.net/static/images/qqzoneshare.png" width="20">
+                        </div>
                     </div>
                 </div>
                 <!-- 文章目录 -->
@@ -203,10 +214,62 @@
             })
         }
 
+
+
+
+
         // sound.click(function(){
         //   var a=$(this).index;
         //   console.log(a)
         // })
+
+        function shareTo(stype) {
+            var ftit = '';
+            var flink = '';
+            var lk = '';
+            var summary = '生命科学知识分享';
+            //获取文章标题
+            ftit = $('title').text();
+            console.log(ftit)
+            //获取网页中内容的第一张图片
+            flink = $('.markdown').find('img').eq(0).attr('src');
+            if (typeof flink == 'undefined') {
+                flink = '';
+            }
+            // console.log(flink)
+            //当内容中没有图片时，设置分享图片为网站logo
+            // if (flink == '') {
+            //   lk = 'http://' + window.location.host + '/static/images/logo.png';
+            // }
+            //如果是上传的图片则进行绝对路径拼接
+            if (flink.indexOf('/uploads/') != -1) {
+                lk = 'http://' + window.location.host + flink;
+            }
+            if (document.querySelector('meta[name="description"]')) {
+                summary = document.querySelector('meta[name="description"]').getAttribute('content')
+            }
+
+
+            //qq空间接口的传参
+            if (stype == 'qzone') {
+                // console.log('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + document.location.href + '&sharesource=qzone&title=' + ftit + '&pics=' + flink + '&summary=' + "122")
+                window.open('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + document.location.href  + '&sharesource=qzone&title=' + ftit + '&pics=' + flink + '&summary=' + summary);
+            }
+
+
+            // //新浪微博接口的传参
+            // if (stype == 'sina') {
+            //     window.open('http://service.weibo.com/share/share.php?url=' + document.location.href + '?sharesource=weibo&title=' + ftit + '&pic=' + lk + '&appkey=2706825840');
+            // }
+            // //qq好友接口的传参
+            // if (stype == 'qq') {
+            //     window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + document.location.href + '?sharesource=qzone&title=' + ftit + '&pics=' + lk + '&summary=' + document.querySelector('meta[name="description"]').getAttribute('content') + '&desc=php自学网，一个web开发交流的网站');
+            // }
+            // //生成二维码给微信扫描分享
+            // if (stype == 'wechat') {
+            //     window.open('inc/qrcode_img.php?url=http://zixuephp.net/article-1.html');
+            // }
+        }
     </script>
 </body>
 
