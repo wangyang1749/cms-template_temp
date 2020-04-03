@@ -68,7 +68,7 @@
 
                         </div>
 
-                       
+
                     </div>
                 </div>
 
@@ -114,7 +114,33 @@
    <!-- <script src="/templates/resources/js/jquery-3.4.1.min.js"></script> -->
    <script>
 
-</script>
+        // var bolb = new Blob([ss],{type:"audio/mpeg"});
+        // var url = window.URL.createObjectURL(bolb);
+
+        var sound = $(".sound")
+        if (sound.length != 0) {
+            // console.log("exist sound"+sound.length)
+            var audio = document.createElement("audio");
+
+
+            // console.log($(".sound").length)
+            sound.each(function (i) {
+                // console.log(  $(sound[i]).attr('naudio'))
+                $(sound[i]).click(function () {
+                    // console.log($(sound[i]).attr('naudio'))
+                    audio.src = $(sound[i]).attr('naudio');
+                    // audio.controls = "controls";
+                    document.body.appendChild(audio);
+                    audio.play();
+                })
+            })
+        }
+
+        // sound.click(function(){
+        //   var a=$(this).index;
+        //   console.log(a)
+        // })
+    </script>
 </body>
 
 </html>
