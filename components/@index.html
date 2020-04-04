@@ -82,6 +82,12 @@
             </div>
 
             <div class="col-lg-4">
+                <div class="mb-3">
+                    <button type="button" class="btn btn-outline-primary btn-lg btn-block">我要投稿</button>
+                    <button type="button" class="btn btn-outline-secondary btn-lg btn-block">发布问题</button>
+                </div>
+
+
                 <!--#include file="/components/categoryList.html"-->
                 <div th:if="${isSave== null}" th:insert="html/components/categoryList :: #category"></div>
 
@@ -89,9 +95,9 @@
                 <div th:if="${isSave== null}" th:insert="html/components/channelList :: #channel"></div>
 
                 <div class="card mb-3  bg-white">
-                    <div class="card-header">传送门</div>
-                    <div class="card-body">
-                    </div>
+                    <!-- <div class="card-header">传送门</div> -->
+                    <!-- <div class="card-body">
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -120,8 +126,11 @@
                 method: 'get'
             })
         }
-    </script>
 
+
+        
+    </script>
+    <script src="/templates/resources/js/index.js"></script>
 </body>
 
 </html>
