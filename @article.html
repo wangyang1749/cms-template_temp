@@ -125,10 +125,18 @@
 
         <div class="row">
             <div class="col-lg-9">
-                <div class="markdown shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="markdown shadow-lg p-3 mb-1 bg-white rounded">
 
                     [(${view.formatContent})]
                 </div>
+
+              
+                <div id="article-comment" th:if="${view.openComment}">
+                    <!--#include file="/[[${view.path}]]/comment-[[${view.viewName}]].html"-->
+
+                    <div th:if="${isSave== null && notPdf==null}" th:insert="'html/'+${view.path}+'/comment-'+${view.viewName} :: #comment"></div>
+                </div>
+
             </div>
 
             <div class="col-lg-3 " id="boxFixed1">
@@ -169,8 +177,8 @@
 
     <!--#include file="/components/footer.html"-->
     <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/footer :: #footer"></div>
-
-   <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="/templates/resources/js/jquery-3.4.1.min.js"></script>
+   <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
@@ -186,86 +194,31 @@
 
         })
 
-        // var bolb = new Blob([ss],{type:"audio/mpeg"});
-        // var url = window.URL.createObjectURL(bolb);
+        // $('#test1').load("/[[${view.path}]]/comment-[[${view.viewName}]].html ")
 
-        var sound = $(".sound")
-        if (sound.length != 0) {
-            // console.log("exist sound"+sound.length)
-            var audio = document.createElement("audio");
-
-
-            // console.log($(".sound").length)
-            sound.each(function (i) {
-                // console.log(  $(sound[i]).attr('naudio'))
-                $(sound[i]).click(function () {
-                    // console.log($(sound[i]).attr('naudio'))
-                    audio.src = $(sound[i]).attr('naudio');
-                    // audio.controls = "controls";
-                    document.body.appendChild(audio);
-                    audio.play();
-                })
+        /*************************评论代码****************************/
+        function addComment() {
+            let username = $("#username").val()
+            let email = $("#email").val()
+            let content = $("#content").val()
+            console.log(username + email + content)
+            var data = {
+                "username": username,
+                "email": email,
+                "content": content,
+                "resourceId": "[[${view.id}]]"
+            }
+            console.log("/[[${view.path}]]/comment-[[${view.viewName}]].html")
+            commentApi.add(data).then(response => {
+                console.log(response)
+                $('#comment-list').load("/[[${view.path}]]/comment-[[${view.viewName}]].html #comment-list")
             })
         }
 
 
-
-
-
-        // sound.click(function(){
-        //   var a=$(this).index;
-        //   console.log(a)
-        // })
-
-        function shareTo(stype) {
-            var ftit = '';
-            var flink = '';
-            var lk = '';
-            var summary = '生命科学知识分享';
-            //获取文章标题
-            ftit = $('title').text();
-            console.log(ftit)
-            //获取网页中内容的第一张图片
-            flink = $('.markdown').find('img').eq(0).attr('src');
-            if (typeof flink == 'undefined') {
-                flink = '';
-            }
-            // console.log(flink)
-            //当内容中没有图片时，设置分享图片为网站logo
-            // if (flink == '') {
-            //   lk = 'http://' + window.location.host + '/static/images/logo.png';
-            // }
-            //如果是上传的图片则进行绝对路径拼接
-            if (flink.indexOf('/uploads/') != -1) {
-                lk = 'http://' + window.location.host + flink;
-            }
-            if (document.querySelector('meta[name="description"]')) {
-                summary = document.querySelector('meta[name="description"]').getAttribute('content')
-            }
-
-
-            //qq空间接口的传参
-            if (stype == 'qzone') {
-                // console.log('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + document.location.href + '&sharesource=qzone&title=' + ftit + '&pics=' + flink + '&summary=' + "122")
-                window.open('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + document.location.href + '&sharesource=qzone&title=' + ftit + '&pics=' + flink + '&summary=' + summary);
-            }
-
-
-            // //新浪微博接口的传参
-            // if (stype == 'sina') {
-            //     window.open('http://service.weibo.com/share/share.php?url=' + document.location.href + '?sharesource=weibo&title=' + ftit + '&pic=' + lk + '&appkey=2706825840');
-            // }
-            // //qq好友接口的传参
-            // if (stype == 'qq') {
-            //     window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + document.location.href + '?sharesource=qzone&title=' + ftit + '&pics=' + lk + '&summary=' + document.querySelector('meta[name="description"]').getAttribute('content') + '&desc=php自学网，一个web开发交流的网站');
-            // }
-            // //生成二维码给微信扫描分享
-            // if (stype == 'wechat') {
-            //     window.open('inc/qrcode_img.php?url=http://zixuephp.net/article-1.html');
-            // }
-        }
     </script>
-        <script src="/templates/resources/js/index.js"></script>
+    <script src="/templates/resources/js/article.js"></script>
+    <script src="/templates/resources/js/index.js"></script>
 
 </body>
 
