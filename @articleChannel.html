@@ -108,6 +108,7 @@
                     [(${view.formatContent})]
                 </div>
                 <div id="article-comment" th:if="${view.openComment}">
+                        <!--#include file="/[[${view.path}]]/comment-[[${view.viewName}]].html"-->
                         <div th:if="${isSave== null && notPdf==null}" th:insert="'html/'+${view.path}+'/comment-'+${view.viewName} :: #comment"></div>
                 </div>
                 <!--#include file="/components/footer.html"-->
