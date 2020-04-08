@@ -124,3 +124,12 @@ a:focus {
 .footer dl,.footer dd{
     margin: 0;
 }
+
+/* 栏目页面底部黏住 */
+.channelContent {
+    display: flex;
+    flex-direction: column;
+}
+.channelContent-1{
+    flex: 1;
+}

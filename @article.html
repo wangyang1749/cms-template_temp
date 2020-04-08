@@ -80,7 +80,7 @@
                 <span class="text-secondary">当前位置：</span>
                 <li class="breadcrumb-item "><a href="/index.html" class="text-secondary">首页</a></li>
                 <li class="breadcrumb-item " th:if="${view.category!=null}">
-                    <a class="text-secondary" th:href="'/articleList/'+${view.category.viewName}+'.html'"
+                    <a class="text-secondary" th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'.html'"
                         th:text="${view.category.name}">文章列表</a>
                 </li>
                 <li class="breadcrumb-item active text-secondary" aria-current="page" th:text="${view.title}">文章详情</li>

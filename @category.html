@@ -98,36 +98,44 @@
                         一共有<span th:text="${view.page.totalPages}"> </span>页，
                         每页显示<span th:text="${view.page.size}"> </span>篇
                     </div>
+
                     <div id="articleContent">
-                        <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
-                            class="list-group-item list-group-item-action" th:each="item : ${view.page.getContent()}">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
-                                <small th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</small>
-                            </div>
-                            <p class="mb-1" th:text="${item.summary}"></p>
-                            <small >   
-                                <div class="d-flex flex-row bd-highlight ">
-                                        <div class="p-2 bd-highlight" style="width: 2.3rem;">
-                                            <img th:src="${item.user.avatar}" alt=""class="img-fluid rounded-circle">  
-                                        </div>
-                                        <div class="p-2 bd-highlight">
-                                            <span th:text="${item.user.username}"></span>
-                                        </div>
+                        <div>
+                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
+                                class="list-group-item list-group-item-action"
+                                th:each="item : ${view.page.getContent()}">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
+                                    <small th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</small>
                                 </div>
-                            
-                            </small>
-                        </a>
+                                <p class="mb-1" th:text="${item.summary}"></p>
+                                <small >   
+                                    <div class="d-flex flex-row bd-highlight ">
+                                            <div class="p-2 bd-highlight" style="width: 2.3rem;">
+                                                <img th:src="${item.user.avatar}" alt=""class="img-fluid rounded-circle">  
+                                            </div>
+                                            <div class="p-2 bd-highlight">
+                                                <span th:text="${item.user.username}"></span>
+                                            </div>
+                                    </div>
+                                
+                                </small>
+                            </a>
+                        </div>
+                  
 
                     </div>
                 </ul>
             </div>
 
             <div  class="col-lg-4">
-                <div>
-                     <!--#include file="/components/categoryList.html"-->
-                     <div th:if="${isSave== null}" th:insert="html/components/categoryList :: #category"></div>
-
+                <div class="list-group list-group-flush mb-2" >
+                        <div class="list-group-item list-group-item-light">
+                            <span>所有分类</span>
+                        </div>
+                     <!--#include file="/[[${view.category.path}]]/[[${view.category.selfListViewName}]].html"-->
+                     <div th:if="${isSave== null}" th:insert="'html/'+${view.category.path}+'/'+${view.category.selfListViewName}"></div>
+                     
                 </div>
                     <div class="card mb-3  bg-white">
                         <div class="card-body">
