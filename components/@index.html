@@ -48,6 +48,10 @@
         .showloading {
             display: none;
         }
+
+        .css-首页{
+            color: rgba(0,0,0,.7) !important;
+        }
     </style>
 </head>
 
@@ -59,7 +63,7 @@
     <div class="container">
 
 
-
+        
         <div class="row ">
             <div class="col-lg-8 ">
                 <div th:each="item : ${view.recommend}">
@@ -70,8 +74,8 @@
                                 查看更多
                             </a>
                         </div>
-                         <!--#include file="/[[${item.path}]]/__[[${item.viewName}]].html"-->
-                        <div th:if="${isSave== null}" th:insert="'html/'+${item.path}+'/__'+${item.viewName}"></div>
+                         <!--#include file="/components/[[${item.viewName}]].html"-->
+                        <div th:if="${isSave== null}" th:insert="'html/components/'+${item.viewName}"></div>
 
                     </ul>
                 </div>
@@ -92,16 +96,14 @@
                     <button type="button" class="btn btn-outline-primary btn-lg btn-block">我要投稿</button>
                     <button type="button" class="btn btn-outline-secondary btn-lg btn-block">发布问题</button>
                 </div>
-                <div class="list-group list-group-flush mb-2" th:each="item : ${view.parent}">
+                <div class="list-group list-group-flush mb-2" th:each="item : ${view.templates}" >
                     <div class="list-group-item list-group-item-light">
                         <span th:text="${item.name}">所有分类</span>
                     </div>
-                    <!-- <span th:text="${item.viewName}"></span>
-                    <span th:text="${item.path}"></span> -->
-                    <!--#include file="/[[${item.path}]]/[[${item.viewName}]].html"-->
-                    <div th:if="${isSave== null}" th:insert="'html/'+${item.path}+'/'+${item.viewName}"></div>
+         
+                    <!--#include file="/components/[[${item.enName}]].html"-->
+                    <div th:if="${isSave== null}" th:insert="'html/components/'+${item.enName}"></div>
 
-                    <!-- <a href="/channel/testViewName.html" class="list-group-item list-group-item-action">栏目-测试栏目</a> -->
                 </div>
 
 

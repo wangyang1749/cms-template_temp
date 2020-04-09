@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         crossorigin="anonymous">
     <link rel="stylesheet" href="/templates/resources/themes/github.css">
+
     <link rel="stylesheet" href="/templates/resources/css/index.css">
 
     <title th:text="${view.category.name}">Document</title>
@@ -34,6 +35,7 @@
                 height: calc(100vh - 4rem);
             }
 
+
             .container-fluid {
                 margin-top: 56px;
             }
@@ -47,32 +49,108 @@
         .footer {
             margin-top: 1rem;
         }
+
+
+        .toggle-btn {
+            display: none;
+        }
+
+        .bg-channel-btn {
+            font-size: 1rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .bd-sidebar {
+
+                z-index: 99;
+                padding: 0;
+
+                /* width: 90%; */
+            }
+
+            .bg-channel-btn {
+                display: none;
+            }
+
+            .nav-channel {
+                margin-bottom: 0 !important;
+            }
+
+            .panel {
+                position: fixed;
+                display: none;
+                width: 16rem;
+                bottom: 0;
+                overflow: auto;
+                top: 8rem;
+            }
+
+            .toggle-btn {
+                display: inline-block;
+                position: fixed;
+                z-index: 999;
+                bottom: 3rem;
+                right: 3rem;
+            }
+        }
+
+
+        /* .channel-introduction{
+            z-index: 2;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .channel-introduction:hover {
+            z-index: 2 !important;
+            color: #fff !important;
+            background-color: #007bff !important;
+            border-color: #007bff !important;
+        } */
     </style>
 </head>
 
 <body>
+
+
+
     <!--#include file="/components/header.html"-->
     <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/header :: #header"></div>
 
     <div class="container-fluid">
 
+
+        <div class="toggle-btn">
+            <button class="flip">展开</button>
+
+        </div>
         <div class="row">
-            <div class="col-lg-3 collapse bd-links bd-sidebar" id="bd-docs-nav">
+            <div class="col-lg-3  bd-links bd-sidebar ">
+                <ul class="list-group list-group-flush  collapse mb-3 nav-channel" id="bd-docs-nav">
+                    <div class="list-group-item list-group-item-light ">
+                        <strong>所有栏目列表</strong>
+
+                    </div>
+                    <!--#include file="/components/[[${view.category.templateName}]].html"-->
+                    <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
+                </ul>
+
                 <div id="articleContent">
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush panel">
                         <div class="list-group-item list-group-item-light">
                             <strong th:text="${view.category.name}"></strong>
+                            <a href="javascript:;" class="navbar-toggler bg-channel-btn ml-2">展开所有栏目</a>
                         </div>
                         <div>
                             <a th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'.html'"
-                                class="list-group-item list-group-item-action">
+                                class="list-group-item list-group-item-action channel-introduction">
                                 <span>
                                     [[${view.category.name}]]介绍
                                 </span>
                             </a>
-                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
-                                class="list-group-item list-group-item-action"
-                                th:each="item : ${view.page.getContent()}">
+                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html#'+${item.title}"
+                                th:class="'css-'+${item.viewName}+' list-group-item list-group-item-action'"
+                                th:each="item : ${view.page.getContent()}" th:id="${item.title}">
                                 <span th:text="${item.title}">
 
                                 </span>
@@ -89,15 +167,19 @@
                 </div>
                 <div class="markdown shadow-lg p-3  bg-white rounded channelContent-1">
                     <div class=" ">
+                        aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>
+                        aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>
                         <div class="d-flex justify-content-center mb-3">
                             <strong th:text="${view.category.name}"></strong> 一共收录文章<em
                                 th:text="${view.page.totalElements}"></em>篇
                         </div>
-                        <div th:if="${view.category.picPath!= null||view.category.picPath!=''}" class="d-flex justify-content-center mb-3">
-                            <img th:src="${view.category.picPath}" alt="" class="shadow-lg rounded border border-dark" style="width: 20rem;">
+                        <div th:if="${view.category.picPath!= null||view.category.picPath!=''}"
+                            class="d-flex justify-content-center mb-3">
+                            <img th:src="${view.category.picPath}" alt="" class="shadow-lg rounded border border-dark"
+                                style="width: 20rem;">
                         </div>
                         <div class="d-flex justify-content-center ">
-                            <span th:text="${view.category.description}"></span>
+                            <p th:text="${view.category.description}" class="text-justify"></p>
                         </div>
                     </div>
 
@@ -114,18 +196,51 @@
     </div>
 
     <script src="/templates/resources/js/jquery-3.4.1.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-    <!-- <script src="/templates/resources/js/jquery-3.4.1.min.js"></script> -->
-
     <script src="https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>
     <script src="/templates/resources/js/service.js"></script>
 
     <script src="/templates/resources/js/article.js"></script>
     <script src="/templates/resources/js/index.js"></script>
+
+    <script>
+        $(".flip").click(function (event) {
+            // event.stopPropagation();
+            // // $(".panel").slideDown("slow"); 
+            // $(".panel").animate({
+            //     width: 'toggle'
+            // });
+            event.stopPropagation();
+            $(".panel").slideToggle("fast");
+            // var $marginlefty = $(".panel")
+            // $marginlefty.animate({
+            //     marginLeft: parseInt($marginlefty.css('marginLeft'), 10) == 0 ? $marginlefty.outerWidth() : 0
+            // });
+        });
+        $(".panel").click(function (event) {
+            event.stopPropagation();
+        })
+        $(".navbar-toggler").click(function (event) {
+            event.stopPropagation();
+            $("#bd-docs-nav").slideToggle("fast");
+
+        })
+        if ($(window).width() < 768) {
+            $(document).click(function (event) {
+                var _con = $('.panel');
+                var channelList = $("#bd-docs-nav")
+                // 如果点击目标不是input，弹框消失
+                if (!_con.is(event.target) || !channelList.is(event.target)) {
+                    // $('.panel').slideUp('slow');
+                    // $(".panel").animate({
+                    //     width: 'toggle'
+                    // });
+                    $("#bd-docs-nav").slideUp("fast");
+                    $(".panel").slideUp("fast");
+                }
+            });
+        }
+
+    </script>
 
 </body>
 

@@ -1,7 +1,6 @@
-<!-- 给予AJAX的文章列表模板 -->
+<!-- 基于页码的分页 -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,6 +41,22 @@
             display: inline-block;
             margin: 0px 10px;
 
+        }
+
+        .css-[[${view.category.viewName}]]{
+            z-index: 2;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .css-[[${view.category.viewName}]]:hover {
+            z-index: 2 !important;
+            color: #fff !important;
+            background-color: #007bff !important;
+            border-color: #007bff !important;
+        }
+        .css-[[${view.category.name}]]{
+            color: rgba(0,0,0,.7) !important;
         }
     </style>
 </head>
@@ -133,8 +148,8 @@
                         <div class="list-group-item list-group-item-light">
                             <span>所有分类</span>
                         </div>
-                     <!--#include file="/[[${view.category.path}]]/[[${view.category.selfListViewName}]].html"-->
-                     <div th:if="${isSave== null}" th:insert="'html/'+${view.category.path}+'/'+${view.category.selfListViewName}"></div>
+                     <!--#include file="/components/[[${view.category.templateName}]].html"-->
+                     <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
                      
                 </div>
                     <div class="card mb-3  bg-white">

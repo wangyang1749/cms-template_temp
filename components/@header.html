@@ -15,7 +15,7 @@
   <div class=" navbar-collapse" id="navbarNav">
     <ul class="nav navbar-nav mr-auto">
       <li class="nav-item" th:each="item : ${view}">
-        <a class="nav-link " th:href="'/'+${item.urlName}" th:text="${item.name}"></a>
+        <a th:class="'nav-link '+'css-'+${item.name}" th:href="'/'+${item.urlName}" th:text="${item.name}"></a>
       </li>
 
     </ul>
