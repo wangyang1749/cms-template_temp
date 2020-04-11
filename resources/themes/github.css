@@ -60,8 +60,7 @@ body {
     text-align: center;
 }
 .markdown a{
-    display: block;
-    overflow: auto;
+    word-wrap: break-word;
 }
 /* 代码块的样式 */
 .markdown pre{
