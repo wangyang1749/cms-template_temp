@@ -7,15 +7,15 @@
 
     <div class="carousel-inner">
 
-        <div th:if="${view != null}"  class="carousel-item " th:each="item , userStat: ${view}" th:class="${userStat.index == 0} ? ' carousel-item active' :'carousel-item'">
-            <img th:src="${item.picPath}" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5 th:text="${item.title}"></h5>
-              
-                <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'">
+        <div th:if="${view != null}" class="carousel-item " th:each="item , userStat: ${view}"
+            th:class="${userStat.index == 0} ? ' carousel-item active' :'carousel-item'">
+            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'">
+                <img th:src="${item.picPath}" class="d-block w-100" >
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 th:text="${item.title}"></h5>
                     <p th:text="${item.summary}"></p>
-                </a>
-            </div>
+                </div>
+            </a>
         </div>
         <!-- <div class="carousel-item">
                 <img src="https://cn.bing.com/th?id=OSA.abb095a2f9de70a318c20145a8c8e646&w=186&h=88&c=7&rs=2&qlt=80&cdv=1&pid=PopNow"
