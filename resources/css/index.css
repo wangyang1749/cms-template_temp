@@ -11,6 +11,11 @@ body{
     flex-direction: column;
 }
 
+/* 公共顶部样式 */
+#header{
+    background: #fff;
+}
+
 /* nav{
     white-space: nowrap;
     height: 2rem;

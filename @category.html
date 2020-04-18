@@ -1,6 +1,7 @@
 <!-- 基于页码的分页 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,8 +43,6 @@
             margin: 0px 10px;
 
         }
-
-  
     </style>
 </head>
 
@@ -90,7 +89,7 @@
 
 
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <!-- 文章列表 -->
                 <ul class="list-group list-group-flush">
                     <div class="list-group-item list-group-item-light">
@@ -107,17 +106,18 @@
                                 th:each="item : ${view.page.getContent()}">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
-                                    <small th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</small>
                                 </div>
                                 <p class="mb-1" th:text="${item.summary}"></p>
-                                <small >   
+                                <small>
                                     <div class="d-flex flex-row bd-highlight ">
-                                            <div class="p-2 bd-highlight" style="width: 2.3rem;">
-                                                <img th:src="${item.user.avatar}" alt=""class="img-fluid rounded-circle">  
-                                            </div>
-                                            <div class="p-2 bd-highlight">
-                                                <span th:text="${item.user.username}"></span>
-                                            </div>
+                                        <div class="p-2 bd-highlight" style="width: 2.3rem;">
+                                            <img th:src="${item.user.avatar}" alt="" class="img-fluid rounded-circle">
+                                        </div>
+                                        <div class="p-2 bd-highlight">
+                                            <span th:text="${item.user.username}"></span>&nbsp;&nbsp;
+                                            <span>发布于: </span>
+                                            <span th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</span>
+                                        </div>
                                     </div>
                                 
                                 </small>
@@ -129,7 +129,7 @@
                 </ul>
             </div>
 
-            <div  class="col-lg-4">
+            <div  class="col-lg-3">
                 <div class="list-group list-group-flush mb-2" >
                         <div class="list-group-item list-group-item-light">
                             <span>所有分类</span>
@@ -180,86 +180,10 @@
     <!--#include file="/components/footer.html"-->
     <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>
+
+    <script src="/templates/resources/js/axios.min.js"></script>
     <script src="/templates/resources/js/service.js"></script>
-    <!-- <script>
-        const service = axios.create({
-            baseURL: 'http://localhost:8080/',
-            timeout: 10000,
-            withCredentials: true,
-        })
-        const articleApi = {}
-        articleApi.list = (categortId, page) => {
-            return service({
-                url: `articleList/categoryAjax/${categortId}`,
-                params: { page: page },
-                method: 'get'
-            })
-        }
-
-    </script> -->
-    <script src="/templates/resources/js/vue-dev.js"></script>
-    <script>
-
-        var app = new Vue({
-            el: '#app',
-            data() {
-                return {
-                    headerHeight: 0,
-                    page: 0, //从第page+1页开始ajax请求
-                    size: [[${ view.page.size }]], //每次请求的数据量
-                    // tottalElement: 10,
-                    totalPages: [[${ view.page.totalPages }]],
-                    data: [],
-                    categoryId: [[${ view.category.id }]],
-                    loading: true
-                }
-            },
-            mounted() {
-                window.addEventListener('scroll', this.initHeight);
-                this.headerHeight = document.querySelector('#header').clientHeight || document.querySelector('#header').offsetHeight
-            },
-            methods: {
-                initHeight() {
-                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-                    var bodyHeight = document.body.clientHeight || document.body.offsetHeight
-                    var viewHeight = this.getClientHeight() - this.headerHeight - 16
-                    // console.log(viewHeight)
-                    // console.log(scrollTop)
-                    // console.log((bodyHeight - viewHeight) / 2)
-                    // console.log(bodyHeight - scrollTop-viewHeight)
-                    if (scrollTop > ((bodyHeight - viewHeight) / 2) && this.loading) {
-                        this.loading = false
-                        console.log("load data" + this.loading)
-                        if (this.totalPages - 1 > this.page) {
-                            this.page = this.page + 1
-                            console.log('当前是第' + this.page + '页')
-                            articleApi.list(this.categoryId, this.page).then(response => {
-                                console.log(response)
-                                response.data.data.content.forEach(item => {
-                                    this.data.push(item)
-                                })
-                                this.loading = true
-                                // this.data.push({ title: '--------------------------' })
-                                console.log(this.data)
-
-                            })
-                        }
-
-                    }
-                }, getClientHeight() {
-                    var clientHeight = 0;
-                    if (document.body.clientHeight && document.documentElement.clientHeight) {
-                        var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
-                    } else {
-                        var clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
-                    }
-                    return clientHeight;
-                }
-            }
-        })
-    </script>
-        <script src="/templates/resources/js/index.js"></script>
+    <script src="/templates/resources/js/index.js"></script>
 
 </body>
 
