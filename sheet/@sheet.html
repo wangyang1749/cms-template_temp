@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -22,16 +22,13 @@
                 background: #fff; */
             }
         }
-
-        .css-[[${view.title}]]{
-            color: rgba(0,0,0,.7) !important;
-        }
     </style>
 </head>
 
 <body>
     <!--#include file="/components/header.html"-->
     <div th:if="${isSave== null}" th:insert="html/components/header :: #header"></div>
+    <!--[ <div th:insert="html/components/header"></div> ]-->
 
     <div class="container">
         <nav aria-label="breadcrumb">
@@ -48,6 +45,7 @@
 
     <!--#include file="/components/footer.html"-->
     <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
+    <!--[ <div  th:insert="html/components/footer"></div> ]-->
 
 </body>
 
