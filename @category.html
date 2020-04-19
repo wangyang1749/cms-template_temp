@@ -1,6 +1,6 @@
 <!-- 基于页码的分页 -->
 <!DOCTYPE html>
-<html lang="en">
+<html >
 
 <head>
     <meta charset="UTF-8">
@@ -50,6 +50,8 @@
 
     <div th:if="${isSave == null}" th:insert="html/components/header :: #header"></div>
     <!--#include file="/components/header.html"-->
+    <!--[ <div th:insert="html/components/header"></div> ]-->
+
 
     <div class="container" id="app">
 
@@ -135,6 +137,7 @@
                             <span>所有分类</span>
                         </div>
                      <!--#include file="/components/[[${view.category.templateName}]].html"-->
+                     <!--[ <div  th:insert="html/components/[[${view.category.templateName}]]"></div> ]-->
                      <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
                      
                 </div>
@@ -179,6 +182,7 @@
 
     <!--#include file="/components/footer.html"-->
     <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
+    <!--[ <div  th:insert="html/components/footer"></div> ]-->
 
 
     <script src="/templates/resources/js/axios.min.js"></script>

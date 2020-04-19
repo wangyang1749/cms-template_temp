@@ -116,6 +116,7 @@
 
     <!--#include file="/components/header.html"-->
     <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/header :: #header"></div>
+    <!--[ <div th:insert="html/components/header"></div> ]-->
 
     <div class="container-fluid">
 
@@ -167,7 +168,7 @@
                 </div>
                 <div class="markdown shadow-lg p-3  bg-white rounded channelContent-1">
                     <div class=" ">
-                        
+
                         <div class="d-flex justify-content-center mb-3">
                             <strong th:text="${view.category.name}"></strong> 一共收录文章<em
                                 th:text="${view.page.totalElements}"></em>篇
@@ -187,6 +188,7 @@
 
                 <!--#include file="/components/footer.html"-->
                 <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/footer :: #footer"></div>
+                <!--[ <div  th:insert="html/components/footer"></div> ]-->
 
 
             </div>

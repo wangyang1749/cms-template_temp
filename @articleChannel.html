@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -99,6 +99,8 @@
 <body>
     <!--#include file="/components/header.html"-->
     <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/header :: #header"></div>
+    <!--[ <div th:insert="html/components/header"></div> ]-->
+
 
     <div class="container-fluid">
         <div class="toggle-btn">
@@ -113,9 +115,12 @@
 
                     </div>
                     <!--#include file="/components/[[${view.category.templateName}]].html"-->
+                    <!--[ <div  th:insert="html/components/[[${view.category.templateName}]]"> </div>]-->
                     <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
                 </ul>
+
                 <!--#include file="/components/[[${view.category.viewName}]].html"-->
+                <!--[ <div  th:insert="html/components/[[${view.category.viewName}]]"> </div>]-->
                 <div th:if="${isSave== null && notPdf==null}" th:insert="'html/components/'+${view.category.viewName}">
                 </div>
             </div>
@@ -161,6 +166,9 @@
                 </div>
                 <!--#include file="/components/footer.html"-->
                 <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/footer :: #footer"></div>
+                <!--[ <div  th:insert="html/components/footer"></div> ]-->
+
+
 
             </div>
         </div>
