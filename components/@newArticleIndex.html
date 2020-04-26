@@ -1,0 +1,32 @@
+<!-- <ul class="list-group list-group-flush" id="newArticle">
+
+    <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'" class="list-group-item list-group-item-action"
+        th:each="item : ${view}">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1" th:text="${item.title}">List group item heading</h5>
+            <small th:text="${item.createDate}">3 days ago</small>
+        </div>
+        <p class="mb-1" th:text="${item.summary}"></p>
+    </a>
+</ul> -->
+
+<a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'" class="list-group-item list-group-item-action"
+    th:each="item : ${view.content}">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
+    </div>
+    <p class="mb-1" th:text="${item.summary}"></p>
+    <small>
+        <div class="d-flex flex-row bd-highlight ">
+            <div class="p-2 bd-highlight" style="width: 2.3rem;">
+                <img th:src="${item.user.avatar}" alt="" class="img-fluid rounded-circle">
+            </div>
+            <div class="p-2 bd-highlight">
+                <span th:text="${item.user.username}"></span>&nbsp;&nbsp;
+                <span>发布于: </span>
+                <span th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</span>
+        </div>
+    </div>
+
+</small>
+</a>

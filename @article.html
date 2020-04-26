@@ -69,11 +69,11 @@
         }
 
         /* 文章内容标注换行 */
-        .footnotes{
-           word-wrap: break-word;
+        .footnotes {
+            word-wrap: break-word;
         }
 
-           
+
         /* 内容头部样式 */
         .content-header .info {
             font-size: 0.8rem;
@@ -110,11 +110,11 @@
                 <li class="breadcrumb-item active text-secondary" aria-current="page" th:text="${view.title}">文章详情</li>
             </ol>
         </nav> -->
-    
+
 
         <div class="row">
             <div class="col-lg-9 mb-3">
-                
+
                 <!-- <div>
                     <img th:src="${view.picPath}" class="rounded-pill"/>
                 </div> -->
@@ -175,19 +175,27 @@
                         </dl>
                     </div>
                 </div>
+                <div class=" mb-3">
+                    <ul class="list-group list-group-flush">
+                        <div class="list-group-item list-group-item-light d-flex justify-content-between">
+                            <span >热门文章</span>
+                        </div>
+                        <!-- 热门文章 -->
+                        <!--#include file="/components/hotArticle.html"-->
+                        <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/hotArticle"></div>
+                        <!--[ <div th:insert="html/components/hotArticle"></div> ]-->
+                    </ul>
+                </div>
                 <!-- 文章目录 -->
-                <div th:if="${view.toc!=''}" id="bd-docs-nav" class="card shadow-lg collapse bd-links "
+                <div th:if="${view.toc!=''}" id="bd-docs-nav" class=" mb-3 card shadow-lg collapse bd-links "
                     :class="{'is_fixed' : isFixed,'is_show_toc' : !showToc}">
                     <div class="card-header">本文列表</div>
                     <div class="card-body" th:utext="${view.toc}">
                     </div>
                 </div>
-
-
+            
             </div>
         </div>
-
-
 
     </div>
 

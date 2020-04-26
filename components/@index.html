@@ -81,6 +81,14 @@
                 <!--[ <div  th:insert="html/components/carousel"></div> ]-->
                 <div th:if="${isSave== null}" th:insert="html/components/carousel"></div>
 
+                <ul class="list-group list-group-flush mb-4">
+                    <div class="list-group-item list-group-item-light d-flex justify-content-between">
+                        <span >最新文章</span>
+                    </div>
+                     <!--#include file="/components/newArticleIndex.html"-->
+                        <!--[ <div  th:insert="html/components/newArticleIndex"></div> ]-->
+                    <div th:if="${isSave== null}" th:insert="html/components/newArticleIndex"></div>
+                </ul>
 
                 <div th:each="item : ${view.recommend}">
                     <ul class="list-group list-group-flush mb-4">
