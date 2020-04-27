@@ -81,25 +81,54 @@
                 <!--[ <div  th:insert="html/components/carousel"></div> ]-->
                 <div th:if="${isSave== null}" th:insert="html/components/carousel"></div>
 
+
+                <div class="row">
+                    <div class="col-sm">
+                        <ul class="list-group list-group-flush mb-4">
+                            <div class="list-group-item list-group-item-light d-flex justify-content-between">
+                                <span>最新资讯</span>
+                            </div>
+                            <!--#include file="/components/newInformation.html"-->
+                            <!--[ <div  th:insert="html/components/newInformation"></div> ]-->
+                            <div th:if="${isSave== null}" th:insert="html/components/newInformation"></div>
+                        </ul>
+                    </div>
+                    <div class="col-sm">
+                        <ul class="list-group list-group-flush mb-4">
+                            <div class="list-group-item list-group-item-light d-flex justify-content-between">
+                                <span>热门文章</span>
+                            </div>
+                            <!--#include file="/components/hotArticle.html"-->
+                            <!--[ <div  th:insert="html/components/hotArticle"></div> ]-->
+                            <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
+                        </ul>
+                    </div>
+                    <div class="col-sm">
+                        <ul class="list-group list-group-flush mb-4">
+                            <div class="list-group-item list-group-item-light d-flex justify-content-between">
+                                <span>推荐阅读</span>
+                            </div>
+                            <!--#include file="/components/recommendArticle.html"-->
+                            <!--[ <div  th:insert="html/components/recommendArticle"></div> ]-->
+                            <div th:if="${isSave== null}" th:insert="html/components/recommendArticle"></div>
+                        </ul>
+                    </div>
+                </div>
+
+
                 <div class="category-horizontal">
                     <div class="category-title"><span>文章分类快速导航</span></div>
-
                     <!--[ <div  th:replace="html/components/DEFAULT_CATEGORY"></div> ]-->
                     <!--#include file="/components/DEFAULT_CATEGORY.html"-->
                     <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CATEGORY"></div>
-
                 </div>
 
                 <div class="category-horizontal">
-                        <div class="category-title"><span>文章栏目快速导航</span></div>
-    
-                        <!--[ <div  th:replace="html/components/DEFAULT_CHANNEL"></div> ]-->
-                        <!--#include file="/components/DEFAULT_CHANNEL.html"-->
-                        <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CHANNEL"></div>
-    
-    
-                    </div>
-                
+                    <div class="category-title"><span>文章栏目快速导航</span></div>
+                    <!--[ <div  th:replace="html/components/DEFAULT_CHANNEL"></div> ]-->
+                    <!--#include file="/components/DEFAULT_CHANNEL.html"-->
+                    <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CHANNEL"></div>
+                </div>
 
 
                 <ul class="list-group list-group-flush mb-4">
@@ -110,6 +139,7 @@
                     <!--[ <div  th:insert="html/components/newArticleIndex"></div> ]-->
                     <div th:if="${isSave== null}" th:insert="html/components/newArticleIndex"></div>
                 </ul>
+
 
                 <div th:each="item : ${view.recommend}">
                     <ul class="list-group list-group-flush mb-4">
@@ -122,13 +152,8 @@
                         <!--[ <div  th:insert="html/components/[[${item.viewName}]]"></div> ]-->
                         <!--#include file="/components/[[${item.viewName}]].html"-->
                         <div th:if="${isSave== null}" th:insert="'html/components/'+${item.viewName}"></div>
-
                     </ul>
                 </div>
-
-                <div class="mb-4">
-                </div>
-
 
             </div>
 
@@ -146,23 +171,25 @@
                     <div class="category-title">
                         <span th:text="${item.name}">所有分类</span>
                     </div>
-                   
+
                     <!--[ <div  th:replace="html/components/[[${item.enName}]]"></div> ]-->
                     <!--#include file="/components/[[${item.enName}]].html"-->
                     <div th:if="${isSave== null}" th:insert="'html/components/'+${item.enName}"></div>
-                
+
                 </div>
+                <ul class="list-group list-group-flush mb-4">
+                    <div class="list-group-item list-group-item-light">
+                        <span>传送门</span>
+                    </div>
+                    <a href="https://sites.harding.edu/fmccown/r/"
+                        class="list-group-item  list-group-item-action">R绘图案例</a>
+                    <a href="https://linggle.com/" class="list-group-item  list-group-item-action">英语搭配
+                    </a>
+                    <a href="https://www.thesaurus.com/" class="list-group-item  list-group-item-action">词汇替换
+                    </a>
 
+                </ul>
 
-
-
-
-
-                <div class="card mb-3  bg-white">
-                    <!-- <div class="card-header">传送门</div> -->
-                    <!-- <div class="card-body">
-                    </div> -->
-                </div>
             </div>
         </div>
 
