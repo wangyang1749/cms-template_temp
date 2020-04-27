@@ -10,7 +10,7 @@
     <meta name="keywords" content="生命科学知识分享,生物技术,生物信息学">
     <meta name="description" content="分享生命科学方面相关文章">
 
-    <title>生命科学知识分享</title>
+    <title>学生物</title>
 
     <!-- <link rel="stylesheet" href="/templates/resources/css/markdown.css"> -->
 
@@ -83,8 +83,8 @@
 
 
                 <div class="row">
-                    <div class="col-sm">
-                        <ul class="list-group list-group-flush mb-4">
+                    <div class="col-sm  mb-3">
+                        <ul class="list-group list-group-flush">
                             <div class="list-group-item list-group-item-light d-flex justify-content-between">
                                 <span>最新资讯</span>
                             </div>
@@ -93,8 +93,8 @@
                             <div th:if="${isSave== null}" th:insert="html/components/newInformation"></div>
                         </ul>
                     </div>
-                    <div class="col-sm">
-                        <ul class="list-group list-group-flush mb-4">
+                    <div class="col-sm mb-3">
+                        <ul class="list-group list-group-flush">
                             <div class="list-group-item list-group-item-light d-flex justify-content-between">
                                 <span>热门文章</span>
                             </div>
@@ -103,8 +103,8 @@
                             <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
                         </ul>
                     </div>
-                    <div class="col-sm">
-                        <ul class="list-group list-group-flush mb-4">
+                    <div class="col-sm mb-3">
+                        <ul class="list-group list-group-flush ">
                             <div class="list-group-item list-group-item-light d-flex justify-content-between">
                                 <span>推荐阅读</span>
                             </div>
@@ -116,14 +116,14 @@
                 </div>
 
 
-                <div class="category-horizontal">
+                <div class="category-horizontal mb-3">
                     <div class="category-title"><span>文章分类快速导航</span></div>
                     <!--[ <div  th:replace="html/components/DEFAULT_CATEGORY"></div> ]-->
                     <!--#include file="/components/DEFAULT_CATEGORY.html"-->
                     <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CATEGORY"></div>
                 </div>
 
-                <div class="category-horizontal">
+                <div class="category-horizontal mb-3">
                     <div class="category-title"><span>文章栏目快速导航</span></div>
                     <!--[ <div  th:replace="html/components/DEFAULT_CHANNEL"></div> ]-->
                     <!--#include file="/components/DEFAULT_CHANNEL.html"-->

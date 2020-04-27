@@ -45,13 +45,13 @@
 
     <div class="container">
 
-
-        <ul class="list-group list-group-horizontal-xl picture-nav mb-3">
-
+        <div class="category-horizontal mb-3">
+            <div class="category-title"><span>图片瀑布流导航</span></div>
+            <!--[ <div  th:replace="html/components/[[${view.category.templateName}]]"></div> ]-->
             <!--#include file="/components/[[${view.category.templateName}]].html"-->
             <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
+        </div>
 
-        </ul>
 
         <div id="articleContent">
 
