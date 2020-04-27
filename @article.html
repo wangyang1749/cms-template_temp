@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="/templates/resources/css/markdown.css"> -->
-    <link rel="stylesheet" href="/templates/resources/themes/github.css?v=1.01">
+    <link rel="stylesheet" href="/templates/resources/themes/github.css?v=1.02">
     <!-- <link rel="stylesheet"
         href="https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.css">
@@ -176,14 +176,13 @@
                     </div>
                 </div>
                 <div class=" mb-3">
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush mb-4">
                         <div class="list-group-item list-group-item-light d-flex justify-content-between">
-                            <span >热门文章</span>
+                            <span>热门文章</span>
                         </div>
-                        <!-- 热门文章 -->
                         <!--#include file="/components/hotArticle.html"-->
-                        <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/hotArticle"></div>
-                        <!--[ <div th:insert="html/components/hotArticle"></div> ]-->
+                        <!--[ <div  th:insert="html/components/hotArticle"></div> ]-->
+                        <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
                     </ul>
                 </div>
                 <!-- 文章目录 -->
