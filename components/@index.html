@@ -81,7 +81,7 @@
                 <!--[ <div  th:insert="html/components/carousel"></div> ]-->
                 <div th:if="${isSave== null}" th:insert="html/components/carousel"></div>
 
-
+                   
                 <div class="row">
                     <div class="col-sm  mb-3">
                         <ul class="list-group list-group-flush">
@@ -164,7 +164,9 @@
                     <span th:text="${item.path}"></span>
                 </div> -->
                 <div class="card mb-3  bg-white p-4">
-                    <button type="button" class="btn btn-outline-secondary btn-lg btn-block">我要投稿</button>
+                    <a href="/user/write" target="_blank" class="mb-1">
+                        <button type="button" class="btn btn-outline-secondary btn-lg btn-block">我要投稿</button>
+                    </a>
                     <button type="button" class="btn btn-outline-secondary btn-lg btn-block">发布问题</button>
                 </div>
                 <div class="category-vertical" th:each="item : ${view.templates}">
