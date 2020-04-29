@@ -38,12 +38,13 @@ a:focus {
 }
  /*隐藏滚动条*/
  .nav::-webkit-scrollbar {
-    width: 0 !important
+    width: 0 !important;
+    height:0 !important; 
 }
 
-.breadcrumb::-webkit-scrollbar {
+/* .breadcrumb::-webkit-scrollbar {
     width: 0 !important
-}
+} */
 
 .nav,
 .breadcrumb {
@@ -66,26 +67,43 @@ a:focus {
 .navbar-collapse{
     overflow: auto;
 }
+.mobile-fix{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: .5rem 1rem;
+    background: #fff;
+}
 
-
+.mobile-search{
+    display: none;
+}
 @media screen and (max-width: 992px) {
     .footnotes p{
         display: block;
     }
+
   .nav .nav-link{
-    padding: .5rem 0.15rem;
+    padding: .25rem 0.15rem;
     
   }
   .navbar{
       position: relative;
       text-align: center;
   }
+  .mobile-search{
+    display: block;
+}
   .container{
     margin-top: 0px !important;
+    overflow-x: hidden;
+    padding: 0;
     }
-.bd-search{
-    width: 100%;
-}
+    .bd-search{
+        width: 100%;
+        display: none !important;
+    }
   .navbar .form-inline{
     width: 100%;
   }
@@ -93,9 +111,11 @@ a:focus {
     width: 100%;
   }
   .nav-title{
-      width: 100%;
-      text-align: center;
-      display: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 !important;
   }  
   .navbar .btn{
       display: none;
