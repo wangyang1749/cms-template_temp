@@ -14,7 +14,11 @@ body{
 /* 公共顶部样式 */
 #header{
     background: #fff;
+    /* height: 3.5rem; */
 }
+.nav-title a{
+    padding: 0;
+} 
 
 /* nav{
     white-space: nowrap;
