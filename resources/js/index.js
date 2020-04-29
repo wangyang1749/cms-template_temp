@@ -1,6 +1,6 @@
 $(function () {
     if (document.body.clientWidth < 992) {
-        console.log("aa")
+        // console.log("aa")
         var navBar = $("#mobile-nav1");
         var navBar2 = $("#mobile-nav2");
         var titleTop = navBar.offset().top;
