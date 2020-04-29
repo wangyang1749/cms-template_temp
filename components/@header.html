@@ -4,7 +4,7 @@
           <a class="nav-link" href="/   "><img src="/logo.png" alt="" srcset="" /></a>
     
         </div>
-        <div class="mobile-search">
+        <div class="mobile-search" id="mobile-search">
           <img src="/templates/resources/img/search.svg" alt="" srcset="">
         </div>
       </div>
@@ -20,14 +20,12 @@
     </ul>
   </div>
 
-  <form class="bd-search d-flex align-items-center">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#bd-docs-nav"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </form>
+  <form class="bd-search align-items-center" id="search-panel">
+      <div class="search-panel-flex">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </div>
+    </form>
 
   <div id="mobile-nav2"></div>
 </nav>

@@ -20,6 +20,7 @@ body{
     padding: 0;
 } 
 
+
 /* nav{
     white-space: nowrap;
     height: 2rem;
@@ -79,6 +80,11 @@ a:focus {
 .mobile-search{
     display: none;
 }
+.search-panel-flex{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 @media screen and (max-width: 992px) {
     .footnotes p{
         display: block;
@@ -92,9 +98,8 @@ a:focus {
       position: relative;
       text-align: center;
   }
-  .mobile-search{
-    display: block;
-}
+
+
   .container{
     margin-top: 0px !important;
     overflow-x: hidden;
@@ -102,7 +107,7 @@ a:focus {
     }
     .bd-search{
         width: 100%;
-        display: none !important;
+        display: none ;
     }
   .navbar .form-inline{
     width: 100%;
@@ -117,9 +122,13 @@ a:focus {
     justify-content: space-between;
     margin: 0 !important;
   }  
-  .navbar .btn{
-      display: none;
-  }
+  .mobile-search{
+    display: block;
+}
+.mobile-search img{
+    width: 1.5rem;
+    height: 1.5rem;
+}
 }
 .container{
     margin-top: 72px;

@@ -24,6 +24,14 @@ $(function () {
 
 });
 
+//手机搜索
+
+$(function () {
+    $("#mobile-search").click(function () {
+        $("#search-panel").slideToggle("fast"); 
+    });
+});
+
 // 百度自动推送
 (function () {
     var bp = document.createElement('script');
