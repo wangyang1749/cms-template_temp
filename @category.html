@@ -37,11 +37,18 @@
         }
 
         .catrgory-header .img {
-            width: 20rem;
+            
             display: flex;
             flex-direction: column;
             align-items: center;
 
+        }
+      
+        .catrgory-header img{
+            width: 100%;
+        }
+        .catrgory-header span{
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -73,7 +80,8 @@
             <div class="col-lg-9 ">
                 <div class="catrgory-header">
                     <div class="img mr-3">
-                        <img th:src="${view.category.picPath}" width="100%" class="mb-1">
+                        <img th:if="${view.category.picPath==''}" class="mb-1" src="/templates/resources/img/logo_category.png">
+                        <img th:if="${view.category.picPath!=''}" th:src="${view.category.picPath}" class="mb-1" >
                         <span th:text="${view.category.name}"></span>
                     </div>
 
