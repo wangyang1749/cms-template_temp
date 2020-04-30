@@ -129,13 +129,16 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-        
-                            <li class="page-item" th:each="item : ${#numbers.sequence(1, view.page.totalPages)}">
-                                <a class="page-link"  th:href="'/articleList/category/'+${view.category.id}+'?page='+${item}" th:text="${item}">1</a>
+                            <li class="page-item" >
+                                <a class="page-link"  th:href="'/articleList/'+${view.category.viewName}+'.html'">1</a>
+                            </li>
+                  
+                            <li class="page-item" th:each="item : ${#numbers.sequence(2, view.page.totalPages)}">
+                                <a class="page-link"  th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'/page-'+${item}+'.html'" th:text="${item}">1</a>
                             </li>
         
                             <li class="page-item">
-                                <a class="page-link"  th:href="'/articleList/category/'+${view.category.id}+'?page='+${view.page.totalPages}" aria-label="Next">
+                                <a class="page-link"    th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'/page-'+${view.page.totalPages}+'.html'"aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
