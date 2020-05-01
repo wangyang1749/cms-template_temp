@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" type="text/css" href="/templates/resources/css/bootstrap-tags.css" />
     <link rel="stylesheet" href="/templates/resources/css/user.css">
-    <title>发布文章</title>
+    <title th:text="${view.title}">发布文章</title>
     <style>
         .write-option {
             position: fixed;
@@ -102,16 +102,20 @@
         <form>
             <div class="d-flex flex-column shadow-lg article-panel">
                 <div class="d-flex">
-                    <input id="title" class="article-input article-title flex-fill" type="text" placeholder="请输入文章标题">
+                    <input th:value="${view.title}" id="title" class="article-input article-title flex-fill" type="text"
+                        placeholder="请输入文章标题">
                     <!-- <select class="article-select article-input flex-fill "> -->
-
+                    <div>
+                        <span>文章状态</span>
+                        <span class="badge badge-danger" th:text="${view.status}"></span>
+                    </div>
                 </div>
                 <div class="d-flex align-items-center article-select">
                     <!-- <select id="categories" class="  flex-fill form-control form-control-chosen-required"
                         data-placeholder="Please select..."> -->
                     <div class="select-item mr-2">
                         <select id="categories" class=" form-control">
-                            <option  selected disabled hidden>请选择一个分类</option>
+                            <option  disabled hidden selected>请选择一个分类</option>
                             <!-- <option></option>
                                                     <option>1</option>
                                                     <option>2</option>
@@ -128,7 +132,7 @@
                 </div>
                 <div class="d-flex">
                     <textarea id="summary" class="article-input article-summary flex-fill "
-                        placeholder="请输入摘要（不输入，将自动从文章截取）" rows="2"></textarea>
+                        placeholder="请输入摘要（不输入，将自动从文章截取）" rows="2" th:text="${view.summary}"></textarea>
                 </div>
                 <div class="article-tools article-input">
 
@@ -192,7 +196,7 @@
                 </div>
                 <div class="d-flex">
                     <textarea class="article-input article-content flex-fill article-edit" placeholder="输入文章内容"
-                        id="textInput" rows="20"></textarea>
+                        id="textInput" rows="20" th:text="${view.originalContent}"></textarea>
                     <div id="preview" class="article-input article-content flex-fill markdown">
 
                     </div>
@@ -207,9 +211,7 @@
             <button type="button" class="btn btn-success">附件</button>
             <button type="button" class="btn btn-danger" id="save">保存</button>
             <button type="button" class="btn btn-warning" id="previewNet">预览</button>
-            <button type="button" class="btn btn-info" id="submitCreate">首次发布</button>
-            <button type="button" class="btn btn-info" id="submitUpdate" style="display: none;">更新发布</button>
-
+            <button type="button" class="btn btn-info" id="submitUpdate">更新发布</button>
         </div>
         <div id="message" class="message">
 
@@ -229,17 +231,34 @@
 
 
     <script src="/templates/resources/js/jquery-3.4.1.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="/templates/resources/js/chosen.jquery.js"></script> -->
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/templates/resources/js/service.js?v=1.0"></script> -->
     <script src="/templates/resources/js/jquery.cookie.js"></script>
+
+
 
     <script src="/templates/resources/js/markdown-it.min.js"></script>
 
     <script src='/templates/resources/js/bootstrap-tags.min.js'></script>
     <script src="/templates/resources/js/user.js"></script>
+
     <script src="/templates/resources/js/write.js"></script>
 
     <script>
+        cmsWrite.defaultCategoryId=[[${view.categoryId}]]
+        setSelectTags( [[${view.tagIds}]])
+        cmsWrite.articleId = [[${view.id}]]
+        // console.log([[${view.tags}]])
         cmsWriteInit()
+
     </script>
 </body>
 

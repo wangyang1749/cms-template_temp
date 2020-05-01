@@ -72,14 +72,12 @@
 <body>
     <!--#include file="/components/header.html"-->
     <div th:if="${isSave== null}" th:insert="html/components/header :: #header"></div>
-    <!--[ <div th:insert="html/components/header"></div> ]-->
 
 
     <div class="container">
         <div class="row ">
             <div class="col-lg-9">
                 <!--#include file="/components/carousel.html"-->
-                <!--[ <div  th:insert="html/components/carousel"></div> ]-->
                 <div th:if="${isSave== null}" th:insert="html/components/carousel"></div>
 
 
@@ -137,7 +135,6 @@
                         <span>最新文章</span>
                     </div>
                     <!--#include file="/components/newArticleIndex.html"-->
-                    <!--[ <div  th:insert="html/components/newArticleIndex"></div> ]-->
                     <div th:if="${isSave== null}" th:insert="html/components/newArticleIndex"></div>
                 </ul>
 
@@ -150,7 +147,6 @@
                                 查看更多
                             </a>
                         </div>
-                        <!--[ <div  th:insert="html/components/[[${item.viewName}]]"></div> ]-->
                         <!--#include file="/components/[[${item.viewName}]].html"-->
                         <div th:if="${isSave== null}" th:insert="'html/components/'+${item.viewName}"></div>
                     </ul>
@@ -166,9 +162,9 @@
                 </div> -->
                 <div class="card mb-3  bg-white p-4">
                     <a href="/user/write" target="_blank" class="mb-1">
-                        <button type="button" class="btn btn-outline-secondary btn-lg btn-block">我要投稿</button>
+                        <button type="button" class="btn btn-outline-secondary btn-lg btn-block">写文章</button>
                     </a>
-                    <button type="button" class="btn btn-outline-secondary btn-lg btn-block">发布问题</button>
+                    <button type="button" class="btn btn-outline-secondary btn-lg btn-block">提问题</button>
                 </div>
                 <div class="category-vertical" th:each="item : ${view.templates}">
                     <div class="category-title">

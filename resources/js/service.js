@@ -1,19 +1,26 @@
+var url = location.hostname;
+var protocol = window.location.protocol;
 const service = axios.create({
-    baseURL: 'http://47.93.201.74:8080/',
+    baseURL: protocol+"//"+url+":8080",
     timeout: 10000,
     withCredentials: true,
 })
+
+
+
+
+
 const articleApi = {}
 articleApi.list = (categortId, page) => {
     return service({
-        url: `articleList/categoryAjax/${categortId}`,
+        url: `/option/categoryAjax/${categortId}`,
         params: { page: page },
         method: 'get'
     })
 }
 articleApi.getVisit=(id)=>{
     return service({
-        url: `/articleList/visit/${id}`,
+        url: `/option/visit/${id}`,
         method: 'get'
     })
 }

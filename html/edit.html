@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/templates/resources/css/selectpage.css">
 
     <style>
-   
+
     </style>
 </head>
 
@@ -69,6 +69,8 @@
     <script src="/templates/resources/js/selectpage.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
+
+ 
         var simplemde = new SimpleMDE({
             autosave: {
                 enabled: true,
@@ -76,7 +78,7 @@
                 delay: 1000
             },
             // status: ["autosave", "lines", "words"],
-            status: [ "lines", "words"],
+            status: ["lines", "words"],
             spellChecker: false,
             element: document.getElementById("detail"),
             promptURLs: true,
@@ -106,11 +108,11 @@
 
         $('#submit').click(function () {
             $(".selected_tag").each((key, value) => {
-                console.log("标签"+$(value).attr('itemvalue'))
+                console.log("标签" + $(value).attr('itemvalue'))
 
             })
-            console.log("标题"+$('#title').val())
-            console.log("分类"+$('#selectCategory').val())
+            console.log("标题" + $('#title').val())
+            console.log("分类" + $('#selectCategory').val())
             console.log(simplemde.value())
         });
         //初始化插件

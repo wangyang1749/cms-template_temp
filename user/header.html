@@ -9,6 +9,9 @@
       <li class="nav-item">
         <a class="nav-link css-首页" href="/user/write">写文章</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link css-首页" href="/user/articleList">所有文章</a>
+      </li>
 
     </ul>
   </div>
@@ -18,7 +21,7 @@
         <a href="/user/logout">退出</a>
     </div>
       
-      <a  th:if="${#request.getAttribute('username')==null}"  class="nav-link css-首页" href="/user/login">请登录</a>
+      <a  th:if="${#request.getAttribute('username')==null}"  class="nav-link css-首页" href="/login">请登录</a>
   </div>
   <!-- <form class="bd-search d-flex align-items-center">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

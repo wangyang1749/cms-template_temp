@@ -15,8 +15,27 @@
 <body>
     <div th:insert="templates/user/header"></div>
     <div class=" container ">
-        <h1>用户详情界面</h1>
-        <a href="/user/logout">退出</a>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <span class="mr-5">用户名:</span>
+                <span th:text="${view.username}"></span>
+                <a href="javascript:;">修改</a>
+            </li>
+            <li class="list-group-item ">
+                <span class="mr-5">用户头像:</span>
+                <a href="javascript:;"> <img th:src="${view.avatar}" alt="" width="80px" class="rounded-circle">
+                </a>
+            </li>
+            <li class="list-group-item ">
+                <span class="mr-5">电子邮箱:</span>
+                <span th:text="${view.email}"></span>
+                <a href="javascript:;">修改</a>
+            </li>
+            <li class="list-group-item ">
+                <span class="mr-5">拥有角色:</span>
+                <span class="badge badge-info" th:each="item : ${view.roles}" th:text="${item.name}"></span>
+            </li>
+        </ul>
     </div>
 
 </body>
