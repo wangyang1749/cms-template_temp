@@ -4,3 +4,12 @@
     left: 31rem;
     z-index: -1;
 }
+
+.uploadPanel{
+    position: fixed;
+    top: 14rem;
+    left: 32rem;
+    background: rgb(0,0,0,.5);
+    width: 20rem;
+    height: 7rem;
+}
