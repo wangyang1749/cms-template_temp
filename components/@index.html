@@ -182,6 +182,11 @@
                     </a>
                     <button type="button" class="btn btn-outline-secondary btn-lg btn-block">提问题</button>
                 </div>
+                <div class="card mb-3  bg-white p-4">
+
+                    <h5 ><span class="badge badge-danger ">21考研倒计时:</span></h5>
+                    <h5 ><strong id="timer" >&nbsp;</strong></h5>
+                </div>
                 <div class="category-vertical" th:each="item : ${view.templates}">
                     <div class="category-title">
                         <span th:text="${item.name}">所有分类</span>
@@ -192,18 +197,18 @@
                     <div th:if="${isSave== null}" th:insert="'html/components/'+${item.enName}"></div>
 
                 </div>
-                <ul class="list-group list-group-flush mb-4">
-                    <div class="list-group-item list-group-item-light">
+                <div class="card mb-3  bg-white p-2">
+                    <div class="mb-2 border-bottom">
                         <span>传送门</span>
                     </div>
-                    <a href="https://sites.harding.edu/fmccown/r/"
-                        class="list-group-item  list-group-item-action">R绘图案例</a>
-                    <a href="https://linggle.com/" class="list-group-item  list-group-item-action">英语搭配
-                    </a>
-                    <a href="https://www.thesaurus.com/" class="list-group-item  list-group-item-action">词汇替换
-                    </a>
+                    <div>
+                        <a target="_blank" href="https://sites.harding.edu/fmccown/r/"
+                            class="badge badge-info">R绘图案例</a>
+                        <a target="_blank" href="https://linggle.com/" class="badge badge-info">英语搭配</a>
+                        <a target="_blank" href="https://www.thesaurus.com/" class="badge badge-info">词汇替换 </a>
+                    </div>
 
-                </ul>
+                </div>
 
             </div>
         </div>
@@ -226,6 +231,28 @@
     <script src="/templates/resources/js/index.js?v=1.03"></script>
     <script>
 
+        function leftTimer(year, month, day, hour, minute, second) {
+            var leftTime = (new Date(year, month - 1, day, hour, minute, second)) - (new Date()); //计算剩余的毫秒数 
+            var days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数 
+            var hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时 
+            var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟 
+            var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数 
+            console.log(days)
+            days = checkTime(days);
+            hours = checkTime(hours);
+            minutes = checkTime(minutes);
+            seconds = checkTime(seconds);
+            setInterval(function () { leftTimer(2020, 12, 21, 0, 0, 0) }, 1000);
+            document.getElementById("timer").innerHTML = days + "天" + hours + "小时" + minutes + "分" + seconds + "秒";
+        }
+
+        leftTimer(2020, 12, 21, 0, 0, 0)
+        function checkTime(i) { //将0-9的数字前面加上0，例1变为01 
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
 
 
 
