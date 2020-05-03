@@ -11,13 +11,13 @@
             th:class="${userStat.index == 0} ? ' carousel-item active' :'carousel-item'">
             <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'">
                 <img th:src="${item.picPath}" class="d-block w-100" >
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption  d-md-block">
                     <h5 th:text="${item.title}"></h5>
                     <p th:text="${item.summary}"></p>
                 </div>
             </a>
         </div>
-
+ 
     </div>
     <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
