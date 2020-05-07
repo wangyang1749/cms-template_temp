@@ -13,3 +13,19 @@
     width: 20rem;
     height: 7rem;
 }
+/* .progress {
+    width: 600px;
+    height: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 10px 0px;
+    overflow: hidden;
+} */
+
+/* 初始状态设置进度条宽度为0px */
+/* .progress>div {
+    width: 0px;
+    height: 100%;
+    background-color: yellowgreen;
+    transition: all .3s ease;
+} */

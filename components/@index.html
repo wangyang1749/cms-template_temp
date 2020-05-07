@@ -245,9 +245,10 @@
 
             document.getElementById("timer").innerHTML = days + "天" + hours + "小时" + minutes + "分" + seconds + "秒";
         }
+
         leftTimer(2020, 12, 21, 0, 0, 0)
-       
         setInterval(function () { leftTimer(2020, 12, 21, 0, 0, 0) }, 1000);
+
 
         function checkTime(i) { //将0-9的数字前面加上0，例1变为01 
             if (i < 10) {

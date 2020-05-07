@@ -515,6 +515,16 @@ function handleType(attachment) {
     return false;
 }
 
+function sleep(numberMillis) {
+	var now = new Date();
+	var exitTime = now.getTime() + numberMillis;
+	while (true) {
+		now = new Date();
+		if (now.getTime() > exitTime)
+		return;
+	    }
+}
+
 $("#file").change(function () {
     var fd = new FormData();
     // 如果有多张图片一块上传，下面直接使用fd.append()继续追加即可
@@ -532,9 +542,30 @@ $("#file").change(function () {
             contentType: "application/json;charset=UTF-8",
             processData: false,
             contentType: false,
+            xhr: function() {
+                var xhr = new XMLHttpRequest();
+                //使用XMLHttpRequest.upload监听上传过程，注册progress事件，打印回调函数中的event事件
+                xhr.upload.addEventListener('progress', function (e) {
+                    console.log(e);
+                    //loaded代表上传了多少
+                    //total代表总数为多少
+                    var progressRate = (e.loaded / e.total) * 100 ;
+                    console.log(progressRate)
+                 
+                    //通过设置进度条的宽度达到效果
+                    $('.progress > div').css('width', progressRate+ '%');
+                    $('.progress > div').html(progressRate + '%')
+                    if(progressRate==100){
+                        $('.progress > div').html("上传服务器完成，请等待！")
+                    }
+                })
+    
+                return xhr;
+            },
             success: function (data) {
                 console.log(data.data)
                 handleType(data.data)
+                $('.progress > div').html("上传完成！")
                 $("#uploadPanel").slideUp("fast");
                 formatHtml()
                 // cmsWrite.selectTags.push(data.data.id)
