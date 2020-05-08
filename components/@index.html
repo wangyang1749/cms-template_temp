@@ -97,6 +97,21 @@
                 <div th:if="${isSave== null}" th:insert="html/components/carousel"></div>
 
 
+                <div class="category-horizontal mb-3">
+                    <div class="category-title"><span>文章分类快速导航</span></div>
+                    <!--[ <div  th:replace="html/components/DEFAULT_CATEGORY"></div> ]-->
+                    <!--#include file="/components/DEFAULT_CATEGORY.html"-->
+                    <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CATEGORY"></div>
+                </div>
+
+                <div class="category-horizontal mb-3">
+                    <div class="category-title"><span>文章栏目快速导航</span></div>
+                    <!--[ <div  th:replace="html/components/DEFAULT_CHANNEL"></div> ]-->
+                    <!--#include file="/components/DEFAULT_CHANNEL.html"-->
+                    <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CHANNEL"></div>
+                </div>
+
+
                 <div class="row">
                     <div class="col-sm  mb-3">
                         <ul class="list-group list-group-flush">
@@ -129,22 +144,6 @@
                         </ul>
                     </div>
                 </div>
-
-
-                <div class="category-horizontal mb-3">
-                    <div class="category-title"><span>文章分类快速导航</span></div>
-                    <!--[ <div  th:replace="html/components/DEFAULT_CATEGORY"></div> ]-->
-                    <!--#include file="/components/DEFAULT_CATEGORY.html"-->
-                    <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CATEGORY"></div>
-                </div>
-
-                <div class="category-horizontal mb-3">
-                    <div class="category-title"><span>文章栏目快速导航</span></div>
-                    <!--[ <div  th:replace="html/components/DEFAULT_CHANNEL"></div> ]-->
-                    <!--#include file="/components/DEFAULT_CHANNEL.html"-->
-                    <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CHANNEL"></div>
-                </div>
-
 
                 <ul class="list-group list-group-flush mb-4">
                     <div class="list-group-item list-group-item-light d-flex justify-content-between">
