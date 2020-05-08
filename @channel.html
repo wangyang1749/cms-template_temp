@@ -131,7 +131,6 @@
                     <div class="category-title">
                         <strong>所有栏目列表</strong>
                     </div>
-                    <!--[ <div th:insert="html/components/[[${view.category.templateName}]]"></div> ]-->
                     <!--#include file="/components/[[${view.category.templateName}]].html"-->
                     <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
                 </div>
@@ -160,7 +159,7 @@
                                 class="list-group-item list-group-item-action channel-introduction bg-secondary">
                                 介绍
                             </a>
-                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html#'+${item.title}"
+                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
                                 th:class="'css-'+${item.viewName}+' list-group-item list-group-item-action'"
                                 th:each="item : ${view.page.getContent()}" th:id="${item.title}">
                                 <span th:text="${item.title}">
