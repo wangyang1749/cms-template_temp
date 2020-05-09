@@ -1,7 +1,7 @@
 <ul class="list-group list-group-flush ">
     <div class="list-group-item list-group-item-light d-flex justify-content-between">
         <span th:text="${name}"></span>
-        <a class="text-secondary" th:href="${param}"> 更多
+        <a class="text-secondary" th:href="${showUrl}"> 更多
         </a>
     </div>
     <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'" th:each="item : ${view}"
