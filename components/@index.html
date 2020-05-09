@@ -114,59 +114,27 @@
 
                 <div class="row">
                     <div class="col-sm  mb-3">
-                        <ul class="list-group list-group-flush">
-                            <div class="list-group-item list-group-item-light d-flex justify-content-between">
-                                <span>最新资讯</span>
-                            </div>
-                            <!--#include file="/components/newInformation.html"-->
-                            <!--[ <div  th:insert="html/components/newInformation"></div> ]-->
-                            <div th:if="${isSave== null}" th:insert="html/components/newInformation"></div>
-                        </ul>
+                        <!--#include file="/components/newInformation.html"-->
+                        <div th:if="${isSave== null}" th:insert="html/components/newInformation"></div>
                     </div>
                     <div class="col-sm mb-3">
-                        <ul class="list-group list-group-flush">
-                            <div class="list-group-item list-group-item-light d-flex justify-content-between">
-                                <span>热门文章</span>
-                            </div>
-                            <!--#include file="/components/hotArticle.html"-->
-                            <!--[ <div  th:insert="html/components/hotArticle"></div> ]-->
-                            <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
-                        </ul>
+                        <!--#include file="/components/hotArticle.html"-->
+                        <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
                     </div>
                     <div class="col-sm mb-3">
-                        <ul class="list-group list-group-flush ">
-                            <div class="list-group-item list-group-item-light d-flex justify-content-between">
-                                <span>推荐阅读</span>
-                            </div>
-                            <!--#include file="/components/recommendArticle.html"-->
-                            <!--[ <div  th:insert="html/components/recommendArticle"></div> ]-->
-                            <div th:if="${isSave== null}" th:insert="html/components/recommendArticle"></div>
-                        </ul>
+                        <!--#include file="/components/recommendArticle.html"-->
+                        <div th:if="${isSave== null}" th:insert="html/components/recommendArticle"></div>
                     </div>
                 </div>
 
                 <ul class="list-group list-group-flush mb-4">
                     <div class="list-group-item list-group-item-light d-flex justify-content-between">
                         <span>最新文章</span>
+                        <a class="text-secondary" href="articleList?sort=createDate,DESC">更多</a>
                     </div>
                     <!--#include file="/components/newArticleIndex.html"-->
                     <div th:if="${isSave== null}" th:insert="html/components/newArticleIndex"></div>
                 </ul>
-
-
-                <div th:each="item : ${view.recommend}">
-                    <ul class="list-group list-group-flush mb-4">
-                        <div class="list-group-item list-group-item-light d-flex justify-content-between">
-                            <span th:text="${item.name}"></span>
-                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'" class="text-secondary">
-                                查看更多
-                            </a>
-                        </div>
-                        <!--#include file="/components/[[${item.viewName}]].html"-->
-                        <div th:if="${isSave== null}" th:insert="'html/components/'+${item.viewName}"></div>
-                    </ul>
-                </div>
-
             </div>
 
             <div class="col-lg-3">
@@ -186,16 +154,7 @@
                     <h5 ><span class="badge badge-danger ">21考研倒计时:</span></h5>
                     <h5 ><strong id="timer" >&nbsp;</strong></h5>
                 </div>
-                <div class="category-vertical" th:each="item : ${view.templates}">
-                    <div class="category-title">
-                        <span th:text="${item.name}">所有分类</span>
-                    </div>
-
-                    <!--[ <div  th:replace="html/components/[[${item.enName}]]"></div> ]-->
-                    <!--#include file="/components/[[${item.enName}]].html"-->
-                    <div th:if="${isSave== null}" th:insert="'html/components/'+${item.enName}"></div>
-
-                </div>
+         
                 <div class="card mb-3  bg-white p-2">
                     <div class="mb-2 border-bottom">
                         <span>传送门</span>
