@@ -102,7 +102,7 @@
                         <dl>
                             <dt class="text-muted">标签</dt>
                             <dd th:if="${view.tags!=null}">
-                                <a th:href="@{/articleList(tagsId=${item.id})}" class="badge badge-info mr-1" th:each="item : ${view.tags}"
+                                <a th:href="@{~/articleList(tagsId=${item.id})}" class="badge badge-info mr-1" th:each="item : ${view.tags}"
                                     th:text="${item.name}"></a>
                             </dd>
 
