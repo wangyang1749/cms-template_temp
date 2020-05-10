@@ -77,3 +77,4 @@ function shareTo(stype) {
     // }
 }
 
+$('.markdown p').find('> img').parent().css({"display":'flex',"justify-content":"center"});
