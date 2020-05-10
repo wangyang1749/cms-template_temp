@@ -13,15 +13,7 @@
     <title>文章列表</title>
 
     <style>
-        .list-header {
-            display: flex;
-            flex-wrap: wrap;
-        }
 
-        .list-header-item {
-            flex: 1;
-            white-space: nowrap;
-        }
     </style>
 </head>
 
@@ -31,6 +23,9 @@
     <div class=" container mb-3">
 
 
+        <div th:if="${request.getParameter('keyword')}" class="mb-2">
+            <span>您搜索的关键词【[[${request.getParameter("keyword")}]]】一共有【[[${view.totalElements}]]】条记录</span>
+        </div>
 
         <div th:if="${view.totalPages} gt '1'">
             <nav aria-label="Page navigation example">
@@ -46,7 +41,7 @@
         </div>
     
 
-        <div class="mb-3">
+        <div class="mb-3" id="article-List">
                 <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
                 class="list-group-item list-group-item-action"
                 th:each="item : ${view.getContent()}">
@@ -95,21 +90,42 @@
             getQueryString: function (name) {
                 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
                 var r = window.location.search.substr(1).match(reg);
-                if (r != null) return unescape(r[2]);
+                if (r != null) return decodeURI(r[2]);
                 return null;
             }
         })
         function jumpPage(page) {
-            let baseUrl =  "/articleList?page="+page;
-            if($.getQueryString("sort")){
-                baseUrl += "&sort="+$.getQueryString("sort")
+            let baseUrl = "/articleList?page=" + page;
+            if ($.getQueryString("sort")) {
+                baseUrl += "&sort=" + $.getQueryString("sort")
             }
 
-            if($.getQueryString("tagsId")){
-                baseUrl += "&tagsId="+$.getQueryString("tagsId")
+            if ($.getQueryString("tagsId")) {
+                baseUrl += "&tagsId=" + $.getQueryString("tagsId")
+            }
+
+            if ($.getQueryString("keyword")) {
+                baseUrl += "&keyword=" + $.getQueryString("keyword")
             }
             window.location.href = baseUrl;
         }
+
+
+        // 保持搜索词语
+
+        $("#global-search").val($.getQueryString("keyword"));
+
+        function toRed(content, id) {
+            var bodyHtml = $("#" + id).html();
+            reger = new RegExp("(>|^)([^<]*)(" + content + ")([^>]*<)", "gm");
+            reslut = bodyHtml.replace(reger, "$1$2<font color='red'>$3</font>$4");
+            $("#" + id).html(reslut);
+        }
+        if($.getQueryString("keyword")){
+            toRed($.getQueryString("keyword"), "article-List");
+          
+        }
+
     </script>
 </body>
 

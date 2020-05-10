@@ -20,12 +20,13 @@
     </ul>
   </div>
 
-  <form class="bd-search align-items-center" id="search-panel">
-      <div class="search-panel-flex">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </div>
-    </form>
+  <form action="/articleList" method="GET" class="bd-search align-items-center" id="search-panel">
+    <div class="search-panel-flex">
+      <input id="global-search" class="form-control mr-sm-2" type="search" placeholder="Search" name="keyword">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </div>
+  </form>
+
 
   <div id="mobile-nav2"></div>
 </nav>

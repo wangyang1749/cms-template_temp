@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="/templates/resources/css/index.css?v=1.2">
     <title th:text="${view.title}">Document</title>
 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.2/build/styles/default.min.css">
+
 </head>
 
 <body>
@@ -184,9 +186,11 @@
 
     <script>
         move("content-table-header", "content-table", "close-content-table");
-       
+
 
     </script>
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.2/build/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </body>
 
 </html>
