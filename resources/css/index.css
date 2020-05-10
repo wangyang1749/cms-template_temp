@@ -292,3 +292,22 @@ a:focus {
 #close-content-table {
     display: none;
 }
+
+ /*全屏显示大图*/
+ .opacityBottom {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+.none-scroll {
+    overflow: hidden;
+    height: 80%;
+}
