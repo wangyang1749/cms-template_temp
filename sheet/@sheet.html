@@ -28,16 +28,15 @@
 <body>
     <!--#include file="/components/header.html"-->
     <div th:if="${isSave== null}" th:insert="html/components/header :: #header"></div>
-    <!--[ <div th:insert="html/components/header"></div> ]-->
 
     <div class="container">
-        <nav aria-label="breadcrumb">
+        <!-- <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page" th:text="${view.title}">首页</li>
             </ol>
-        </nav>
+        </nav> -->
 
-        <div class="markdown shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="markdown shadow p-2 bg-white rounded">
             [(${view.formatContent})]
         </div>
 
@@ -45,7 +44,6 @@
 
     <!--#include file="/components/footer.html"-->
     <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
-    <!--[ <div  th:insert="html/components/footer"></div> ]-->
 
 </body>
 
