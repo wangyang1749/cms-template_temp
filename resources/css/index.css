@@ -240,3 +240,55 @@ a:focus {
 .category-vertical .category-list a:hover{
     background-color: #f8f9fa;
 }
+
+
+/* 分类头部样式 */
+.catrgory-header {
+    display: flex;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, .125);
+    margin-bottom: 0.5rem;
+    background: #fff;
+    align-items: center;
+}
+
+.catrgory-header .img {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.catrgory-header img {
+    width: 100%;
+}
+
+.catrgory-header span {
+    white-space: nowrap;
+}
+  /* 内容头部样式 */
+  .content-header .info {
+    font-size: 0.8rem;
+}
+
+.content-header .title {
+    font-size: 2.25em;
+}
+
+/* 文章用户信息 */
+.user-info img {
+    width: 5rem;
+    height: 5rem;
+}
+
+/* 文章内容标注换行 */
+.footnotes {
+    word-wrap: break-word;
+}
+
+/*拖拽css*/
+
+#close-content-table {
+    display: none;
+}

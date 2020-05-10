@@ -26,31 +26,7 @@
             display: none;
         }
 
-        /* 分类头部样式 */
-        .catrgory-header {
-            display: flex;
-            padding: 1rem;
-            border: 1px solid rgba(0, 0, 0, .125);
-            margin-bottom: 0.5rem;
-            background: #fff;
-            align-items: center;
-        }
-
-        .catrgory-header .img {
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-        }
-
-        .catrgory-header img {
-            width: 100%;
-        }
-
-        .catrgory-header span {
-            white-space: nowrap;
-        }
+    
     </style>
 </head>
 
@@ -99,33 +75,31 @@
                         每页显示<span th:text="${view.page.size}"> </span>篇
                     </div>
 
-                    <div id="articleContent">
-                        <div>
-                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
-                                class="list-group-item list-group-item-action"
-                                th:each="item : ${view.page.getContent()}">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
-                                </div>
-                                <p class="mb-1" th:text="${item.summary}"></p>
-                                <small>
-                                    <div class="d-flex flex-row bd-highlight ">
-                                        <div class="p-2 bd-highlight" style="width: 2.3rem;">
-                                            <img th:src="${item.user.avatar}" alt="" class="img-fluid rounded-circle">
-                                        </div>
-                                        <div class="p-2 bd-highlight">
-                                            <span th:text="${item.user.username}"></span>&nbsp;&nbsp;
-                                            <span>发布于: </span>
-                                            <span th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</span>
+
+                    <div>
+                        <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
+                            class="list-group-item list-group-item-action" th:each="item : ${view.page.getContent()}">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
+                            </div>
+                            <p class="mb-1" th:text="${item.summary}"></p>
+                            <small>
+                                <div class="d-flex flex-row bd-highlight ">
+                                    <div class="p-2 bd-highlight" style="width: 2.3rem;">
+                                        <img th:src="${item.user.avatar}" alt="" class="img-fluid rounded-circle">
+                                    </div>
+                                    <div class="p-2 bd-highlight">
+                                        <span th:text="${item.user.username}"></span>&nbsp;&nbsp;
+                                        <span>发布于: </span>
+                                        <span th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</span>
                                         </div>
                                     </div>
                                 
-                                </small>
-                            </a>
-                        </div>
+                            </small>
+                        </a>
+                    </div>
                   
 
-                    </div>
                 </ul>
 
                 <div  th:if="${view.page.totalPages} gt '1'">

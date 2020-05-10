@@ -16,78 +16,10 @@
     <!-- <link rel="stylesheet"
         href="https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext"> -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.css"> -->
-    <link rel="stylesheet" href="/templates/resources/css/index.css?v=1.01">
+    <link rel="stylesheet" href="/templates/resources/css/index.css?v=1.02">
 
     <style>
-        .is_fixed {
-            position: fixed;
-            top: 0;
-            /* left: 50%;
-            margin-left: -250px;
-            z-index: 999; */
-        }
-
-        .is_show_toc {
-            display: none;
-        }
-
-        .toc {
-            padding-left: 0;
-
-        }
-
-        .toc a {
-            color: #6c757d;
-        }
-
-        .card-body li {
-            list-style: none;
-        }
-
-        .breadcrumb {
-            background: #f6f6f6;
-            border-radius: 0;
-            padding: 0;
-            margin-bottom: 0.5rem !important;
-        }
-
-
-        /* 设置顶部不固定
-        .navbar {
-            position: relative;
-        }
-
-        .container {
-            margin-top: 0px !important;
-        } */
-
-        @media screen and (min-width: 768px) {
-            .bd-links {
-                display: block !important;
-                /* overflow-y: auto; */
-            }
-        }
-
-        /* 文章内容标注换行 */
-        .footnotes {
-            word-wrap: break-word;
-        }
-
-
-        /* 内容头部样式 */
-        .content-header .info {
-            font-size: 0.8rem;
-        }
-
-        .content-header .title {
-            font-size: 2.25em;
-        }
-
-        /* 文章用户信息 */
-        .user-info img {
-            width: 5rem;
-            height: 5rem;
-        }
+      
     </style>
 </head>
 
@@ -98,17 +30,7 @@
 
     <div class="container ">
 
-        <!-- <nav th:if="${notPdf==null}" aria-label="breadcrumb ">
-            <ol class="breadcrumb">
-                <span class="text-secondary">当前位置：</span>
-                <li class="breadcrumb-item "><a href="/index.html" class="text-secondary">首页</a></li>
-                <li class="breadcrumb-item " th:if="${view.category!=null}">
-                    <a class="text-secondary" th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'.html'"
-                        th:text="${view.category.name}">文章列表</a>
-                </li>
-                <li class="breadcrumb-item active text-secondary" aria-current="page" th:text="${view.title}">文章详情</li>
-            </ol>
-        </nav> -->
+
 
 
         <div class="row">
@@ -153,6 +75,19 @@
                     </div>
                    
                 </div>
+
+                <div th:if="${view.toc!=''}" id="content-table" class="mb-3">
+                        <!-- 文章目录 -->
+                        <div  class="  card shadow  bd-links ">
+                            <div id="content-table-header" class="card-header d-flex justify-content-between">
+                                <span>本文列表</span>
+                                <a href="javascript:;" id="close-content-table">&times;</a>
+                            </div>
+                            <div class="card-body" th:utext="${view.toc}">
+                            </div>
+                        </div>
+                </div>
+
                 <div class="card mb-3  bg-white">
                     <div class="card-body">
                         <dl>
@@ -174,23 +109,14 @@
                         </dl>
                     </div>
                 </div>
-                <div class=" mb-3">
-                    <ul class="list-group list-group-flush mb-4">
-                        <div class="list-group-item list-group-item-light d-flex justify-content-between">
-                            <span>热门文章</span>
-                        </div>
-                        <!--#include file="/components/hotArticle.html"-->
-                        <!--[ <div  th:insert="html/components/hotArticle"></div> ]-->
-                        <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
-                    </ul>
+
+            
+
+                <div class=" mb-3 shadow">
+                     <!--#include file="/components/hotArticle.html"-->
+                     <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
                 </div>
-                <!-- 文章目录 -->
-                <div th:if="${view.toc!=''}" id="bd-docs-nav" class=" mb-3 card shadow-lg collapse bd-links "
-                    :class="{'is_fixed' : isFixed,'is_show_toc' : !showToc}">
-                    <div class="card-header">本文列表</div>
-                    <div class="card-body" th:utext="${view.toc}">
-                    </div>
-                </div>
+             
             
             </div>
         </div>
@@ -204,18 +130,19 @@
     <script src="/templates/resources/js/jquery.cookie.js"></script>
 
 
+
     <script>
 
         var articleId = null;
         var url = location.hostname;
         var protocol = window.location.protocol;
-        var token = $.cookie('Authorization')
+        // var token = $.cookie('Authorization')
         $.ajax({
             url: protocol + "//" + url + ":8080/option/visit/" + [[${ view.id }]],
-            headers: {
-                'Content-Type': 'application/json;charset=utf8',
-                'Authorization': 'Bearer ' + token
-            },
+            // headers: {
+            //     'Content-Type': 'application/json;charset=utf8',
+            //     'Authorization': 'Bearer ' + token
+            // },
             type: "get",
             success: function (data) {
                 document.getElementById("visits").innerHTML = data.data
@@ -254,7 +181,11 @@
 
     </script>
     <script src="/templates/resources/js/article.js"></script>
-    <script src="/templates/resources/js/index.js"></script>
+    <script src="/templates/resources/js/index.js?v=1.02"></script>
+    <script>
+    move("content-table-header","content-table","close-content-table");
+
+    </script>
 
 </body>
 
