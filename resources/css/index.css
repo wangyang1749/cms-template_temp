@@ -309,5 +309,5 @@ a:focus {
 }
 .none-scroll {
     overflow: hidden;
-    height: 80%;
+    /* height: 80%; */
 }
