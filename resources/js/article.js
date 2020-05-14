@@ -110,3 +110,65 @@ function toBigImg() {
         $("#opacityBottom").remove();
     }
 };
+
+// 增加浏览量
+var url = location.hostname;
+var protocol = window.location.protocol;
+var token = $.cookie('viewId')
+function increaseViewCount(articleId) {
+    if ($.cookie("viewId") != articleId) {
+        $.ajax({
+            url: protocol + "//" + url + ":8080/option/increaseViewCount/" + articleId,
+            type: "get",
+            success: function (data) {
+                $.cookie(
+                    "viewId",
+                    articleId,//需要cookie写入的业务
+                    {
+                        "path": "/", //cookie的默认属性
+                    }
+                );
+                document.getElementById("visits").innerHTML = data.data
+
+            }
+        });
+    } else {
+        $.ajax({
+            url: protocol + "//" + url + ":8080/option/getVisitsCount/" + articleId,
+            type: "get",
+            success: function (data) {
+                document.getElementById("visits").innerHTML = data.data
+            }
+        });
+    }
+
+}
+
+// 点赞状态
+function likeStatus(articleId) {
+        
+    if ($.cookie("likeId") == articleId) {
+        $("#like-img").attr("src", "/templates/resources/img/like_.svg");
+    }
+}
+
+// 点赞
+function  increaseLikeCount(articleId) {
+    if ($.cookie("likeId") != articleId) {
+        $.ajax({
+            url: protocol + "//" + url + ":8080/option/increaseLikeCount/" + articleId,
+            type: "get",
+            success: function (data) {
+                $.cookie(
+                    "likeId",
+                    articleId,//需要cookie写入的业务
+                    {
+                        "path": "/", //cookie的默认属性
+                    }
+                );
+                document.getElementById("like").innerHTML = data.data
+                $("#like-img").attr("src", "/templates/resources/img/like_.svg");
+            }
+        });
+    }
+}

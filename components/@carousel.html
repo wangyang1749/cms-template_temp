@@ -10,7 +10,9 @@
         <div th:if="${view != null}" class="carousel-item " th:each="item , userStat: ${view}"
             th:class="${userStat.index == 0} ? ' carousel-item active' :'carousel-item'">
             <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'">
-                <img th:src="${item.picPath}" class="d-block w-100" >
+                <img th:if="${item.picPath!=null}" th:src="${item.picPath}" class="d-block w-100" >
+                <img th:if="${item.picPath == null}" src="http://wangyang-bucket.oss-cn-beijing.aliyuncs.com/cms/image/1-7_1588484512433.png" class="d-block w-100" >
+
                 <div class="carousel-caption  d-md-block">
                     <h5 th:text="${item.title}"></h5>
                     <p th:text="${item.summary}"></p>

@@ -122,8 +122,8 @@
                         <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
                     </div>
                     <div class="col-sm mb-3">
-                        <!--#include file="/components/recommendArticle.html"-->
-                        <div th:if="${isSave== null}" th:insert="html/components/recommendArticle"></div>
+                        <!--#include file="/components/likeArticle.html"-->
+                        <div th:if="${isSave== null}" th:insert="html/components/likeArticle"></div>
                     </div>
                 </div>
 
@@ -151,10 +151,11 @@
                 </div>
                 <div class="card mb-3  bg-white p-4">
 
-                    <h5 ><span class="badge badge-danger ">21考研倒计时:</span></h5>
-                    <h5 ><strong id="timer" >&nbsp;</strong></h5>
+                    <h5><span class="badge badge-danger ">21考研倒计时:</span></h5>
+                    <h5><strong id="timer">&nbsp;</strong></h5>
                 </div>
-         
+                
+
                 <div class="card mb-3  bg-white p-2">
                     <div class="mb-2 border-bottom">
                         <span>传送门</span>

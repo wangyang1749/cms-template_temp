@@ -28,7 +28,7 @@
 
         <div class="row">
 
-            <div class="col-lg-9 channelContent">
+            <div class="col-lg-9 channelContent mb-3">
 
 
                 <div class="shadow bg-white">
@@ -36,17 +36,22 @@
                         <h1 class="m-0 title" th:text="${view.title}">标题</h1>
                         <div class="info text-secondary">
                             <span class="mr-2  ">最后发布时间:<strong th:text="${#dates.format( view.updateDate, 'yyyy-MM-dd HH:mm:ss')}">时间</strong></span>
-                            <span class="text-muted">分享到：</span>
-                            <img onclick="shareTo('qzone')" src="http://zixuephp.net/static/images/qqzoneshare.png" width="15"/> 
-                            <span class="mr-2">浏览量:<strong id="visits"></strong></span>
+                          <span class="mr-2">浏览量:<strong id="visits"></strong></span>
         
                         </div>
                     </div>
                     <div class="markdown pt-2 pl-3 pr-3 pb-3">
                             [(${view.formatContent})]
                     </div>
+
+                  
                 </div>
 
+                <div class="mt-3">
+                    <div class=" shadow bg-white p-3  d-flex justify-content-around">
+                        <a  id="likeOption" href="javascript:;" style="width: 1.5rem;" class="d-flex align-items-center text-secondary"><img id="like-img" src="/templates/resources/img/like.svg" alt=""><span id="like"></span></a>
+                    </div>
+                </div>
 
                 <div id="article-comment" th:if="${view.openComment}">
                     <!--#include file="/components/[[${view.viewName}]].html"-->
@@ -83,6 +88,13 @@
                         th:insert="'html/components/'+${view.category.viewName}">
                     </div>
                 </div>
+
+                <div class="card mb-3  bg-white">
+                    <div class="p-3 d-flex">
+                        <span class="text-muted">分享到：</span>
+                        <img style="width: 1.5rem;height: 1.5rem;" src="/templates/resources/img/qq.svg"  onclick="shareTo('qzone')">
+                    </div>
+                </div>
             </div>
     
         </div>
@@ -93,26 +105,22 @@
 
 
     <script src="/templates/resources/js/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>
-    <script src="/templates/resources/js/service.js"></script>
+    <script src="/templates/resources/js/jquery.cookie.js"></script>
+    <script src="/templates/resources/js/article.js?v=1.03"></script>
+    <script src="/templates/resources/js/index.js?v=1.02"></script>
     <script>
+        increaseViewCount([[${ view.id }]])
+        likeStatus([[${ view.id }]])
 
 
-        var url = location.hostname;
-        var protocol = window.location.protocol;
-        // var token = $.cookie('Authorization')
-        $.ajax({
-            url: protocol + "//" + url + ":8080/option/visit/" + [[${ view.id }]],
-            // headers: {
-            //     'Content-Type': 'application/json;charset=utf8',
-            //     'Authorization': 'Bearer ' + token
-            // },
-            type: "get",
-            success: function (data) {
-                document.getElementById("visits").innerHTML = data.data
 
-            }
-        });
+
+       
+
+        $("#likeOption").click(function () {
+            increaseLikeCount([[${ view.id }]])
+        })
+
 
 
         /*************************评论代码****************************/
@@ -141,53 +149,11 @@
         }
 
 
-        $(".flip").click(function (event) {
-            // event.stopPropagation();
-            // // $(".panel").slideDown("slow"); 
-            // $(".panel").animate({
-            //     width: 'toggle'
-            // });
-            event.stopPropagation();
-            $(".panel").slideToggle("fast");
-            // var $marginlefty = $(".panel")
-            // $marginlefty.animate({
-            //     marginLeft: parseInt($marginlefty.css('marginLeft'), 10) == 0 ? $marginlefty.outerWidth() : 0
-            // });
-        });
-        $(".panel").click(function (event) {
-            event.stopPropagation();
-        })
-        $(".navbar-toggler").click(function (event) {
-            event.stopPropagation();
-            $("#bd-docs-nav").slideToggle("fast");
-
-        })
-        if ($(window).width() < 768) {
-            $(document).click(function (event) {
-                var _con = $('.panel');
-                var channelList = $("#bd-docs-nav")
-                // 如果点击目标不是input，弹框消失
-                if (!_con.is(event.target) || !channelList.is(event.target)) {
-                    // $('.panel').slideUp('slow');
-                    // $(".panel").animate({
-                    //     width: 'toggle'
-                    // });
-                    $("#bd-docs-nav").slideUp("fast");
-                    $(".panel").slideUp("fast");
-                }
-            });
-        }
-
-
-
     </script>
-    <script src="/templates/resources/js/article.js?v=1.03"></script>
-    <script src="/templates/resources/js/index.js?v=1.02"></script>
+
 
     <script>
         move("content-table-header", "content-table", "close-content-table");
-
-
     </script>
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.2/build/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
