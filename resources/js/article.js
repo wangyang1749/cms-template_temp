@@ -78,7 +78,7 @@ function shareTo(stype) {
 }
 
 // 图片居中
-$('.markdown p').find('> img').parent().css({"display":'flex',"justify-content":"center"});
+$('.markdown p').find('> img').parent().css({"display":'flex',"justify-content":"center","align-items":"center"});
 
 
 // 图片点击放大
