@@ -20,9 +20,8 @@
     <link rel="stylesheet" href="/templates/resources/css/index.css?v=1.03">
     <style>
         @media screen and (max-width: 768px) {
-            .carousel-item {
-                /* height: 10rem !important; */
-
+            .index-article a {
+                width: 100% !important;
             }
 
             .carousel-caption p {
@@ -82,6 +81,15 @@
             text-decoration: none;
 
         }
+
+
+        .index-article a {
+            width: 50%;
+        }
+
+        .index-article a:nth-child(odd) {
+            border-right: 1px solid rgba(0, 0, 0, .125);
+        }
     </style>
 </head>
 
@@ -104,9 +112,10 @@
                     <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CATEGORY"></div>
                 </div>
 
+
+
                 <div class="category-horizontal mb-3">
                     <div class="category-title"><span>文章栏目快速导航</span></div>
-                    <!--[ <div  th:replace="html/components/DEFAULT_CHANNEL"></div> ]-->
                     <!--#include file="/components/DEFAULT_CHANNEL.html"-->
                     <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CHANNEL"></div>
                 </div>
@@ -122,19 +131,24 @@
                         <div th:if="${isSave== null}" th:insert="html/components/likeArticle"></div>
                     </div>
                     <div class="col-sm  mb-3">
-                        <!--#include file="/components/keyWordArticle.html"-->
-                        <div th:if="${isSave== null}" th:insert="html/components/keyWordArticle"></div>
+                        <!--#include file="/components/newArticleIndex.html"-->
+
                     </div>
                 </div>
 
-                <ul class="list-group list-group-flush mb-4">
-                    <div class="list-group-item list-group-item-light d-flex justify-content-between">
-                        <span>最新文章</span>
-                        <a class="text-secondary" href="articleList?sort=createDate,DESC">更多</a>
+
+
+
+                <div th:each="item : ${category}" class="mb-3 list-group-flush">
+                    <div class="list-group-item list-group-item-light   d-flex justify-content-between">
+                        <span th:text="${item.name}"></span>
+                        <a class="text-secondary" th:href="@{'~/'+${item.path}+'/'+${item.viewName}+'.html'}"> 更多
+                        </a>
                     </div>
-                    <!--#include file="/components/newArticleIndex.html"-->
-                    <div th:if="${isSave== null}" th:insert="html/components/newArticleIndex"></div>
-                </ul>
+                    <div class=" index-article d-flex flex-wrap ">
+                        <!--#include file="/components/[[${item.viewName}]].html"-->
+                    </div>
+                </div>
             </div>
 
             <div class="col-lg-3">
@@ -156,14 +170,17 @@
                 </div>
 
 
+
+                <div class="mb-3">
+                    <!--#include file="/components/myArticle.html"-->
+                </div>
+
+                <div class="mb-3">
+                    <!--#include file="/components/keyWordArticle.html"-->
+                </div>
+
                 <div class="card mb-3  bg-white p-2">
                     <!--#include file="/components/myHtml.html"-->
-
-
-                </div>
-                <div>
-                    <!--#include file="/components/myArticle.html"-->
-
                 </div>
 
             </div>

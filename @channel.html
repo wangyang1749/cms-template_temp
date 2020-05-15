@@ -42,7 +42,7 @@
             <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
         </div>
 
-        <div id="components">
+        <div id="components" class="mb-3">
             <ul class="list-group list-group-flush panel">
                 <div class="list-group-item list-group-item-light">
                     <a th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'.html'"
