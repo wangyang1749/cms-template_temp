@@ -25,8 +25,6 @@
         .showloading {
             display: none;
         }
-
-    
     </style>
 </head>
 
@@ -55,101 +53,102 @@
 
         <div class="row">
             <div class="col-lg-9 ">
-                <div class="catrgory-header">
-                    <div class="img mr-3">
-                        <img th:if="${view.category.picPath==''}" class="mb-1"
-                            src="/templates/resources/img/logo_category.png">
-                        <img th:if="${view.category.picPath!=''}" th:src="${view.category.picPath}" class="mb-1">
-                        <span th:text="${view.category.name}"></span>
+                <div id="main-content">
+                    <div class="catrgory-header">
+                        <div class="img mr-3">
+                            <img th:if="${view.category.picPath==''}" class="mb-1"
+                                src="/templates/resources/img/logo_category.png">
+                            <img th:if="${view.category.picPath!=''}" th:src="${view.category.picPath}" class="mb-1">
+                            <span th:text="${view.category.name}"></span>
+                        </div>
+
+                        <p th:text="${view.category.description}"></p>
                     </div>
 
-                    <p th:text="${view.category.description}"></p>
-                </div>
-
-                <!-- 文章列表 -->
-                <ul class="list-group list-group-flush mb-3">
-                    <div class="list-group-item list-group-item-light">
-                        <strong th:text="${view.category.name}"></strong> 一共收录文章<em
-                            th:text="${view.page.totalElements}"></em>篇，
-                        一共有<span th:text="${view.page.totalPages}"> </span>页，
-                        每页显示<span th:text="${view.page.size}"> </span>篇
-                    </div>
-
-
-                    <div id="components">
-                        <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
-                            class="list-group-item list-group-item-action" th:each="item : ${view.page.getContent()}">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
-                            </div>
-                            <p class="mb-1" th:text="${item.summary}"></p>
-                            <small>
-                                <div class="d-flex flex-row bd-highlight ">
-                                    <div class="p-2 bd-highlight" style="width: 2.3rem;">
-                                        <img th:src="${item.user.avatar}" alt="" class="img-fluid rounded-circle">
-                                    </div>
-                                    <div class="p-2 bd-highlight">
-                                        <span th:text="${item.user.username}"></span>&nbsp;&nbsp;
-                                        <span>发布于: </span>
-                                        <span th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</span>
+                    <!-- 文章列表 -->
+                    <ul class="list-group list-group-flush mb-3">
+                        <div class="list-group-item list-group-item-light">
+                            <strong th:text="${view.category.name}"></strong> 一共收录文章<em
+                                th:text="${view.page.totalElements}"></em>篇，
+                            一共有<span th:text="${view.page.totalPages}"> </span>页，
+                            每页显示<span th:text="${view.page.size}"> </span>篇
+                        </div>
+                        
+                        <div id="components">
+                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
+                                class="list-group-item list-group-item-action"
+                                th:each="item : ${view.page.getContent()}">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1 title" th:text="${item.title}">List group item heading</h5>
+                                </div>
+                                <p class="mb-1" th:text="${item.summary}"></p>
+                                <small>
+                                    <div class="d-flex flex-row bd-highlight ">
+                                        <div class="p-2 bd-highlight" style="width: 2.3rem;">
+                                            <img th:src="${item.user.avatar}" alt="" class="img-fluid rounded-circle">
                                         </div>
+                                        <div class="p-2 bd-highlight">
+                                            <span th:text="${item.user.username}"></span>&nbsp;&nbsp;
+                                            <span>发布于: </span>
+                                            <span th:text="${#dates.format( item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">3 days ago</span>
+                                                </div>
                                     </div>
-                                
-                            </small>
-                        </a>
+                                    
+                                </small>
+                            </a>
+                        </div>
+                              
+                    </ul>
+            
+                    <div  th:if="${view.page.totalPages} gt '1'">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+            
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        th:href="'/articleList/'+${view.category.viewName}+'.html'"
+                                        aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" >
+                                    <a class="page-link"  th:href="'/articleList/'+${view.category.viewName}+'.html'">1</a>
+                                </li>
+                    
+                                <li class="page-item" th:each="item : ${#numbers.sequence(2, view.page.totalPages)}">
+                                    <a class="page-link"  th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'/page-'+${item}+'.html'" th:text="${item}">1</a>
+                                </li>
+            
+                                <li class="page-item">
+                                    <a class="page-link"    th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'/page-'+${view.page.totalPages}+'.html'"aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                  
-
-                </ul>
-
-                <div  th:if="${view.page.totalPages} gt '1'">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-        
-                            <li class="page-item">
-                                <a class="page-link"
-                                    th:href="'/articleList/'+${view.category.viewName}+'.html'"
-                                    aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item" >
-                                <a class="page-link"  th:href="'/articleList/'+${view.category.viewName}+'.html'">1</a>
-                            </li>
-                  
-                            <li class="page-item" th:each="item : ${#numbers.sequence(2, view.page.totalPages)}">
-                                <a class="page-link"  th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'/page-'+${item}+'.html'" th:text="${item}">1</a>
-                            </li>
-        
-                            <li class="page-item">
-                                <a class="page-link"    th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'/page-'+${view.page.totalPages}+'.html'"aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
+               
         
             </div>
 
             <div  class="col-lg-3">
-                <div class="category-vertical" >
-                    <div class="category-title">
-                        <span >文章分类快速导航</span>
-                    </div>
-                   
-                    <!--#include file="/components/[[${view.category.templateName}]].html"-->
-                    <!--[ <div  th:replace="html/components/[[${view.category.templateName}]]"></div> ]-->
-                    <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
-                
+
+                <div id="siderbar">
+                    <div class="category-vertical" >
+                        <div class="category-title">
+                            <span >文章分类快速导航</span>
+                        </div>
+                        
+                        <!--#include file="/components/[[${view.category.templateName}]].html"-->
+                        <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
+                    
+                    </div>  
                 </div>
-                   
+              
             </div>
         </div>
-        
-
-  
-
+    
     </div>
 
     <!--#include file="/components/footer.html"-->
@@ -159,7 +158,7 @@
     <script src="/templates/resources/js/jquery-3.4.1.min.js"></script>
     <script src="/templates/resources/js/axios.min.js"></script>
     <script src="/templates/resources/js/service.js"></script>
-    <script src="/templates/resources/js/index.js"></script>
+    <script src="/templates/resources/js/index.js?v=1.05"></script>
 
 </body>
 

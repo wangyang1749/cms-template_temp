@@ -41,91 +41,98 @@
                 <!-- <div>
                     <img th:src="${view.picPath}" class="rounded-pill"/>
                 </div> -->
-                <div class=" shadow bg-white">
-                    <div class="content-header border-bottom pl-3 pr-3 pt-3 pb-3">
-                        <h1 class="m-0 title" th:text="${view.title}">标题</h1>
-                        <div class="info text-secondary">
-                            <span class="mr-2  ">最后发布时间:<strong th:text="${#dates.format( view.updateDate, 'yyyy-MM-dd HH:mm:ss')}">时间</strong></span>
-                            <span class="mr-2">浏览量:<strong id="visits"></strong></span>
+                <div id="main-content">
+                    <div class=" shadow bg-white">
+                        <div class="content-header border-bottom pl-3 pr-3 pt-3 pb-3">
+                            <h1 class="m-0 title" th:text="${view.title}">标题</h1>
+                            <div class="info text-secondary">
+                                <span class="mr-2  ">最后发布时间:<strong th:text="${#dates.format( view.updateDate, 'yyyy-MM-dd HH:mm:ss')}">时间</strong></span>
+                                <span class="mr-2">浏览量:<strong id="visits"></strong></span>
+                            </div>
+                        </div>
+                        <div class="markdown pt-2 pl-3 pr-3 pb-3">
+                                [(${view.formatContent})]
                         </div>
                     </div>
-                    <div class="markdown pt-2 pl-3 pr-3 pb-3">
-                            [(${view.formatContent})]
+            
+                    <div class="mt-3">
+                        <div class=" shadow bg-white p-3  d-flex justify-content-around">
+                            <a  id="likeOption" href="javascript:;" style="width: 1.5rem;" class="d-flex align-items-center text-secondary"><img id="like-img" src="/templates/resources/img/like.svg" alt=""><span id="like"></span></a>
+                        </div>
+                    </div>
+            
+                    <div id="article-comment" th:if="${view.openComment}">
+                        <!--#include file="/components/[[${view.viewName}]].html"-->
+                        <div th:if="${isSave== null && notPdf==null}" th:insert="'html/components/'+${view.viewName}"></div>
                     </div>
                 </div>
-
-                <div class="mt-3">
-                    <div class=" shadow bg-white p-3  d-flex justify-content-around">
-                        <a  id="likeOption" href="javascript:;" style="width: 1.5rem;" class="d-flex align-items-center text-secondary"><img id="like-img" src="/templates/resources/img/like.svg" alt=""><span id="like"></span></a>
-                    </div>
-                </div>
-
-                <div id="article-comment" th:if="${view.openComment}">
-                    <!--#include file="/components/[[${view.viewName}]].html"-->
-                    <div th:if="${isSave== null && notPdf==null}" th:insert="'html/components/'+${view.viewName}"></div>
-                </div>
+            
 
             </div>
 
             <div class="col-lg-3 ">
-                <div class="card mb-3  bg-white p-3 user-info">
-                    
-                    <div class="d-flex justify-content-center">
-                        <img th:src="${view.user.avatar}" alt=""class="img-fluid rounded-circle"/>  
-                        <div class="align-self-center ml-3">
-                                <strong th:text="${view.user.username}"> </strong>
 
-                        </div>
-                    </div>
-                   
-                </div>
-
-                <div th:if="${view.toc!=''}" id="content-table" class="mb-3">
-                        <!-- 文章目录 -->
-                        <div  class="  card shadow  bd-links ">
-                            <div id="content-table-header" class="card-header d-flex justify-content-between">
-                                <span>本文列表</span>
-                                <a href="javascript:;" id="close-content-table">&times;</a>
-                            </div>
-                            <div class="card-body" th:utext="${view.toc}">
+                <div id="siderbar">
+                    <div class="card mb-3  bg-white p-3 user-info">
+                
+                        <div class="d-flex justify-content-center">
+                            <img th:src="${view.user.avatar}" alt=""class="img-fluid rounded-circle"/>  
+                            <div class="align-self-center ml-3">
+                                    <strong th:text="${view.user.username}"> </strong>
+    
                             </div>
                         </div>
-                </div>
-
-                <div class="card mb-3  bg-white">
-                    <div class="card-body">
-                        <dl>
-                            <dt class="text-muted">文章所属栏目</dt>
-                            <dd th:if="${view.category!=null}">
-                                <a class=" badge badge-success"
-                                    th:href="'/articleList/'+${view.category.viewName}+'.html'"
-                                    th:text="${view.category.name}"></a>
-                            </dd>
-                        </dl>
-
-                        <dl>
-                            <dt class="text-muted">标签</dt>
-                            <dd th:if="${view.tags!=null}">
-                                <a th:href="@{~/articleList(tagsId=${item.id})}" class="badge badge-info mr-1" th:each="item : ${view.tags}"
-                                    th:text="${item.name}"></a>
-                            </dd>
-
-                        </dl>
+                        
                     </div>
-                </div>
-
-                <div class=" mb-3 shadow">
-                     <!--#include file="/components/hotArticle.html"-->
-                     <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
-                </div>
-
-                <div class="card mb-3  bg-white">
-                    <div class="p-3 d-flex">
-                        <span class="text-muted">分享到：</span>
-                        <img style="width: 1.5rem;height: 1.5rem;" src="/templates/resources/img/qq.svg"  onclick="shareTo('qzone')">
+    
+                    <div th:if="${view.toc!=''}" id="content-table" class="mb-3">
+                            <!-- 文章目录 -->
+                            <div  class="  card shadow  bd-links ">
+                                <div id="content-table-header" class="card-header d-flex justify-content-between">
+                                    <span>本文列表</span>
+                                    <a href="javascript:;" id="close-content-table">&times;</a>
+                                </div>
+                                <div class="card-body" th:utext="${view.toc}">
+                                </div>
+                            </div>
                     </div>
+    
+                    <div class="card mb-3  bg-white">
+                        <div class="card-body">
+                            <dl>
+                                <dt class="text-muted">文章所属栏目</dt>
+                                <dd th:if="${view.category!=null}">
+                                    <a class=" badge badge-success"
+                                        th:href="'/articleList/'+${view.category.viewName}+'.html'"
+                                        th:text="${view.category.name}"></a>
+                                </dd>
+                            </dl>
+    
+                            <dl>
+                                <dt class="text-muted">标签</dt>
+                                <dd th:if="${view.tags!=null}">
+                                    <a th:href="@{~/articleList(tagsId=${item.id})}" class="badge badge-info mr-1" th:each="item : ${view.tags}"
+                                        th:text="${item.name}"></a>
+                                </dd>
+    
+                            </dl>
+                        </div>
+                    </div>
+    
+                    <div class=" mb-3 shadow">
+                            <!--#include file="/components/hotArticle.html"-->
+                            <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
+                    </div>
+    
+                    <div class="card mb-3  bg-white">
+                        <div class="p-3 d-flex">
+                            <span class="text-muted">分享到：</span>
+                            <img style="width: 1.5rem;height: 1.5rem;" src="/templates/resources/img/qq.svg"  onclick="shareTo('qzone')">
+                        </div>
+                    </div>
+                        
                 </div>
-            
+               
             </div>
         </div>
 
@@ -137,19 +144,19 @@
     <script src="/templates/resources/js/jquery-3.4.1.min.js"></script>
     <script src="/templates/resources/js/jquery.cookie.js"></script>
     <script src="/templates/resources/js/article.js?v=1.04"></script>
-    <script src="/templates/resources/js/index.js?v=1.02"></script>
+    <script src="/templates/resources/js/index.js?v=1.05"></script>
 
 
     <script>
 
-       
+
         increaseViewCount([[${ view.id }]])
         likeStatus([[${ view.id }]])
-      
-       
 
 
-        $("#likeOption").click(function(){
+
+
+        $("#likeOption").click(function () {
             increaseLikeCount([[${ view.id }]])
         })
 
