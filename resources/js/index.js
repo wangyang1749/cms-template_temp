@@ -159,3 +159,28 @@ if (document.body.clientWidth >= 977) {
     })
 }
 
+// 增加浏览量
+var url = location.hostname;
+var protocol = window.location.protocol;
+// var token = $.cookie('viewId')
+var port = window.location.port
+
+/**文章ajax预览 */
+function previewArticle(articleId, viewName) {
+    console.log(articleId + viewName)
+    // console.log($("#"+viewName).html().replace(/\s+/g,"")=="")
+    if ($("#" + viewName).html().replace(/\s+/g, "") == "") {
+        $.ajax({
+            url: protocol + "//" + url + ":8080/preview/simpleArticle/" + articleId,
+            type: "get",
+            success: function (data) {
+                // console.log(data)
+                $("#" + viewName).html("<div class='p-3'>" + data + "</div>")
+            }
+        });
+    } else {
+        $("#" + viewName).html(" ")
+    }
+    // str=str.replace(/\s+/g,"");  
+
+}
