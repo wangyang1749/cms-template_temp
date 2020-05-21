@@ -2,6 +2,7 @@
     --side-bar-bg-color: #fafafa;
     --control-text-color: #777;
 }
+
 @media screen and (min-width: 768px) {
     /* .markdown {
         width: 842px;
@@ -82,7 +83,9 @@ body {
     border: none;
 }
 
-
+.markdown code{
+    color: black;
+}
 .footnote-backref, .footnote-ref{
     display: inline !important; 
      /* overflow: auto; */
