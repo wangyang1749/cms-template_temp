@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,40 +46,56 @@
         <div id="components" class="mb-3">
             <ul class="list-group list-group-flush panel">
                 <div class="list-group-item list-group-item-light">
-                    <a th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'.html'"
-                        class="text-secondary">
+                    <a th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'.html'" class="text-secondary">
                         <strong th:text="${view.category.name}"></strong>
                     </a>
-
-                    <!-- <a href="javascript:;" class="navbar-toggler bg-channel-btn ml-2">
-                        <svg class="bi bi-arrow-up-down" width="1em" height="1em" viewBox="0 0 16 16"
-                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M11 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"
-                                clip-rule="evenodd" />
-                            <path fill-rule="evenodd"
-                                d="M10.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L11 3.707 8.354 6.354a.5.5 0 1 1-.708-.708l3-3zm-9 7a.5.5 0 0 1 .708 0L5 12.293l2.646-2.647a.5.5 0 1 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"
-                                clip-rule="evenodd" />
-                            <path fill-rule="evenodd" d="M5 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </a> -->
                 </div>
                 <div>
-                    <!-- <a th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'.html'"
-                        class="list-group-item list-group-item-action channel-introduction bg-secondary">
-                        介绍
-                    </a> -->
-                    <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'"
-                        th:class="'css-'+${item.viewName}+' list-group-item list-group-item-action'"
-                        th:each="item : ${view.page.getContent()}" th:id="${item.title}">
-                        <span th:text="${item.title}">
+                    <div th:each="item : ${view.page.getContent()}">
+                        <div class="list-group-item list-group-item-action d-flex justify-content-between">
+                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'" class="text-secondary">
+                                <span th:text="${item.title}"> </span>
+                            </a>
+                            <a href="javascript:;" th:onclick="previewArticle([[${item.id}]],[[${item.viewName}]])"
+                                class="text-secondary">预览</a>
+                        </div>
+                        <div th:id="${item.viewName}" class="bg-white markdown">
+                        </div>
+                    </div>
 
-                        </span>
-                    </a>
+
+
+
                 </div>
             </ul>
         </div>
 
+        <div th:if="${view.page.totalPages} gt '1'" class="mb-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                    <li class="page-item">
+                        <a class="page-link" th:href="'/articleList/'+${view.category.viewName}+'.html'"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="'/articleList/'+${view.category.viewName}+'.html'">1</a>
+                    </li>
+
+                    <li class="page-item" th:each="item : ${#numbers.sequence(2, view.page.totalPages)}">
+                            <a class="page-link"  th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'/page-'+${item}+'.html'" th:text="${item}">1</a>
+                        </li>
+    
+                        <li class="page-item">
+                            <a class="page-link"    th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'/page-'+${view.page.totalPages}+'.html'"aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
     </div>
 
     <!--#include file="/components/footer.html"-->
@@ -93,42 +110,42 @@
     <script src="/templates/resources/js/index.js"></script>
 
     <script>
-        $(".flip").click(function (event) {
-            // event.stopPropagation();
-            // // $(".panel").slideDown("slow"); 
-            // $(".panel").animate({
-            //     width: 'toggle'
-            // });
-            event.stopPropagation();
-            $(".panel").slideToggle("fast");
-            // var $marginlefty = $(".panel")
-            // $marginlefty.animate({
-            //     marginLeft: parseInt($marginlefty.css('marginLeft'), 10) == 0 ? $marginlefty.outerWidth() : 0
-            // });
-        });
-        $(".panel").click(function (event) {
-            event.stopPropagation();
-        })
-        $(".navbar-toggler").click(function (event) {
-            event.stopPropagation();
-            $("#bd-docs-nav").slideToggle("fast");
 
-        })
-        if ($(window).width() < 768) {
-            $(document).click(function (event) {
-                var _con = $('.panel');
-                var channelList = $("#bd-docs-nav")
-                // 如果点击目标不是input，弹框消失
-                if (!_con.is(event.target) || !channelList.is(event.target)) {
-                    // $('.panel').slideUp('slow');
-                    // $(".panel").animate({
-                    //     width: 'toggle'
-                    // });
-                    $("#bd-docs-nav").slideUp("fast");
-                    $(".panel").slideUp("fast");
-                }
-            });
+        function previewArticle(articleId, viewName) {
+            console.log(articleId + viewName)
+            // console.log($("#"+viewName).html().replace(/\s+/g,"")=="")
+            if ($("#" + viewName).html().replace(/\s+/g, "") == "") {
+                $.ajax({
+                    url: protocol + "//" + url + ":8080/preview/simpleArticle/" + articleId,
+                    type: "get",
+                    success: function (data) {
+                        // console.log(data)
+                        $("#" + viewName).html("<div class='p-3'>" + data + "</div>")
+                    }
+                });
+            } else {
+                $("#" + viewName).html(" ")
+            }
+            // str=str.replace(/\s+/g,"");  
+
         }
+
+
+        // if ($(window).width() < 768) {
+        //     $(document).click(function (event) {
+        //         var _con = $('.panel');
+        //         var channelList = $("#bd-docs-nav")
+        //         // 如果点击目标不是input，弹框消失
+        //         if (!_con.is(event.target) || !channelList.is(event.target)) {
+        //             // $('.panel').slideUp('slow');
+        //             // $(".panel").animate({
+        //             //     width: 'toggle'
+        //             // });
+        //             $("#bd-docs-nav").slideUp("fast");
+        //             $(".panel").slideUp("fast");
+        //         }
+        //     });
+        // }
 
     </script>
 

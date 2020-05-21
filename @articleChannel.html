@@ -83,13 +83,12 @@
                                 </div>
                             </div>
                     </div>
-    
-                    <div class="shadow mb-3">
-                        <!--#include file="/components/[[${view.category.viewName}]].html"-->
-                        <div th:if="${isSave== null && notPdf==null}"
-                            th:insert="'html/components/'+${view.category.viewName}">
-                        </div>
+                    
+                    <div class=" mb-3 shadow">
+                            <!--#include file="/components/hotArticle.html"-->
+                            <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
                     </div>
+                
     
                     <div class="card mb-3 p-3 bg-white">
                         <div class=" d-flex">

@@ -114,7 +114,7 @@ function toBigImg() {
 // 增加浏览量
 var url = location.hostname;
 var protocol = window.location.protocol;
-var token = $.cookie('viewId')
+// var token = $.cookie('viewId')
 var port = window.location.port
 
 function downloadPDF(articleId){
