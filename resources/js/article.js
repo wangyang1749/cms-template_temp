@@ -115,6 +115,17 @@ function toBigImg() {
 var url = location.hostname;
 var protocol = window.location.protocol;
 var token = $.cookie('viewId')
+var port = window.location.port
+
+function downloadPDF(articleId){
+    let httpUrl = protocol + "//" + url ;
+    if(port){
+        httpUrl+=":"+port;
+    }
+    // console.log()
+    window.open(httpUrl+"/download/pdf/"+articleId);   
+}
+
 function increaseViewCount(articleId) {
     if ($.cookie("viewId") != articleId) {
         $.ajax({
