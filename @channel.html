@@ -56,8 +56,11 @@
                             <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'" class="text-secondary w-75">
                                 <span th:text="${item.title}"> </span>
                             </a>
-                            <a href="javascript:;" th:onclick="previewArticle([[${item.id}]],[[${item.viewName}]])"
-                                class="text-secondary preview w-25">预览</a>
+                            <!-- <a href="javascript:;" th:onclick="previewArticle([[${item.id}]],[[${item.viewName}]])"
+                                class="text-secondary preview ">预览</a> -->
+                            <a href="javascript:;"
+                                th:onclick="previewArticleHTML([[${item.path}]],[[${item.viewName}]])"
+                                class="text-secondary preview ">预览</a>
                         </div>
                         <div th:id="${item.viewName}" class="bg-white markdown">
                         </div>
@@ -99,7 +102,6 @@
 
 
     <script src="/templates/resources/js/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>
     <script src="/templates/resources/js/service.js"></script>
     <script src="/templates/resources/js/index.js"></script>
 
@@ -107,7 +109,7 @@
 
     <script>
 
-       
+      
 
 
         // if ($(window).width() < 768) {

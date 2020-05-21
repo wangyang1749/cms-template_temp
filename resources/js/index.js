@@ -108,7 +108,6 @@ function move(header, panel, closeBtn) {
 
 
 
-
 function siderBar() {
     // console.log("siderbarHeight" + $("#siderbar").outerHeight(true))
     // console.log("siderbarWidth" + $("#siderbar").width())
@@ -167,11 +166,15 @@ var port = window.location.port
 
 /**文章ajax预览 */
 function previewArticle(articleId, viewName) {
-    console.log(articleId + viewName)
+    // console.log(articleId + viewName)
     // console.log($("#"+viewName).html().replace(/\s+/g,"")=="")
+    let httpUrl = protocol + "//" + url ;
+    if(port){
+        httpUrl+=":"+port;
+    }
     if ($("#" + viewName).html().replace(/\s+/g, "") == "") {
         $.ajax({
-            url: protocol + "//" + url + ":8080/preview/simpleArticle/" + articleId,
+            url: httpUrl+"/preview/simpleArticle/" + articleId,
             type: "get",
             success: function (data) {
                 // console.log(data)
@@ -182,5 +185,27 @@ function previewArticle(articleId, viewName) {
         $("#" + viewName).html(" ")
     }
     // str=str.replace(/\s+/g,"");  
+
+}
+
+function previewArticleHTML(path, viewName) {
+    let httpUrl = protocol + "//" + url ;
+    if(port){
+        httpUrl+=":"+port;
+    }
+    // console.log(httpUrl + "/" + path + "/" + viewName + ".html")
+    if ($("#" + viewName).html().replace(/\s+/g, "") == "") {
+        $.ajax({
+            url: httpUrl + "/" + path + "/" + viewName + ".html",
+            type: "get",
+            success: function (data) {
+                // console.log($(data).find(".markdown").html())
+
+                $("#" + viewName).html("<div class='p-3'>" + $(data).find(".markdown").html() + "</div>")
+            }
+        });
+    } else {
+        $("#" + viewName).html(" ")
+    }
 
 }
