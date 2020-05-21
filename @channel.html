@@ -43,29 +43,25 @@
             <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
         </div>
 
-        <div id="components" class="mb-3">
+        <div class="mb-3">
             <ul class="list-group list-group-flush panel">
                 <div class="list-group-item list-group-item-light">
                     <a th:href="'/'+${view.category.path}+'/'+${view.category.viewName}+'.html'" class="text-secondary">
                         <strong th:text="${view.category.name}"></strong>
                     </a>
                 </div>
-                <div>
-                    <div th:each="item : ${view.page.getContent()}">
-                        <div class="list-group-item list-group-item-action d-flex justify-content-between">
-                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'" class="text-secondary">
+                <div id="components">
+                    <div th:each="item : ${view.page.getContent()}" class="components-item">
+                        <div class="list-group-item list-group-item-action d-flex ">
+                            <a th:href="'/'+${item.path}+'/'+${item.viewName}+'.html'" class="text-secondary w-75">
                                 <span th:text="${item.title}"> </span>
                             </a>
                             <a href="javascript:;" th:onclick="previewArticle([[${item.id}]],[[${item.viewName}]])"
-                                class="text-secondary">预览</a>
+                                class="text-secondary preview w-25">预览</a>
                         </div>
                         <div th:id="${item.viewName}" class="bg-white markdown">
                         </div>
                     </div>
-
-
-
-
                 </div>
             </ul>
         </div>
