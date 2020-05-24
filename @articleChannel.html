@@ -72,17 +72,7 @@
                             </div>
                     </div>
     
-                    <div th:if="${view.toc!=''}" id="content-table" class="mb-3">
-                            <!-- 文章目录 -->
-                            <div  class="  card shadow  bd-links ">
-                                <div id="content-table-header" class="card-header d-flex justify-content-between">
-                                    <span>本文列表</span>
-                                    <a href="javascript:;" id="close-content-table">&times;</a>
-                                </div>
-                                <div class="card-body" th:utext="${view.toc}">
-                                </div>
-                            </div>
-                    </div>
+                   
                     
                     <div class=" mb-3 shadow">
                             <!--#include file="/components/hotArticle.html"-->
@@ -99,9 +89,22 @@
                                 <a href="javascript:;" th:onclick="downloadPDF([[${view.id}]])">下载PDF</a>
                         </div>
                     </div>
+
+                    <div th:if="${view.toc!=''}" id="content-table" class="mb-3">
+                        <!-- 文章目录 -->
+                        <div  class="  card shadow  bd-links ">
+                            <div id="content-table-header" class="card-header d-flex justify-content-between">
+                                <span>本文列表</span>
+                                <a href="javascript:;" id="close-content-table">&times;</a>
+                            </div>
+                            <div class="card-body" th:utext="${view.toc}">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             
-                </div>
+            </div>
                
         </div>
     </div>

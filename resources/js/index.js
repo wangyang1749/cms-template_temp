@@ -108,6 +108,10 @@ function move(header, panel, closeBtn) {
 
 
 
+
+
+
+
 function siderBar() {
     // console.log("siderbarHeight" + $("#siderbar").outerHeight(true))
     // console.log("siderbarWidth" + $("#siderbar").width())

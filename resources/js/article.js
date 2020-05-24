@@ -183,3 +183,15 @@ function  increaseLikeCount(articleId) {
         });
     }
 }
+
+// 目录导航高度
+function setContentTableHeight(){
+    let headerHeight = $("#header").outerHeight(true)
+    let windowHeight = $(window).height()
+    let contentTableHeight = windowHeight-headerHeight-18
+    $("#content-table").css("max-height",contentTableHeight+"px");
+}
+
+if (document.body.clientWidth >= 977) {
+    setContentTableHeight()
+}

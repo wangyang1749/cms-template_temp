@@ -284,6 +284,10 @@ a:focus {
     width: 7rem;
 }
 
+/*目录导航*/
+#content-table{
+    overflow-y: auto;
+}
 
 
 @media screen and (max-width: 991px) {

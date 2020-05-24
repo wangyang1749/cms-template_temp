@@ -131,8 +131,11 @@ function formatHtml() {
 
     var result = md.render($("#textInput").val());
     $("#preview").html(result);
-
 }
+
+
+
+
 $(function () {
 
     $("#textInput").bind('input propertychange', function () {
@@ -191,6 +194,9 @@ $("#closeToast").click(function () {
 })
 
 
+/**
+ * 保存文章
+ */
 function save() {
     if (createArticle()) {
         if (cmsWrite.articleId) {
@@ -256,7 +262,9 @@ $("#save").click(function () {
     save()
 })
 
-
+/**
+ * 更新文章
+ */
 $("#submitUpdate").click(function () {
 
     if (createArticle()) {
@@ -288,6 +296,10 @@ $("#submitUpdate").click(function () {
 
 })
 
+
+/**
+ * 提交文章
+ */
 $("#submitCreate").click(function () {
 
     if (createArticle()) {
@@ -319,6 +331,9 @@ $("#submitCreate").click(function () {
 
 })
 
+/**
+ * 全屏显示
+ */
 let fullEditFlag = true;
 function fullEdit() {
     if (fullEditFlag) {
@@ -330,6 +345,7 @@ function fullEdit() {
     }
 
 }
+
 let fullPreviewFlag = true;
 function fullPreview() {
     if (fullPreviewFlag) {
@@ -342,7 +358,9 @@ function fullPreview() {
 
 }
 
-
+/**
+ * 插入内容到光标处
+ */
 (function ($) {
     "use strict";
     $.fn.extend({
@@ -494,35 +512,36 @@ function handleType(attachment) {
     var mediaType = attachment.mediaType;
     // 判断文件类型
     let result = ""
+
     if (mediaType) {
         var prefix = mediaType.split("/")[0];
         if (prefix === "image") {
-            result = "<img src='"+attachment.path+"'>"
+            result = "<img src='" + attachment.path + "'>"
             console.log("image")
-        } else if(prefix === "audio"){
-            result = "<audio controls src='"+attachment.path+"'></audio>"
+        } else if (prefix === "audio") {
+            result = "<audio controls src='" + attachment.path + "'></audio>"
             console.log("audio")
-        }else if(prefix === "video"){
-            result = "<video style='width:100%' controls src='"+attachment.path+"'></video>"
+        } else if (prefix === "video") {
+            result = "<video style='width:100%' controls src='" + attachment.path + "'></video>"
             console.log("video")
-        }else{
-            result = "<a href='"+attachment.path+"' >点击下载</a>"
+        } else {
+            result = "<a href='" + attachment.path + "' >点击下载</a>"
             console.log("附件")
         }
-         $("#textInput").insertAtCaret(result)
+        $("#textInput").insertAtCaret(result)
     }
     // 没有获取到文件返回false
     return false;
 }
 
 function sleep(numberMillis) {
-	var now = new Date();
-	var exitTime = now.getTime() + numberMillis;
-	while (true) {
-		now = new Date();
-		if (now.getTime() > exitTime)
-		return;
-	    }
+    var now = new Date();
+    var exitTime = now.getTime() + numberMillis;
+    while (true) {
+        now = new Date();
+        if (now.getTime() > exitTime)
+            return;
+    }
 }
 
 $("#file").change(function () {
@@ -542,24 +561,24 @@ $("#file").change(function () {
             contentType: "application/json;charset=UTF-8",
             processData: false,
             contentType: false,
-            xhr: function() {
+            xhr: function () {
                 var xhr = new XMLHttpRequest();
                 //使用XMLHttpRequest.upload监听上传过程，注册progress事件，打印回调函数中的event事件
                 xhr.upload.addEventListener('progress', function (e) {
                     console.log(e);
                     //loaded代表上传了多少
                     //total代表总数为多少
-                    var progressRate = (e.loaded / e.total) * 100 ;
+                    var progressRate = (e.loaded / e.total) * 100;
                     console.log(progressRate)
-                 
+
                     //通过设置进度条的宽度达到效果
-                    $('.progress > div').css('width', progressRate+ '%');
+                    $('.progress > div').css('width', progressRate + '%');
                     $('.progress > div').html(progressRate + '%')
-                    if(progressRate==100){
+                    if (progressRate == 100) {
                         $('.progress > div').html("上传服务器完成，请等待！")
                     }
                 })
-    
+
                 return xhr;
             },
             success: function (data) {
