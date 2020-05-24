@@ -388,6 +388,7 @@ function fullPreview() {
         }
     });
 })(jQuery);
+
 // 复制的方法
 function copyText(text, callback) { // text: 要复制的内容， callback: 回调
     var tag = document.createElement('input');
@@ -413,11 +414,12 @@ document.getElementById('textInput').addEventListener('paste', function (e) {
     for (var i = 0, len = e.clipboardData.items.length; i < len; i++) {
         var item = e.clipboardData.items[i];
         // console.log(item);
-        if (item.kind === "string") {
-            item.getAsString(function (str) {
-                console.log(str);
-            })
-        } else if (item.kind === "file") {
+        // if (item.kind === "string") {
+        //     item.getAsString(function (str) {
+        //         console.log(str);
+        //     })
+        // } else 
+        if (item.kind === "file") {
             e.preventDefault()
             console.log("--" + item)
             var blob = item.getAsFile();
@@ -461,29 +463,6 @@ document.getElementById('textInput').addEventListener('paste', function (e) {
                 imgList["1"] = e.target.result
                 // $("#textInput").insertAtCaret("<img src='data:image'>")
             };
-            // var reader = new FileReader();
-            // reader.readAsDataURL(blob)
-
-            // reader.οnlοad = function (event) {
-            //     alert("ss")
-            //     //获取base64流
-            //     let img = document.createElement("img");
-            //     img.src = e.target.result;
-            //     document.body.appendChild(img);
-            //     console.log(reader.result)
-            //     var base64_str = event.target.result;
-            //     console.log(base64_str)
-            //     //div中的img标签src属性赋值，可以直接展示图片
-            //     // $("#jietuImg").attr("src", base64_str);
-            //     // //显示div
-            //     // $("#jietuWrap").css("display", "block");
-            //     // //隐藏输入文字的div
-            //     // $("#jietuWrap").next().css("display", "none");
-            // }
-
-
-
-
         }
     }
 });
