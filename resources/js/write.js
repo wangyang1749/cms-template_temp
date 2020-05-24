@@ -124,29 +124,27 @@ Array.prototype.remove = function (val) {
         this.splice(index, 1);
     }
 };
+
+/***基于markdownit */
 var md = window.markdownit({
     html: true,
 });
-function formatHtml() {
+// function formatHtml() {
 
-    var result = md.render($("#textInput").val());
-    $("#preview").html(result);
-}
+//     var result = md.render($("#textInput").val());
+//     $("#preview").html(result);
+// }
+// $(function () {
 
+//     $("#textInput").bind('input propertychange', function () {
+//         this.style.height = this.scrollHeight + 'px';
+//         // console.log(this.style.height)
+//         // console.log(this.scrollHeight)
 
-
-
-$(function () {
-
-    $("#textInput").bind('input propertychange', function () {
-        this.style.height = this.scrollHeight + 'px';
-        // console.log(this.style.height)
-        // console.log(this.scrollHeight)
-
-        var result = md.render($(this).val());
-        $("#preview").html(result);
-    });
-})
+//         var result = md.render($(this).val());
+//         $("#preview").html(result);
+//     });
+// })
 
 
 
@@ -331,63 +329,9 @@ $("#submitCreate").click(function () {
 
 })
 
-/**
- * 全屏显示
- */
-let fullEditFlag = true;
-function fullEdit() {
-    if (fullEditFlag) {
-        $("#preview").css("display", "none")
-        fullEditFlag = false
-    } else {
-        $("#preview").css("display", "block")
-        fullEditFlag = true
-    }
 
-}
 
-let fullPreviewFlag = true;
-function fullPreview() {
-    if (fullPreviewFlag) {
-        $("#textInput").css("display", "none")
-        fullPreviewFlag = false
-    } else {
-        $("#textInput").css("display", "block")
-        fullPreviewFlag = true
-    }
 
-}
-
-/**
- * 插入内容到光标处
- */
-(function ($) {
-    "use strict";
-    $.fn.extend({
-        insertAtCaret: function (myValue) {
-            var $t = $(this)[0];
-            if (document.selection) {
-                this.focus();
-                var sel = document.selection.createRange();
-                sel.text = myValue;
-                this.focus();
-            } else
-                if ($t.selectionStart || $t.selectionStart == '0') {
-                    var startPos = $t.selectionStart;
-                    var endPos = $t.selectionEnd;
-                    var scrollTop = $t.scrollTop;
-                    $t.value = $t.value.substring(0, startPos) + myValue + $t.value.substring(endPos, $t.value.length);
-                    this.focus();
-                    $t.selectionStart = startPos + myValue.length;
-                    $t.selectionEnd = startPos + myValue.length;
-                    $t.scrollTop = scrollTop;
-                } else {
-                    this.value += myValue;
-                    this.focus();
-                }
-        }
-    });
-})(jQuery);
 
 // 复制的方法
 function copyText(text, callback) { // text: 要复制的内容， callback: 回调
@@ -405,67 +349,68 @@ function copyText(text, callback) { // text: 要复制的内容， callback: 回
 
 
 
-let imgList = {}
-document.getElementById('textInput').addEventListener('paste', function (e) {
+// let imgList = {}
+// document.getElementById('textInput').addEventListener('paste', function (e) {
 
-    if (!(e.clipboardData && e.clipboardData.items)) {
-        return;
-    }
-    for (var i = 0, len = e.clipboardData.items.length; i < len; i++) {
-        var item = e.clipboardData.items[i];
-        // console.log(item);
-        // if (item.kind === "string") {
-        //     item.getAsString(function (str) {
-        //         console.log(str);
-        //     })
-        // } else 
-        if (item.kind === "file") {
-            e.preventDefault()
-            console.log("--" + item)
-            var blob = item.getAsFile();
-            // console.log(blob);
+//     if (!(e.clipboardData && e.clipboardData.items)) {
+//         return;
+//     }
+//     for (var i = 0, len = e.clipboardData.items.length; i < len; i++) {
+//         var item = e.clipboardData.items[i];
+//         // console.log(item);
+//         // if (item.kind === "string") {
+//         //     item.getAsString(function (str) {
+//         //         console.log(str);
+//         //     })
+//         // } else 
+//         if (item.kind === "file") {
+//             e.preventDefault()
+//             console.log("--" + item)
+//             var blob = item.getAsFile();
+//             // console.log(blob);
 
 
-            var data = new FormData();
-            data.append("file", blob);
-            // data.append('id', 45);
-            $.ajax({
-                url: protocol + "//" + url + ":8080/api/attachment/upload",
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                type: 'POST',
-                data: data,
-                dataType: 'json',
-                // contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    console.log(data.data.thumbPath)
-                    $("#textInput").insertAtCaret("![](" + data.data.thumbPath + ")")
-                    formatHtml()
-                }
-            });
+//             var data = new FormData();
+//             data.append("file", blob);
+//             // data.append('id', 45);
+//             $.ajax({
+//                 url: protocol + "//" + url + ":8080/api/attachment/upload",
+//                 headers: {
+//                     'Authorization': 'Bearer ' + token
+//                 },
+//                 type: 'POST',
+//                 data: data,
+//                 dataType: 'json',
+//                 // contentType: "application/x-www-form-urlencoded; charset=utf-8",
+//                 processData: false,
+//                 contentType: false,
+//                 success: function (data) {
+                    
+//                     console.log(data.data.thumbPath)
+//                     $("#textInput").insertAtCaret("![](" + data.data.thumbPath + ")")
+//                     formatHtml()
+//                 }
+//             });
 
-            if (blob.size === 0) {
-                return;
-            }
+//             if (blob.size === 0) {
+//                 return;
+//             }
 
-            let reader = new FileReader();
+//             let reader = new FileReader();
 
-            reader.readAsDataURL(blob);
+//             reader.readAsDataURL(blob);
 
-            reader.onload = function (e) {
-                let img = document.createElement('img');
-                img.src = e.target.result;
-                // console.log(img)
-                // document.body.appendChild(img);
-                imgList["1"] = e.target.result
-                // $("#textInput").insertAtCaret("<img src='data:image'>")
-            };
-        }
-    }
-});
+//             reader.onload = function (e) {
+//                 let img = document.createElement('img');
+//                 img.src = e.target.result;
+//                 // console.log(img)
+//                 // document.body.appendChild(img);
+//                 imgList["1"] = e.target.result
+//                 // $("#textInput").insertAtCaret("<img src='data:image'>")
+//             };
+//         }
+//     }
+// });
 
 
 
@@ -487,6 +432,7 @@ $(document).click(function (event) {
         uploadPanel.slideUp("fast");
     }
 });
+
 function handleType(attachment) {
     var mediaType = attachment.mediaType;
     // 判断文件类型
@@ -507,21 +453,14 @@ function handleType(attachment) {
             result = "<a href='" + attachment.path + "' >点击下载</a>"
             console.log("附件")
         }
-        $("#textInput").insertAtCaret(result)
+        
+        // $("#textInput").insertAtCaret(result)
+        testEditor.insertValue(result);
     }
     // 没有获取到文件返回false
     return false;
 }
 
-function sleep(numberMillis) {
-    var now = new Date();
-    var exitTime = now.getTime() + numberMillis;
-    while (true) {
-        now = new Date();
-        if (now.getTime() > exitTime)
-            return;
-    }
-}
 
 $("#file").change(function () {
     var fd = new FormData();
@@ -561,11 +500,12 @@ $("#file").change(function () {
                 return xhr;
             },
             success: function (data) {
-                console.log(data.data)
+                // console.log(data.data)
+                
                 handleType(data.data)
                 $('.progress > div').html("上传完成！")
                 $("#uploadPanel").slideUp("fast");
-                formatHtml()
+                // formatHtml()
                 // cmsWrite.selectTags.push(data.data.id)
                 // selectTagsMap[data.data.name] = data.data.id
                 // console.log(cmsWrite.selectTags)
@@ -576,4 +516,311 @@ $("#file").change(function () {
         });
     }
 
+})
+
+
+//分页加载附件数据
+function loadAttachment() {
+    $.ajax({
+        url: protocol + "//" + url + ":8080/api/attachment/",
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        type: 'get',
+        dataType: 'json',
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            // debugger
+            // console.log(data)
+            var content = ""
+            for (var i = 0; i < data.data.content.length; i++) {
+                content += " <li   class=\"list-group-item d-flex justify-content-between\"><img onclick=\"copyImgPath('" + data.data.content[i].path + "'," + data.data.content[i].id + ")\"  src=\"" + data.data.content[i].path + "\"><a href='javascript:;' onclick=\"updateAttachmentInput(" + data.data.content[i].id + ")\">修改</a></li>"
+            }
+            $("#attachment-list").html(content)
+
+
+            $('.attachment').pagination({
+                pageCount: data.data.totalPages,
+                jump: true,
+                callback: function (api) {
+                    var data = {
+                        page: api.getCurrent(),
+                        name: 'mss',
+                        say: 'oh'
+                    };
+                    $.ajax({
+                        url: protocol + "//" + url + ":8080/api/attachment?page=" + (data.page - 1),
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        },
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: "application/json;charset=UTF-8",
+                        success: function (data) {
+                            // console.log(data.data)
+                            var content = ""
+                            for (var i = 0; i < data.data.content.length; i++) {
+                                content += " <li   class=\"list-group-item d-flex justify-content-between\"><img onclick=\"copyImgPath('" + data.data.content[i].path + "'," + data.data.content[i].id + ")\"  src=\"" + data.data.content[i].path + "\"><a href='javascript:;' onclick=\"updateAttachmentInput(" + data.data.content[i].id + ")\">修改</a></li>"
+                            }
+                            $("#attachment-list").html(content)
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
+// 打开附件快捷键
+document.addEventListener("keydown", function (event) {
+    if (event.altKey  && event.keyCode === 67) {
+        // console.log("kkkkk")
+        $(".drawer-attachment").css({ display: 'block' });
+        $(".drawer-attachment").animate({ width: '30rem' });
+        loadAttachment()
+    }
+})
+
+
+
+function drawer(drawerBtn, drawerPanel) {
+    // 打开关闭附件面板
+    $(drawerBtn).click(function (e) {
+        e.stopPropagation();
+
+        if ($(drawerPanel).css("display") == "block") {
+            $(drawerPanel).animate({ width: '0px' }, function () {
+                $(drawerPanel).css({ display: 'none' });
+            });
+        } else {
+            $(drawerPanel).css({ display: 'block' });
+            $(drawerPanel).animate({ width: '30rem' });
+            loadAttachment()
+        }
+    })
+    $(document).click(function (e) {
+        // console.log(!$(drawerPanel).is(e.target))
+        // console.log($(drawerPanel).has(e.target).length === 0)
+        if ($(drawerPanel).css("display") == "block" && $(drawerPanel).has(e.target).length === 0) {
+            $(drawerPanel).animate({ width: '0px' }, function () {
+                $(drawerPanel).css({ display: 'none' });
+            });
+        }
+    })
+}
+drawer("#attachment", ".drawer-attachment")
+
+
+
+// 拷贝附件路径到剪切板
+function copyImgPath(path, id) {
+    console.log(path + "-" + id)
+    path = "![" + id + "](" + path + ")"
+    copyText(path, function () {
+        Toast("成功复制到剪切板！", 'success')
+    })
+}
+
+
+
+/*Svg字符串上传*/
+function uploadStrContentChange(originalData, svgInput, isUpdate, callback, attachmentId) {
+    // let svgInput = $("#svgInput").val()
+    // console.log(svgInput)
+    // console.log(originalData)
+    let dataRender = $("#componentInput").attr("data-render")
+    let uploadUrl = protocol + "//" + url + ":8080/api/attachment/uploadStrContent"
+    if (isUpdate) {
+        uploadUrl += "/" + attachmentId
+    }
+    $.ajax({
+        url: uploadUrl,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        type: 'post',
+        data: JSON.stringify({ "formatContent": svgInput, "originContent": originalData, renderType: dataRender }),
+        dataType: 'json',
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            if (callback) {
+                callback(data)
+            }
+            // console.log(data.data)
+
+            $("#componentInput").val("")
+        }
+    });
+}
+mermaid.mermaidAPI.initialize({
+    startOnLoad: false
+});
+
+// mermaid 图渲染
+function renderMermaid(componentInput, componentPreview) {
+    var needsUniqueId = "render" + (Math.floor(Math.random() * 10000)).toString(); //should be 10K attempts before repeat user finger stops working before then hopefully
+    function mermaidApiRenderCallback(graph) {
+        // $('#mermaidPreview').html(graph);
+        componentPreview.html(graph)
+    }
+    try {
+        mermaid.mermaidAPI.render(needsUniqueId, componentInput, mermaidApiRenderCallback);
+    } catch (e) {
+        componentPreview.html(componentPreview.html() + e)
+    }
+}
+
+// latex 服务器渲染
+function renderLatex(componentInput, componentPreview) {
+    $.ajax({
+        url: protocol + "//" + url + ":8080/api/latex/svg",
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        type: 'post',
+        // dataType: 'xml',
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({ "latex": componentInput }),
+        success: function (data) {
+            componentPreview.html(data)
+        }
+    });
+}
+
+
+// 原始svg监听
+$("#componentInput").bind('input propertychange', function () {
+    let componentPreview = $("#componentPreview")
+    let componentInput = $("#componentInput").val()
+    let dataRender = $("#componentInput").attr("data-render")
+
+    if (dataRender == "mermaid") {
+        renderMermaid(componentInput, componentPreview)
+    } else if (dataRender == "latex") {
+        renderLatex(componentInput, componentPreview)
+    } else if (dataRender == "svg") {
+        componentPreview.html(componentInput)
+    }
+});
+
+
+// 上传svg字符串
+let svgAttachmentId = null
+function saveSvg() {
+    if ($("#componentInput").val() != "") {
+        uploadStrContentChange($("#componentInput").val(), $("#componentPreview").html(), false, function (data) {
+            loadAttachment()
+            $("#fixed-card").css("display", "none")
+        })
+    } else {
+        Toast("内容不能为空！", 'error')
+    }
+}
+
+function updateSvg() {
+    if (svgAttachmentId) {
+        if ($("#componentInput").val() != "") {
+            uploadStrContentChange($("#componentInput").val(), $("#componentPreview").html(), true, function () {
+                loadAttachment()
+                $("#fixed-card").css("display", "none")
+            }, svgAttachmentId)
+        } else {
+            Toast("内容不能为空！", 'error')
+        }
+
+    }
+
+}
+
+function updateAttachmentInput(id) {
+    svgAttachmentId = id;
+    let componentPreview = $("#componentPreview")
+    $("#fixed-card").css("display", "block")
+    $.ajax({
+        url: protocol + "//" + url + ":8080/api/attachment/find/" + id,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        type: 'get',
+        dataType: 'json',
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            $("#componentInput").val(data.data.originContent)
+            if (data.data.renderType == "mermaid") {
+                renderMermaid(data.data.originContent, componentPreview)
+                $("#componentInput").attr("data-render", "mermaid")
+                $("#svg-header").html("修改mermaid")
+            } else if (data.data.renderType == "latex") {
+
+                $("#componentInput").attr("data-render", "latex")
+                $("#svg-header").html("修改Latex")
+
+                renderLatex(data.data.originContent, componentPreview)
+            } else {
+                $("#componentInput").attr("data-render", "svg")
+                $("#svg-header").html("修改Svg")
+                componentPreview.html(data.data.originContent)
+            }
+        }
+    });
+    // uploadStrContentChange($("#componentInput").val(), $("#componentPreview").html(),true,id)
+    // $("#fixed-card").css("display", "none")
+    // console.log(id)
+}
+
+// // 修改Svg
+// $(document).on('click', '.svg-components', function () {
+//     let componentPreview = $("#componentPreview")
+//     var val = $(this).attr("data-attachment");
+//     let dataRender = $("#componentInput").attr("data-render")
+//     svgAttachmentId = val
+//     $("#fixed-card").css("display", "block")
+//     $.ajax({
+//         url: protocol + "//" + url + ":8080/api/attachment/find/" + val,
+//         headers: {
+//             'Authorization': 'Bearer ' + token
+//         },
+//         type: 'get',
+//         dataType: 'json',
+//         contentType: "application/json;charset=UTF-8",
+//         success: function (data) {
+//             $("#componentInput").val(data.data.originContent)
+//             if (dataRender == "mermaid") {
+//                 renderMermaid(data.data.originContent, componentPreview)
+//                 $("#componentInput").attr("data-render", "mermaid")
+//                 $("#svg-header").html("修改mermaid")
+//             } else if (dataRender == "latex") {
+
+//                 $("#componentInput").attr("data-render", "latex")
+//                 $("#svg-header").html("修改Latex")
+
+//                 renderLatex(data.data.originContent, componentPreview)
+//             }
+//         }
+//     });
+// });
+
+// 添加svg
+$(".openSvgPanel").click(function () {
+    let dataRender = $(this).attr("data-render")
+    if (dataRender == "mermaid") {
+        $("#componentInput").attr("data-render", "mermaid")
+        $("#svg-header").html("插入Mermaid")
+        $("#fixed-card").css("display", "block")
+    } else if (dataRender == "latex") {
+
+        $("#componentInput").attr("data-render", "latex")
+        $("#svg-header").html("插入Latex")
+        $("#fixed-card").css("display", "block")
+    } else if (dataRender == "svg") {
+
+        $("#componentInput").attr("data-render", "svg")
+        $("#svg-header").html("插入SVG")
+        $("#fixed-card").css("display", "block")
+    }
+})
+
+
+$("#closeBtn").click(function () {
+    $("#fixed-card").css("display", "none")
 })

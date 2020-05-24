@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/templates/resources/themes/github.css">
 
     <link rel="stylesheet" href="/templates/resources/css/index.css?v=1.01">
@@ -14,98 +13,35 @@
     <link rel="stylesheet" type="text/css" href="/templates/resources/css/bootstrap-tags.css" />
     <link rel="stylesheet" href="/templates/resources/css/user.css">
     <link rel="stylesheet" href="/templates/resources/css/pagination.css">
+    <link rel="stylesheet" href="/templates/resources/css/editormd.css">
 
     <title th:text="${view==null? '发布文章':view.title}"></title>
     <style>
-        .write-option {
-            position: fixed;
-            top: 0rem;
-            right: 14rem;
-            padding: 1rem;
-            background-color: rgba(206, 206, 206, 0.5);
-            z-index: 9999;
+        #header {
+            position: relative;
         }
 
-        .article-panel {
-            border-radius: 0.5rem;
+
+        .article-option {
+            width: 90%;
+            margin: 0 auto;
         }
 
-        .article-input,
-        .article-panel {
-            border: none;
-            outline: none;
-            /* background: #fff; */
-            /* background-color: rgba(197, 197, 197, 0.5); */
-            background: #C7EDCC;
-        }
-
-        .article-title {
-            border-radius: 0.5rem 0.5rem 0 0;
-            font-size: 2rem;
-            padding: .5rem;
-        }
-
-        .article-tags {
-            border-radius: 0 0.5rem 0 0;
-        }
-
-        .select-item {
-            width: 50%;
-        }
-
-        .article-summary {
-            border-top: rgba(128, 128, 128, 0.5) solid 0.5px;
-        }
-
-        .article-content {
-            width: 100%;
-            overflow-y: hidden;
-            padding: 1rem;
-        }
-
-        .article-select {
-            border-top: rgba(128, 128, 128, 0.5) solid 0.5px;
-            padding: .5rem;
-        }
-
-        .article-tools {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-
-            border-top: rgba(128, 128, 128, 0.5) solid 0.5px;
-            border-bottom: rgba(128, 128, 128, 0.5) solid 0.5px;
-
-        }
-
-        .article-tools a {
-            padding: 0 .5rem;
-        }
-
-        .article-edit {
-            font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-            /* font-size: 13px; */
-            border-right: rgba(128, 128, 128, 0.5) solid 0.5px;
-        }
-
-        .form-control {
-            border: none;
-        }
 
 
         /*svg字符串上传面板*/
         .fixed-card {
-            position: fixed;
+            /* position: fixed; */
             width: 60rem;
             z-index: 99;
             display: none;
-            height: 22rem;
+            width: 100%;
             overflow-y: auto;
         }
 
         /*附件面板*/
-        .attachment-panel {
-            width: 30rem;
+        .drawer-panel {
+            /* width: 30rem; */
             position: fixed;
             background: #fff;
             z-index: 99999;
@@ -114,98 +50,64 @@
             top: 0;
             bottom: 0;
             display: none;
+            height: 100%;
+        }
+
+        .edit-input {
+            /* z-index: 999999; */
+
         }
     </style>
 </head>
 
 <body>
     <div th:insert="templates/user/header"></div>
-    <div class=" container ">
+    <div class="  ">
 
-        <div class="card fixed-card" id="fixed-card">
-            <div class="card-header">
-                <span id="svg-header">选择渲染js</span>
-                <a href="javascript:;" onclick="saveSvg()">保存</a>
-                <a href="javascript:;" onclick="updateSvg()">更新</a>
-                <a href="javascript:;" id="closeBtn">&times;</a>
-            </div>
-            <div class="card-body row">
-                <div class="col-sm">
-                    <textarea data-render="" class="form-control border border-primary" id="componentInput"
-                        rows="10"></textarea>
-                </div>
-                <div id="componentPreview" class="col-sm">
-
-                </div>
-            </div>
+        <div id="test-editormd" class="edit-input">
+            <textarea style="display:none;" id="textInput" th:text="${view?.originalContent}">
+            </textarea>
         </div>
 
 
-        <form>
-            <div class="d-flex flex-column shadow-lg article-panel">
-                <div class="d-flex">
-                    <input th:value="${view?.title}" id="title" class="article-input article-title flex-fill"
-                        type="text" placeholder="请输入文章标题">
-                    <!-- <select class="article-select article-input flex-fill "> -->
-
-                </div>
-                <div class="d-flex align-items-center article-select">
-                    <!-- <select id="categories" class="  flex-fill form-control form-control-chosen-required"
-                        data-placeholder="Please select..."> -->
-                    <div class="select-item mr-2">
-                        <select id="categories" class=" form-control">
-                            <option selected disabled hidden>请选择一个分类</option>
-                            <!-- <option></option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option> -->
-                        </select>
-                    </div>
-                    <div class="select-item">
-                        <div id="my-tag-list" class=" tag-list  flex-fill"></div>
-                    </div>
 
 
-                </div>
-                <div class="d-flex">
-                    <textarea id="summary" class="article-input article-summary flex-fill "
-                        placeholder="请输入摘要（不输入，将自动从文章截取）" rows="2" th:text="${view?.summary}"></textarea>
-                </div>
-                <div class="article-tools article-input d-flex justify-content-between">
+        <form class="article-option">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">文章标题</label>
+                <input class="form-control" th:value="${view?.title}" id="title" type="text" placeholder="请输入文章标题" />
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">文章分类</label>
+                <select id="categories" class=" form-control">
+                    <option selected disabled hidden>请选择一个分类</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">文章标签</label>
+                <div id="my-tag-list" class=" tag-list  "></div>
 
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">文章摘要</label>
+                <textarea th:text="${view?.summary}" id="summary" class="form-control" placeholder="请输入摘要（不输入，将自动从文章截取）"
+                    rows="3"></textarea>
 
-                    <div>
-                        <a href="javascript:;" data-render="latex" class="openSvgPanel">latex</a>
-                        <a href="javascript:;" data-render="mermaid" class="openSvgPanel">mermaid</a>
-                        <a href="javascript:;" data-render="svg" class="openSvgPanel">svg</a>
-                        <a href="javascript:;" id="uploadFile">上传</a>
-                        <a href="javascript:;" onclick="fullEdit()">编辑</a>
-                        <a href="javascript:;" onclick="fullPreview()">预览</a>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <textarea class="article-input article-content flex-fill article-edit" placeholder="输入文章内容"
-                        id="textInput" rows="20" th:text="${view?.originalContent}"></textarea>
-                    <div id="preview" class="article-input article-content flex-fill markdown">
+            </div>
+            <div class="d-flex justify-content-end form-group">
+                <button type="button" class="btn btn-success" id="attachment">附件</button>
+                <button type="button" class="btn btn-danger" id="save">保存</button>
+                <button type="button" class="btn btn-warning" id="previewNet">预览</button>
+                <!-- <button type="button" class="btn btn-warning" id="submitPanel">发布</button> -->
 
-                    </div>
-                    <!-- <textarea  ></textarea> -->
-                    <!-- onpropertychange="this.style.height = this.scrollHeight + 'px';"
-                        oninput="this.style.height = this.scrollHeight + 'px';" rows="20" -->
-                </div>
+                <button type="button" class="btn btn-info" id="submitCreate">首次发布</button>
+                <button type="button" class="btn btn-info" id="submitUpdate" style="display: none;">更新发布</button>
+
             </div>
 
         </form>
-        <div class="write-option">
-            <button type="button" class="btn btn-success" id="attachment">附件</button>
-            <button type="button" class="btn btn-danger" id="save">保存</button>
-            <button type="button" class="btn btn-warning" id="previewNet">预览</button>
-            <button type="button" class="btn btn-info" id="submitCreate">首次发布</button>
-            <button type="button" class="btn btn-info" id="submitUpdate" style="display: none;">更新发布</button>
 
-        </div>
+
 
         <div id="uploadPanel" class="uploadPanel" style="display: none;">
             <div class="p-2">
@@ -220,7 +122,35 @@
             </div>
         </div>
 
-        <div class="attachment-panel">
+        <div class="drawer-panel drawer-attachment">
+            <div>
+                <a href="javascript:;" data-render="latex" class="openSvgPanel btn btn-light">latex</a>
+                <a href="javascript:;" data-render="mermaid" class="openSvgPanel btn btn-light">mermaid</a>
+                <a href="javascript:;" data-render="svg" class="openSvgPanel btn btn-light">svg</a>
+                <a href="javascript:;" id="uploadFile" class="btn btn-light">上传</a>
+
+            </div>
+            <div class="card fixed-card" id="fixed-card">
+                <div class="card-header d-flex justify-content-between">
+                    <div>
+                        <span id="svg-header">选择渲染js</span>
+                        <a href="javascript:;" onclick="saveSvg()">保存</a>
+                        <a href="javascript:;" onclick="updateSvg()">更新</a>
+                    </div>
+
+                    <a href="javascript:;" id="closeBtn">&times;</a>
+                </div>
+                <div class="card-body ">
+                    <div class="">
+                        <textarea data-render="" class="form-control border border-primary" id="componentInput"
+                            rows="10"></textarea>
+                    </div>
+                    <div id="componentPreview" class="">
+
+                    </div>
+                </div>
+            </div>
+
             <div id="attachment-list"></div>
             <div class="attachment m-style "></div>
         </div>
@@ -237,13 +167,50 @@
             </div>
         </div>
 
-        <input type="hidden" id="tempContent">
+
     </div>
 
     <div th:insert="html/components/footer :: #footer" class="mt-3"></div>
 
 
     <script src="/templates/resources/js/jquery-3.4.1.min.js"></script>
+
+    <script>
+
+        /**
+     * 插入内容到光标处
+     */
+        (function ($) {
+            // "use strict";
+            $.fn.extend({
+                insertAtCaret: function (myValue) {
+                    var $t = $(this)[0];
+                    if (document.selection) {
+                        this.focus();
+                        var sel = document.selection.createRange();
+                        sel.text = myValue;
+                        this.focus();
+                    } else {
+                        if ($t.selectionStart || $t.selectionStart == '0') {
+                            var startPos = $t.selectionStart;
+                            var endPos = $t.selectionEnd;
+                            var scrollTop = $t.scrollTop;
+                            $t.value = $t.value.substring(0, startPos) + myValue + $t.value.substring(endPos, $t.value.length);
+                            this.focus();
+                            $t.selectionStart = startPos + myValue.length;
+                            $t.selectionEnd = startPos + myValue.length;
+                            $t.scrollTop = scrollTop;
+                        } else {
+                            this.value += myValue;
+                            this.focus();
+                        }
+                    }
+                }
+            });
+        })(jQuery);
+
+
+    </script>
 
     <script src="/templates/resources/js/jquery.cookie.js"></script>
 
@@ -252,13 +219,45 @@
     <script src='/templates/resources/js/bootstrap-tags.min.js'></script>
     <script src="/templates/resources/js/index.js"></script>
     <script src="/templates/resources/js/user.js"></script>
-    <script src="/templates/resources/js/write.js"></script>
     <script src="/templates/resources/js/mermaid.min8.5.1.js"></script>
     <script src="/templates/resources/js/jquery.pagination.js"></script>
+    <script src="/templates/resources/js/editormd.min.js"></script>
+    <script src="/templates/resources/js/uploadImg.js"></script>
+    <script>
+        var testEditor;
+
+        $(function () {
+            testEditor = editormd("test-editormd", {
+                width: "90%",
+                height: 640,
+                syncScrolling: "single",
+                path: "/templates/resources/lib/editor/",
+                htmlDecode: true,
+                imageUpload: true,
+                onload: function () {
+                    initPasteDragImg(this); //必须
+                }
+                // emoji:true
+            });
+
+            /*
+            // or
+            testEditor = editormd({
+                id      : "test-editormd",
+                width   : "90%",
+                height  : 640,
+                path    : "../lib/"
+            });
+            */
+        });
+    </script>
+    <script src="/templates/resources/js/write.js"></script>
 
     <script>
 
-        // moveClose("fixed-card-header", "fixed-card", "fixed-card-close");
+
+
+
 
         cmsWrite.defaultCategoryId = [[${ view?.categoryId }]]
         setSelectTags([[${ view?.tagIds }]])
@@ -275,281 +274,11 @@
             $("#submitUpdate").css("display", "inline-block")
         }
         cmsWriteInit()
-        formatHtml()
 
-
-        //分页加载附件数据
-        function loadAttachment() {
-            $.ajax({
-                url: protocol + "//" + url + ":8080/api/attachment/",
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                type: 'get',
-                dataType: 'json',
-                contentType: "application/json;charset=UTF-8",
-                success: function (data) {
-                    // debugger
-                    var content = ""
-                    for (var i = 0; i < data.data.content.length; i++) {
-                        content += " <li  onclick=\"copyImgPath('" + data.data.content[i].path + "',"+data.data.content[i].id+")\" class=\"list-group-item\"><img src=\"" + data.data.content[i].path + "\"><span onclick=\"updateAttachmentInput(" + data.data.content[i].id + ")\">修改</span></li>"
-                    }
-                    $("#attachment-list").html(content)
-
-
-                    $('.attachment').pagination({
-                        pageCount: data.data.totalPages,
-                        jump: true,
-                        callback: function (api) {
-                            var data = {
-                                page: api.getCurrent(),
-                                name: 'mss',
-                                say: 'oh'
-                            };
-                            $.ajax({
-                                url: protocol + "//" + url + ":8080/api/attachment?page=" + (data.page - 1),
-                                headers: {
-                                    'Authorization': 'Bearer ' + token
-                                },
-                                type: 'get',
-                                dataType: 'json',
-                                contentType: "application/json;charset=UTF-8",
-                                success: function (data) {
-                                    // console.log(data.data)
-                                    var content = ""
-                                    for (var i = 0; i < data.data.content.length; i++) {
-                                        content += " <li onclick=\"copyImgPath('" + data.data.content[i].path + "')\" class=\"list-group-item\"><img src=\"" + data.data.content[i].path + "\"></li>"
-                                    }
-                                    $("#attachment-list").html(content)
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        }
-
-        // 打开关闭附件面板
-        $("#attachment").click(function () {
-            if ($(".attachment-panel").css("display") == "block") {
-                $(".attachment-panel").animate({ width: '0px' }, function () {
-                    $(".attachment-panel").css({ display: 'none' });
-                });
-            } else {
-                $(".attachment-panel").css({ display: 'block' });
-                $(".attachment-panel").animate({ width: '30rem' });
-                loadAttachment()
-            }
-        })
-
-
-        // 拷贝附件路径到剪切板
-        function copyImgPath(path,id) {
-            // console.log(path)
-            path = "!["+id+"](" + path + ")"
-            copyText(path, function () {
-                Toast("成功复制到剪切板！", 'success')
-            })
-        }
+        // formatHtml()
 
 
 
-        /*Svg字符串上传*/
-        function uploadStrContentChange(originalData, svgInput, isUpdate, callback, attachmentId) {
-            // let svgInput = $("#svgInput").val()
-            // console.log(svgInput)
-            // console.log(originalData)
-            let dataRender = $("#componentInput").attr("data-render")
-            let uploadUrl = protocol + "//" + url + ":8080/api/attachment/uploadStrContent"
-            if (isUpdate) {
-                uploadUrl += "/" + attachmentId
-            }
-            $.ajax({
-                url: uploadUrl,
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                type: 'post',
-                data: JSON.stringify({ "formatContent": svgInput, "originContent": originalData, renderType: dataRender }),
-                dataType: 'json',
-                contentType: "application/json;charset=UTF-8",
-                success: function (data) {
-                    if (callback) {
-                        callback(data)
-                    }
-                    // console.log(data.data)
-
-                    $("#componentInput").val("")
-                }
-            });
-        }
-        mermaid.mermaidAPI.initialize({
-            startOnLoad: false
-        });
-
-        // mermaid 图渲染
-        function renderMermaid(componentInput, componentPreview) {
-            var needsUniqueId = "render" + (Math.floor(Math.random() * 10000)).toString(); //should be 10K attempts before repeat user finger stops working before then hopefully
-            function mermaidApiRenderCallback(graph) {
-                // $('#mermaidPreview').html(graph);
-                componentPreview.html(graph)
-            }
-            try {
-                mermaid.mermaidAPI.render(needsUniqueId, componentInput, mermaidApiRenderCallback);
-            } catch (e) {
-                componentPreview.html(componentPreview.html() + e)
-            }
-        }
-
-        // latex 服务器渲染
-        function renderLatex(componentInput, componentPreview) {
-            $.ajax({
-                url: protocol + "//" + url + ":8080/api/latex/svg",
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                type: 'post',
-                // dataType: 'xml',
-                contentType: "application/json;charset=UTF-8",
-                data: JSON.stringify({ "latex": componentInput }),
-                success: function (data) {
-                    componentPreview.html(data)
-                }
-            });
-        }
-
-
-        // 原始svg监听
-        $("#componentInput").bind('input propertychange', function () {
-            let componentPreview = $("#componentPreview")
-            let componentInput = $("#componentInput").val()
-            let dataRender = $("#componentInput").attr("data-render")
-
-            if (dataRender == "mermaid") {
-                renderMermaid(componentInput, componentPreview)
-            } else if (dataRender == "latex") {
-                renderLatex(componentInput, componentPreview)
-            } else if (dataRender == "svg") {
-                componentPreview.html(componentInput)
-            }
-        });
-
-
-        // 上传svg字符串
-        let svgAttachmentId = null
-        function saveSvg() {
-            uploadStrContentChange($("#componentInput").val(), $("#componentPreview").html(), false, function (data) {
-                if (data.data.suffix == "svg") {
-                    result = "<img  class='svg-components' data-attachment='" + data.data.id + "'  src='" + data.data.path + "'>"
-                    $("#textInput").insertAtCaret(result)
-                }
-                formatHtml()
-            })
-            $("#fixed-card").css("display", "none")
-        }
-
-        function updateSvg() {
-            if (svgAttachmentId) {
-                uploadStrContentChange($("#componentInput").val(), $("#componentPreview").html(), true, function () {
-                    loadAttachment()
-                }, svgAttachmentId)
-                $("#fixed-card").css("display", "none")
-            }
-
-        }
-
-        function updateAttachmentInput(id) {
-            svgAttachmentId = id;
-            let componentPreview = $("#componentPreview")
-            $("#fixed-card").css("display", "block")
-            $.ajax({
-                url: protocol + "//" + url + ":8080/api/attachment/find/" + id,
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                type: 'get',
-                dataType: 'json',
-                contentType: "application/json;charset=UTF-8",
-                success: function (data) {
-                    $("#componentInput").val(data.data.originContent)
-                    if (data.data.renderType == "mermaid") {
-                        renderMermaid(data.data.originContent, componentPreview)
-                        $("#componentInput").attr("data-render", "mermaid")
-                        $("#svg-header").html("修改mermaid")
-                    } else if (data.data.renderType == "latex") {
-
-                        $("#componentInput").attr("data-render", "latex")
-                        $("#svg-header").html("修改Latex")
-
-                        renderLatex(data.data.originContent, componentPreview)
-                    } else {
-                        $("#componentInput").attr("data-render", "svg")
-                        $("#svg-header").html("修改Svg")
-                        componentPreview.html(data.data.originContent)
-                    }
-                }
-            });
-            // uploadStrContentChange($("#componentInput").val(), $("#componentPreview").html(),true,id)
-            // $("#fixed-card").css("display", "none")
-            // console.log(id)
-        }
-
-        // // 修改Svg
-        // $(document).on('click', '.svg-components', function () {
-        //     let componentPreview = $("#componentPreview")
-        //     var val = $(this).attr("data-attachment");
-        //     let dataRender = $("#componentInput").attr("data-render")
-        //     svgAttachmentId = val
-        //     $("#fixed-card").css("display", "block")
-        //     $.ajax({
-        //         url: protocol + "//" + url + ":8080/api/attachment/find/" + val,
-        //         headers: {
-        //             'Authorization': 'Bearer ' + token
-        //         },
-        //         type: 'get',
-        //         dataType: 'json',
-        //         contentType: "application/json;charset=UTF-8",
-        //         success: function (data) {
-        //             $("#componentInput").val(data.data.originContent)
-        //             if (dataRender == "mermaid") {
-        //                 renderMermaid(data.data.originContent, componentPreview)
-        //                 $("#componentInput").attr("data-render", "mermaid")
-        //                 $("#svg-header").html("修改mermaid")
-        //             } else if (dataRender == "latex") {
-
-        //                 $("#componentInput").attr("data-render", "latex")
-        //                 $("#svg-header").html("修改Latex")
-
-        //                 renderLatex(data.data.originContent, componentPreview)
-        //             }
-        //         }
-        //     });
-        // });
-
-        // 添加svg
-        $(".openSvgPanel").click(function () {
-            let dataRender = $(this).attr("data-render")
-            if (dataRender == "mermaid") {
-                $("#componentInput").attr("data-render", "mermaid")
-                $("#svg-header").html("插入Mermaid")
-                $("#fixed-card").css("display", "block")
-            } else if (dataRender == "latex") {
-
-                $("#componentInput").attr("data-render", "latex")
-                $("#svg-header").html("插入Latex")
-                $("#fixed-card").css("display", "block")
-            } else if (dataRender == "svg") {
-
-                $("#componentInput").attr("data-render", "svg")
-                $("#svg-header").html("插入SVG")
-                $("#fixed-card").css("display", "block")
-            }
-        })
-
-
-        $("#closeBtn").click(function () {
-            $("#fixed-card").css("display", "none")
-        })
 
 
     </script>
