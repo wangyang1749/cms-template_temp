@@ -2,7 +2,7 @@
     position: fixed;
     top: 5rem;
     left: 31rem;
-    z-index: -1;
+    z-index:99999;
 }
 
 .uploadPanel{

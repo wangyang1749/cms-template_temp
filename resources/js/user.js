@@ -12,6 +12,6 @@ function Toast(msg, type) {
 
     }
     $("#toast-body").html(msg);
-    $("#toast").animate({ opacity: '1' ,"z-index":'99'});
+    $("#toast").animate({ opacity: '1' ,"z-index":'99999'});
     setTimeout(function () { $("#toast").animate({ opacity: '0',"z-index":'-1' }); }, 2000);
 }
