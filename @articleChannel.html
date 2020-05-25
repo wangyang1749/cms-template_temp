@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/templates/resources/themes/github.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.css">
     <link rel="stylesheet" href="/templates/resources/css/index.css?v=1.03">
+    <link rel="stylesheet" href="/templates/resources/css/admonition.css">
+
     <title th:text="${view.title}">Document</title>
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.2/build/styles/default.min.css">
@@ -117,6 +119,9 @@
     <script src="/templates/resources/js/jquery.cookie.js"></script>
     <script src="/templates/resources/js/article.js?v=1.04"></script>
     <script src="/templates/resources/js/index.js?v=1.05"></script>
+    <script src="/templates/resources/js/admonition.js"></script>
+
+
     <script>
         increaseViewCount([[${ view.id }]])
         likeStatus([[${ view.id }]])
