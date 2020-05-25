@@ -197,6 +197,9 @@ $("#closeToast").click(function () {
  */
 function save() {
     if (createArticle()) {
+        
+        let jsonData = JSON.stringify(createArticle())
+        // console.log(jsonData)
         if (cmsWrite.articleId) {
             $.ajax({
                 url: protocol + "//" + url + ":8080/api/article/save/" + cmsWrite.articleId,
@@ -204,9 +207,8 @@ function save() {
                     'Content-Type': 'application/json;charset=utf8',
                     'Authorization': 'Bearer ' + token
                 },
-                dataType: "json",
                 type: 'POST',
-                data: JSON.stringify(createArticle()),
+                data:jsonData ,
                 success: function (data) {
                     // console.log(data.data.id)
                     cmsWrite.articleId = data.data.id
@@ -221,9 +223,9 @@ function save() {
                     'Content-Type': 'application/json;charset=utf8',
                     'Authorization': 'Bearer ' + token
                 },
-                dataType: "json",
+                // dataType: "json",
                 type: 'POST',
-                data: JSON.stringify(createArticle()),
+                data: jsonData,
                 success: function (data) {
                     // console.log(data.data.id)
                     cmsWrite.articleId = data.data.id
