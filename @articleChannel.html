@@ -77,8 +77,8 @@
                    
                     
                     <div class=" mb-3 shadow">
-                            <!--#include file="/components/hotArticle.html"-->
-                            <div th:if="${isSave== null}" th:insert="html/components/hotArticle"></div>
+                        <!--#include file="/components/recommend-[[${view.category.viewName}]].html"-->
+                        <div th:if="${isSave== null}" th:insert="'html/components/recommend-'+${view.category.viewName}+'.html'"></div>
                     </div>
                 
     
