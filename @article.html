@@ -109,8 +109,7 @@
                     </div>
     
                     <div class=" mb-3 shadow">
-                            <!--#include file="/components/recommend-[[${view.category.viewName}]].html"-->
-                            <div th:if="${isSave== null}" th:insert="'html/components/recommend-'+${view.category.viewName}+'.html'"></div>
+                            <!--#include file="/components/recommend-[[${view?.category?.viewName}]].html"-->
                     </div>
     
                     <div class="card mb-3 p-3  bg-white">
