@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/templates/resources/css/index.css?v=1.4">
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.2/build/styles/default.min.css">
+    <!-- markdown扩展 -->
     <link rel="stylesheet" href="/templates/resources/css/admonition.css">
     <style>
 
@@ -150,9 +151,12 @@
     <script src="/templates/resources/js/article.js?v=1.04"></script>
     <script src="/templates/resources/js/index.js?v=1.05"></script>
     <script src="/templates/resources/js/admonition.js"></script>
+    <script src="/templates/resources/js/jquery.lazyload.min.js"></script>
 
     <script>
-   
+        $(function () {
+            $("img.lazy").lazyload({ effect: "fadeIn" , threshold :180});
+        });
 
         increaseViewCount([[${ view.id }]])
         likeStatus([[${ view.id }]])
