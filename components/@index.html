@@ -111,20 +111,10 @@
 
 
                     <div class="category-horizontal mb-3">
-                        <div class="category-title"><span>文章分类快速导航</span></div>
-                        <!--[ <div  th:replace="html/components/DEFAULT_CATEGORY"></div> ]-->
-                        <!--#include file="/components/DEFAULT_CATEGORY.html"-->
-                        <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CATEGORY"></div>
+                        <div class="category-title"><span>所有文章</span></div>
+                        <!--#include file="/components/CategoryMenu.html"-->
+                        <div th:if="${isSave== null}" th:insert="html/components/CategoryMenu"></div>
                     </div>
-
-
-
-                    <div class="category-horizontal mb-3">
-                        <div class="category-title"><span>文章栏目快速导航</span></div>
-                        <!--#include file="/components/DEFAULT_CHANNEL.html"-->
-                        <div th:if="${isSave== null}" th:insert="html/components/DEFAULT_CHANNEL"></div>
-                    </div>
-
 
                     <div class="row">
                         <div class="col-sm mb-3">
