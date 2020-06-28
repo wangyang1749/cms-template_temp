@@ -119,7 +119,7 @@
 
                     </ul>
 
-                    <div th:if="${view.page.totalPages} gt '1'">
+                    <div th:if="${view.page.totalPages} gt '1'" class="mb-3">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
 
@@ -156,12 +156,11 @@
                 <div id="siderbar">
                     <div class="category-vertical" >
                         <div class="category-title">
-                            <span >文章分类快速导航</span>
+                            <span >所有文章分类</span>
                         </div>
                         
-                        <!--#include file="/components/[[${view.category.templateName}]].html"-->
-                        <div th:if="${isSave== null}" th:insert="'html/components/'+${view.category.templateName}"></div>
-                    
+                        <!--#include file="/components/CategoryMenu.html"-->
+                        <div th:if="${isSave== null}" th:insert="html/components/CategoryMenu"></div>
                     </div>  
                 </div>
               
