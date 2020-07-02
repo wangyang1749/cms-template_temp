@@ -16,7 +16,7 @@
     <!-- <link rel="stylesheet"
         href="https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext"> -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.css"> -->
-    <link rel="stylesheet" href="/templates/resources/css/index.css?v=1.4">
+    <link rel="stylesheet" href="/templates/resources/css/index.css?v=1.5">
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.2/build/styles/default.min.css">
     <!-- markdown扩展 -->
@@ -54,13 +54,16 @@
                         <div class="markdown pt-2 pl-3 pr-3 pb-3">
                                 [(${view.formatContent})]
                         </div>
-                    </div>
-            
-                    <div class="mt-3">
-                        <div class=" shadow bg-white p-3  d-flex justify-content-around">
+                        <div class="  p-3  d-flex justify-content-around">
+                           
                             <a  id="likeOption" href="javascript:;" style="width: 1.5rem;" class="d-flex align-items-center text-secondary"><img id="like-img" src="/templates/resources/img/like.svg" alt=""><span id="like"></span></a>
+                            <a th:href="@{'~/user/edit/'+${view.id}}" class="text-secondary">编辑</a>
                         </div>
                     </div>
+            
+                    <!-- <div class="">
+                        
+                    </div> -->
             
                     <div id="article-comment" th:if="${view.openComment}">
                         <!--#include file="/components/[[${view.viewName}]].html"-->
@@ -155,7 +158,7 @@
 
     <script>
         $(function () {
-            $("img.lazy").lazyload({ effect: "fadeIn" , threshold :180});
+            $("img.lazy").lazyload({ effect: "fadeIn", threshold: 180 });
         });
 
         increaseViewCount([[${ view.id }]])

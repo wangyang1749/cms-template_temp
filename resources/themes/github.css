@@ -70,6 +70,10 @@ body {
     padding: 1rem; 
     /* overflow: auto; */
 }
+
+.markdown  video{
+    width: 100%;
+}
 /* 表格样式 */
  .markdown table {
     width: 100%;

@@ -286,10 +286,12 @@ $("#submitUpdate").click(function () {
             type: 'POST',
             data: JSON.stringify(params),
             success: function (data) {
-                // console.log(data.data.id)
+                console.log(data.data)
                 cmsWrite.articleId = data.data.id
                 Toast("添加文章" + data.data.title + "成功！", 'success')
-                window.open("/user/articleList");
+                // window.open("/user/articleList");
+
+                window.location.href="/"+data.data.path+"/"+data.data.viewName+".html"
             }
         });
     }

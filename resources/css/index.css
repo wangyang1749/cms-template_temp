@@ -20,7 +20,18 @@ body{
     padding: 0;
 } 
 
-
+a{
+    text-decoration: none !important;
+}
+.toc{
+    padding: 0 !important;
+}
+.toc li{
+    list-style: none;
+}
+.toc a{
+    color: #6c757d!important;
+}
 /* nav{
     white-space: nowrap;
     height: 2rem;
