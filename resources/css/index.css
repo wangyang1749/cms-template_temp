@@ -230,10 +230,10 @@ a:focus {
 .catrgory-header img {
     width: 100%;
 }
-
-.catrgory-header span {
+.catrgory-header .title {
     white-space: nowrap;
 }
+
   /* 内容头部样式 */
   .content-header .info {
     font-size: 0.8rem;

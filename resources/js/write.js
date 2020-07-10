@@ -32,7 +32,8 @@ function loadCategory() {
         url: protocol + "//" + url + ":8080/api/category",
         headers: {
             'Content-Type': 'application/json;charset=utf8',
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json'
         },
         type: "get",
         success: function (data) {
@@ -61,7 +62,8 @@ function showTags() {
                     url: protocol + "//" + url + ":8080/api/tags",
                     headers: {
                         'Content-Type': 'application/json;charset=utf8',
-                        'Authorization': 'Bearer ' + token
+                        'Authorization': 'Bearer ' + token,
+                        'Accept': 'application/json'
                     },
                     dataType: "json",
                     type: 'POST',
@@ -93,7 +95,8 @@ function loadTags() {
         url: protocol + "//" + url + ":8080/api/tags",
         headers: {
             'Content-Type': 'application/json;charset=utf8',
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json'
         },
         type: "get",
         success: function (data) {
@@ -205,7 +208,8 @@ function save() {
                 url: protocol + "//" + url + ":8080/api/article/save/" + cmsWrite.articleId,
                 headers: {
                     'Content-Type': 'application/json;charset=utf8',
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': 'application/json'
                 },
                 type: 'POST',
                 data:jsonData ,
@@ -221,7 +225,8 @@ function save() {
                 url: protocol + "//" + url + ":8080/api/article/save",
                 headers: {
                     'Content-Type': 'application/json;charset=utf8',
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': 'application/json'
                 },
                 // dataType: "json",
                 type: 'POST',
@@ -280,7 +285,8 @@ $("#submitUpdate").click(function () {
             url: protocol + "//" + url + ":8080/api/article/update/" + cmsWrite.articleId,
             headers: {
                 'Content-Type': 'application/json;charset=utf8',
-                'Authorization': 'Bearer ' + token
+                'Authorization': 'Bearer ' + token,
+                'Accept': 'application/json'
             },
             dataType: "json",
             type: 'POST',
@@ -317,7 +323,8 @@ $("#submitCreate").click(function () {
             url: protocol + "//" + url + ":8080/api/article",
             headers: {
                 'Content-Type': 'application/json;charset=utf8',
-                'Authorization': 'Bearer ' + token
+                'Authorization': 'Bearer ' + token,
+                'Accept': 'application/json'
             },
             dataType: "json",
             type: 'POST',
@@ -555,7 +562,8 @@ function loadAttachment() {
                     $.ajax({
                         url: protocol + "//" + url + ":8080/api/attachment?page=" + (data.page - 1),
                         headers: {
-                            'Authorization': 'Bearer ' + token
+                            'Authorization': 'Bearer ' + token,
+                            'Accept': 'application/json'
                         },
                         type: 'get',
                         dataType: 'json',
@@ -679,7 +687,8 @@ function renderLatex(componentInput, componentPreview) {
     $.ajax({
         url: protocol + "//" + url + ":8080/api/latex/svg",
         headers: {
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json'
         },
         type: 'post',
         // dataType: 'xml',
@@ -743,7 +752,8 @@ function updateAttachmentInput(id) {
     $.ajax({
         url: protocol + "//" + url + ":8080/api/attachment/find/" + id,
         headers: {
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json'
         },
         type: 'get',
         dataType: 'json',
