@@ -47,10 +47,10 @@
                     
                     <div class="catrgory-header">
                         <div class="img mr-3">
-                           
-                                <img th:if="${view.category.picPath==''}" class="mb-1"
+                                [[${view.category.picPath}]]
+                                <img th:if="${view.category.picPath==''||view.category.picPath==null}" class="mb-1"
                                     src="/templates/resources/img/logo_category.png">
-                                <img th:if="${view.category.picPath!=''}" th:src="${view.category.picPath}"
+                                <img th:if="${view.category.picPath!=null||view.category.picPath!=''}" th:src="${view.category.picPath}"
                                     class="mb-1">
                            <div class="d-flex title">
                                 <a class="text-secondary" th:href="@{'~/mind/'+${view.category.id}+'.html'}">

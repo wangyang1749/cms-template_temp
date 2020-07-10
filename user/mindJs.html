@@ -85,6 +85,7 @@
                     'AuthorizeType': 'Cookie'
                 },
                 method: 'POST',
+                credentials: "include",
             }).then(function (response) {
                 return response.json();
             })
