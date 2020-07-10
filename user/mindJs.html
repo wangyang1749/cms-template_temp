@@ -78,7 +78,7 @@
         console.log(jm.get_data("node_array").data)
         function submit() {
             console.log(jm.get_data("node_array").data)
-            fetch(address+'/api/article/saveMindJs/[[${category.id}]]', {
+            fetch(address + '/api/article/saveMindJs/[[${category.id}]]', {
                 body: JSON.stringify(jm.get_data("node_array").data),
                 headers: {
                     'user-agent': 'Mozilla/4.0 MDN Example',
@@ -90,11 +90,10 @@
                 credentials: "include",
             }).then(function (response) {
                 return response.json();
-            })
-                .then(function (myJson) {
-                    // console.log(myJson);
-                    alert(myJson.message)
-                });
+            }).then(function (myJson) {
+                // console.log(myJson);
+                alert(myJson.message)
+            });
         }
     </script>
 </body>

@@ -195,77 +195,6 @@ $("#closeToast").click(function () {
 })
 
 
-/**
- * 保存文章
- */
-function save() {
-    if (createArticle()) {
-        
-        let jsonData = JSON.stringify(createArticle())
-        // console.log(jsonData)
-        if (cmsWrite.articleId) {
-            $.ajax({
-                url: protocol + "//" + url + ":8080/api/article/save/" + cmsWrite.articleId,
-                headers: {
-                    'Content-Type': 'application/json;charset=utf8',
-                    'Authorization': 'Bearer ' + token,
-                    'Accept': 'application/json'
-                },
-                type: 'POST',
-                data:jsonData ,
-                success: function (data) {
-                    // console.log(data.data.id)
-                    cmsWrite.articleId = data.data.id
-                    Toast("更新文章" + data.data.title + "成功！", 'success')
-
-                }
-            });
-        } else {
-            $.ajax({
-                url: protocol + "//" + url + ":8080/api/article/save",
-                headers: {
-                    'Content-Type': 'application/json;charset=utf8',
-                    'Authorization': 'Bearer ' + token,
-                    'Accept': 'application/json'
-                },
-                // dataType: "json",
-                type: 'POST',
-                data: jsonData,
-                success: function (data) {
-                    // console.log(data.data.id)
-                    cmsWrite.articleId = data.data.id
-                    Toast("添加文章" + data.data.title + "成功！", 'success')
-                    history.pushState("state", "", "/user/edit/" + cmsWrite.articleId)
-                    $("#submitCreate").css("display", "none")
-                    $("#submitUpdate").css("display", "inline-block")
-
-                }
-            });
-        }
-    }
-
-}
-
-
-document.addEventListener("keydown", function (event) {
-    if (event.ctrlKey && event.keyCode === 83) {
-        event.preventDefault();
-        save()
-    }
-})
-document.addEventListener("keydown", function (event) {
-    if (event.ctrlKey && event.keyCode === 81) {
-        event.preventDefault();
-        $("#uploadPanel").slideToggle("fast");
-    }
-})
-
-
-
-
-$("#save").click(function () {
-    save()
-})
 
 /**
  * 更新文章
@@ -297,7 +226,7 @@ $("#submitUpdate").click(function () {
                 Toast("添加文章" + data.data.title + "成功！", 'success')
                 // window.open("/user/articleList");
 
-                window.location.href="/"+data.data.path+"/"+data.data.viewName+".html"
+                window.location.href = "/" + data.data.path + "/" + data.data.viewName + ".html"
             }
         });
     }
@@ -360,89 +289,16 @@ function copyText(text, callback) { // text: 要复制的内容， callback: 回
 
 
 
-// let imgList = {}
-// document.getElementById('textInput').addEventListener('paste', function (e) {
-
-//     if (!(e.clipboardData && e.clipboardData.items)) {
-//         return;
-//     }
-//     for (var i = 0, len = e.clipboardData.items.length; i < len; i++) {
-//         var item = e.clipboardData.items[i];
-//         // console.log(item);
-//         // if (item.kind === "string") {
-//         //     item.getAsString(function (str) {
-//         //         console.log(str);
-//         //     })
-//         // } else 
-//         if (item.kind === "file") {
-//             e.preventDefault()
-//             console.log("--" + item)
-//             var blob = item.getAsFile();
-//             // console.log(blob);
-
-
-//             var data = new FormData();
-//             data.append("file", blob);
-//             // data.append('id', 45);
-//             $.ajax({
-//                 url: protocol + "//" + url + ":8080/api/attachment/upload",
-//                 headers: {
-//                     'Authorization': 'Bearer ' + token
-//                 },
-//                 type: 'POST',
-//                 data: data,
-//                 dataType: 'json',
-//                 // contentType: "application/x-www-form-urlencoded; charset=utf-8",
-//                 processData: false,
-//                 contentType: false,
-//                 success: function (data) {
-                    
-//                     console.log(data.data.thumbPath)
-//                     $("#textInput").insertAtCaret("![](" + data.data.thumbPath + ")")
-//                     formatHtml()
-//                 }
-//             });
-
-//             if (blob.size === 0) {
-//                 return;
-//             }
-
-//             let reader = new FileReader();
-
-//             reader.readAsDataURL(blob);
-
-//             reader.onload = function (e) {
-//                 let img = document.createElement('img');
-//                 img.src = e.target.result;
-//                 // console.log(img)
-//                 // document.body.appendChild(img);
-//                 imgList["1"] = e.target.result
-//                 // $("#textInput").insertAtCaret("<img src='data:image'>")
-//             };
-//         }
-//     }
-// });
 
 
 
-$("#uploadFile").click(function (event) {
-    event.stopPropagation();
-    $("#uploadPanel").slideToggle("fast");
 
-})
 
-$("#uploadPanel").click(function (event) {
-    event.stopPropagation();
-})
+// $("#uploadPanel").click(function (event) {
+//     event.stopPropagation();
+// })
 
-$(document).click(function (event) {
-    var uploadPanel = $("#uploadPanel")
-    // 如果点击目标不是input，弹框消失
-    if (!uploadPanel.is(event.target)) {
 
-        uploadPanel.slideUp("fast");
-    }
-});
 
 function handleType(attachment) {
     var mediaType = attachment.mediaType;
@@ -464,13 +320,16 @@ function handleType(attachment) {
             result = "<a href='" + attachment.path + "' >点击下载</a>"
             console.log("附件")
         }
-        
+
         // $("#textInput").insertAtCaret(result)
-        testEditor.insertValue(result);
+        
     }
     // 没有获取到文件返回false
-    return false;
+    return result;
 }
+
+
+
 
 
 $("#file").change(function () {
@@ -511,127 +370,234 @@ $("#file").change(function () {
                 return xhr;
             },
             success: function (data) {
-                // console.log(data.data)
-                
-                handleType(data.data)
+                testEditor.insertValue(handleType(data.data));
                 $('.progress > div').html("上传完成！")
-                $("#uploadPanel").slideUp("fast");
-                // formatHtml()
-                // cmsWrite.selectTags.push(data.data.id)
-                // selectTagsMap[data.data.name] = data.data.id
-                // console.log(cmsWrite.selectTags)
-                // console.log(selectTagsMap)
-                // articleId = data.data.id
-                // Toast("更新文章" + data.data.title + "成功！", 'success')
+                uploadPanel();
             }
         });
     }
 
 })
 
-
-//分页加载附件数据
-function loadAttachment() {
-    $.ajax({
-        url: protocol + "//" + url + ":8080/api/attachment/",
-        headers: {
-            'Authorization': 'Bearer ' + token
-        },
-        type: 'get',
-        dataType: 'json',
-        contentType: "application/json;charset=UTF-8",
-        success: function (data) {
-            // debugger
-            // console.log(data)
-            var content = ""
-            for (var i = 0; i < data.data.content.length; i++) {
-                content += " <li   class=\"list-group-item d-flex justify-content-between\"><img onclick=\"copyImgPath('" + data.data.content[i].path + "'," + data.data.content[i].id + ")\"  src=\"" + data.data.content[i].path + "\"><a href='javascript:;' onclick=\"updateAttachmentInput(" + data.data.content[i].id + ")\">修改</a></li>"
-            }
-            $("#attachment-list").html(content)
-
-
-            $('.attachment').pagination({
-                pageCount: data.data.totalPages,
-                jump: true,
-                callback: function (api) {
-                    var data = {
-                        page: api.getCurrent(),
-                        name: 'mss',
-                        say: 'oh'
-                    };
-                    $.ajax({
-                        url: protocol + "//" + url + ":8080/api/attachment?page=" + (data.page - 1),
-                        headers: {
-                            'Authorization': 'Bearer ' + token,
-                            'Accept': 'application/json'
-                        },
-                        type: 'get',
-                        dataType: 'json',
-                        contentType: "application/json;charset=UTF-8",
-                        success: function (data) {
-                            // console.log(data.data)
-                            var content = ""
-                            for (var i = 0; i < data.data.content.length; i++) {
-                                content += " <li   class=\"list-group-item d-flex justify-content-between\"><img onclick=\"copyImgPath('" + data.data.content[i].path + "'," + data.data.content[i].id + ")\"  src=\"" + data.data.content[i].path + "\"><a href='javascript:;' onclick=\"updateAttachmentInput(" + data.data.content[i].id + ")\">修改</a></li>"
-                            }
-                            $("#attachment-list").html(content)
-                        }
-                    });
-                }
-            });
-        }
-    });
-}
-
-// 打开附件快捷键
-document.addEventListener("keydown", function (event) {
-    if (event.altKey  && event.keyCode === 67) {
-        // console.log("kkkkk")
-        $(".drawer-attachment").css({ display: 'block' });
-        $(".drawer-attachment").animate({ width: '30rem' });
-        loadAttachment()
-    }
-})
-
-
-
-function drawer(drawerBtn, drawerPanel) {
-    // 打开关闭附件面板
-    $(drawerBtn).click(function (e) {
-        e.stopPropagation();
-
-        if ($(drawerPanel).css("display") == "block") {
-            $(drawerPanel).animate({ width: '0px' }, function () {
-                $(drawerPanel).css({ display: 'none' });
-            });
-        } else {
-            $(drawerPanel).css({ display: 'block' });
-            $(drawerPanel).animate({ width: '30rem' });
-            loadAttachment()
-        }
-    })
-    $(document).click(function (e) {
-        // console.log(!$(drawerPanel).is(e.target))
-        // console.log($(drawerPanel).has(e.target).length === 0)
-        if ($(drawerPanel).css("display") == "block" && $(drawerPanel).has(e.target).length === 0) {
-            $(drawerPanel).animate({ width: '0px' }, function () {
-                $(drawerPanel).css({ display: 'none' });
-            });
-        }
-    })
-}
-drawer("#attachment", ".drawer-attachment")
-
-
-
 // 拷贝附件路径到剪切板
-function copyImgPath(path, id) {
-    console.log(path + "-" + id)
-    path = "![" + id + "](" + path + ")"
-    copyText(path, function () {
+function copyImgPath(path, mediaType) {
+    // console.log(path + "-" + mediaType)
+    let result = ""
+
+    if (mediaType) {
+        var prefix = mediaType.split("/")[0];
+        if (prefix === "image") {
+            result = "<img src='" + path + "'>"
+            console.log("image")
+        } else if (prefix === "audio") {
+            result = "<audio controls src='" + path + "'></audio>"
+            console.log("audio")
+        } else if (prefix === "video") {
+            result = "<video style='width:100%' controls src='" + path + "'></video>"
+            console.log("video")
+        } else {
+            result = "<a href='" + path + "' >点击下载</a>"
+            console.log("附件")
+        }
+    } 
+    copyText(result, function () {
         Toast("成功复制到剪切板！", 'success')
     })
 }
+
+
+
+function deleteAttachment(id) {
+    let address = protocol + "//" + url + ":8080/api/attachment/delete/" + id;
+    fetch(address, {
+        headers: {
+            'user-agent': 'Mozilla/4.0 MDN Example',
+            'content-type': 'application/json',
+            'Accept': 'application/json,text/plain,*/*',
+            'AuthorizeType': 'Cookie'
+        },
+        credentials: "include",
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log(data)
+        loadAttachment()
+    })
+}
+
+let totalPages;
+//分页加载附件数据
+function loadAttachment(page) {
+    let address = protocol + "//" + url + ":8080/api/attachment?page="+page;
+    fetch(address, {
+        headers: {
+            'user-agent': 'Mozilla/4.0 MDN Example',
+            'content-type': 'application/json',
+            'Accept': 'application/json,text/plain,*/*',
+            'AuthorizeType': 'Cookie'
+        },
+        credentials: "include",
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        totalPages = data.data.totalPages;
+        console.log(data)
+        var content = ""
+        for (var i = 0; i < data.data.content.length; i++) {
+            console.log()
+            content += " <li   class=\"list-group-item \">"
+                + "<a href='javascript:;' onclick=\"updateAttachmentInput(" + data.data.content[i].id + ")\">修改</a>"
+                + "<a href='javascript:;' onclick=\"deleteAttachment(" + data.data.content[i].id + ")\">删除</a>"
+                + "<a  href='javascript:;' onclick=\"copyImgPath('" + data.data.content[i].path + "','" + data.data.content[i].mediaType + "')\" >复制</a>"
+
+                + handleType(data.data.content[i])
+                + "</li>"
+        }
+        $("#attachment-list").html(content)
+    });
+}
+
+$('.attachment').pagination({
+    pageCount:totalPages,
+    jump: true,
+    callback: function (api) {
+        var data = {
+            page: api.getCurrent(),
+            name: 'mss',
+            say: 'oh'
+        };
+        console.log(data.page)
+        loadAttachment(data.page-1)
+    }
+
+});
+
+
+function attachmentPanel() {
+
+    if ($(".drawer-attachment").css("display") == "none") {
+        // console.log("kkkkk")
+        $(".drawer-attachment").css({ display: 'block' });
+        $(".drawer-attachment").animate({ width: '30rem' });
+        loadAttachment(0)
+    } else {
+        $(".drawer-attachment").animate({ width: '0px' }, function () {
+            $(".drawer-attachment").css({ display: 'none' });
+        });
+    }
+
+}
+
+
+
+// 打开附件快捷键
+document.addEventListener("keydown", function (event) {
+    if (event.altKey && event.keyCode === 67) {
+        attachmentPanel();
+    }
+})
+$("#attachment").click(function () { attachmentPanel(); })
+
+
+/**
+ * 保存文章
+ */
+function save() {
+    if (createArticle()) {
+
+        let jsonData = JSON.stringify(createArticle())
+        // console.log(jsonData)
+        if (cmsWrite.articleId) {
+            $.ajax({
+                url: protocol + "//" + url + ":8080/api/article/save/" + cmsWrite.articleId,
+                headers: {
+                    'Content-Type': 'application/json;charset=utf8',
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': 'application/json'
+                },
+                type: 'POST',
+                data: jsonData,
+                success: function (data) {
+                    // console.log(data.data.id)
+                    cmsWrite.articleId = data.data.id
+                    Toast("更新文章" + data.data.title + "成功！", 'success')
+
+                }
+            });
+        } else {
+            $.ajax({
+                url: protocol + "//" + url + ":8080/api/article/save",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf8',
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': 'application/json'
+                },
+                // dataType: "json",
+                type: 'POST',
+                data: jsonData,
+                success: function (data) {
+                    // console.log(data.data.id)
+                    cmsWrite.articleId = data.data.id
+                    Toast("添加文章" + data.data.title + "成功！", 'success')
+                    history.pushState("state", "", "/user/edit/" + cmsWrite.articleId)
+                    $("#submitCreate").css("display", "none")
+                    $("#submitUpdate").css("display", "inline-block")
+
+                }
+            });
+        }
+    }
+
+}
+
+
+$("#save").click(function () {
+    save()
+})
+
+
+document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey && event.keyCode === 83) {
+        event.preventDefault();
+        save()
+    }
+})
+
+/***************************************** */
+function uploadPanel(){
+    if ($("#uploadPanel").css("display") == "none") {
+        $("#uploadPanel").slideToggle("fast");
+        $("body").css("overflow","hidden");
+    }else{
+        $("#uploadPanel").slideToggle("fast");
+        $("body").css("overflow","auto");
+    }
+}
+
+
+$("#uploadFile").click(function (event) {
+    uploadPanel()
+   
+
+})
+document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey && event.keyCode === 81) {
+        uploadPanel()
+    }
+})
+
+// document.addEventListener("click",function(e){
+//     console.log(event.target.id)
+//     var _list = $('#uploadFile');
+//     if ($("#uploadPanel").css("display") == "block"&&!_list.is(e.target) && _list.has(e.target).length === 0) {
+//         uploadPanel()
+//     }
+// })
+
+
+
+
+
 
 
 
@@ -781,38 +747,6 @@ function updateAttachmentInput(id) {
     // $("#fixed-card").css("display", "none")
     // console.log(id)
 }
-
-// // 修改Svg
-// $(document).on('click', '.svg-components', function () {
-//     let componentPreview = $("#componentPreview")
-//     var val = $(this).attr("data-attachment");
-//     let dataRender = $("#componentInput").attr("data-render")
-//     svgAttachmentId = val
-//     $("#fixed-card").css("display", "block")
-//     $.ajax({
-//         url: protocol + "//" + url + ":8080/api/attachment/find/" + val,
-//         headers: {
-//             'Authorization': 'Bearer ' + token
-//         },
-//         type: 'get',
-//         dataType: 'json',
-//         contentType: "application/json;charset=UTF-8",
-//         success: function (data) {
-//             $("#componentInput").val(data.data.originContent)
-//             if (dataRender == "mermaid") {
-//                 renderMermaid(data.data.originContent, componentPreview)
-//                 $("#componentInput").attr("data-render", "mermaid")
-//                 $("#svg-header").html("修改mermaid")
-//             } else if (dataRender == "latex") {
-
-//                 $("#componentInput").attr("data-render", "latex")
-//                 $("#svg-header").html("修改Latex")
-
-//                 renderLatex(data.data.originContent, componentPreview)
-//             }
-//         }
-//     });
-// });
 
 // 添加svg
 $(".openSvgPanel").click(function () {
