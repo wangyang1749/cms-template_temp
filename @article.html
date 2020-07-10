@@ -146,6 +146,9 @@
 
     </div>
 
+    <!--#include file="/components/footer.html"-->
+    <div th:if="${isSave== null}" th:insert="html/components/footer :: #footer"></div>
+    
    
     <script src="/templates/resources/js/jquery-3.4.1.min.js"></script>
     <script src="/templates/resources/js/jquery.cookie.js"></script>
