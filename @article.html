@@ -31,10 +31,6 @@
 
 
     <div class="container ">
-
-
-
-
         <div class="row">
             <div class="col-lg-9 mb-3">
 
@@ -92,11 +88,14 @@
                     <div class="card mb-3  bg-white">
                         <div class="card-body">
                             <dl>
-                                <dt class="text-muted">文章所属栏目</dt>
+                                <dt class="text-muted">快捷入口</dt>
                                 <dd th:if="${view.category!=null}">
                                     <a class=" badge badge-success"
                                         th:href="'/articleList/'+${view.category.viewName}+'.html'"
                                         th:text="${view.category.name}"></a>
+                                        <a class=" badge badge-success"
+                                        th:href="'/mind/'+${view.category.id}+'.html'"
+                                        >思维导图</a>
                                 </dd>
                             </dl>
     

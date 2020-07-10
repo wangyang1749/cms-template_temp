@@ -68,8 +68,8 @@
                 if (jm.get_selected_node()) {
                     console.log(jm.get_selected_node())
                     if (jm.get_selected_node().data.data) {
-                        window.open(jm.get_selected_node().data.data)
-
+                        // window.open(jm.get_selected_node().data.data)
+                        window.location.href=jm.get_selected_node().data.data
                     }
 
                 }
