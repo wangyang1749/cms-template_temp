@@ -22,8 +22,7 @@
 </head>
 
 <body>
-    <!--#include file="/components/header.html"-->
-    <div th:if="${isSave== null && notPdf==null}" th:insert="html/components/header :: #header"></div>
+    <div th:insert="templates/user/header"></div>
     <div class="container">
         <a class="text-secondary" th:href="@{'~/'+${category.path}+'/'+${category.viewName}+'.html'}">返回列表</a>
 
