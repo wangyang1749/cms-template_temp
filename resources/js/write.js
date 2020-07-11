@@ -200,33 +200,34 @@ $("#closeToast").click(function () {
  * 更新文章
  */
 $("#submitUpdate").click(function () {
-
-    if (createArticle()) {
-
-        var params = createArticle()
+    var params = createArticle()
+    if (params) {
         // console.log(params.categoryId)
         if (params.categoryId == "" || params.categoryId == null) {
             // alert("文章分类不能为空")
             Toast("发布文章时，文章分类不能为空", 'error')
             return
         }
+        jsonData = JSON.stringify(params)
+        // console.log(jsonData)
+
+        let address = protocol + "//" + url + ":8080/api/article/update/" + cmsWrite.articleId
+
         $.ajax({
-            url: protocol + "//" + url + ":8080/api/article/update/" + cmsWrite.articleId,
+            url: address,
             headers: {
                 'Content-Type': 'application/json;charset=utf8',
                 'Authorization': 'Bearer ' + token,
                 'Accept': 'application/json'
             },
-            dataType: "json",
             type: 'POST',
-            data: JSON.stringify(params),
+            data: jsonData,
             success: function (data) {
-                console.log(data.data)
+                // console.log(data.data.id)
                 cmsWrite.articleId = data.data.id
-                Toast("添加文章" + data.data.title + "成功！", 'success')
-                // window.open("/user/articleList");
-
+                Toast("更新文章" + data.data.title + "成功！", 'success')
                 window.location.href = "/" + data.data.path + "/" + data.data.viewName + ".html"
+
             }
         });
     }
@@ -262,7 +263,7 @@ $("#submitCreate").click(function () {
                 // console.log(data.data.id)
                 cmsWrite.articleId = data.data.id
                 Toast("添加文章" + data.data.title + "成功！", 'success')
-                window.open("/user/articleList");
+                window.location.href = "/" + data.data.path + "/" + data.data.viewName + ".html"
             }
         });
     }
@@ -286,19 +287,9 @@ function copyText(text, callback) { // text: 要复制的内容， callback: 回
 }
 
 
-
-
-
-
-
-
-
-
 // $("#uploadPanel").click(function (event) {
 //     event.stopPropagation();
 // })
-
-
 
 function handleType(attachment) {
     var mediaType = attachment.mediaType;
@@ -322,14 +313,11 @@ function handleType(attachment) {
         }
 
         // $("#textInput").insertAtCaret(result)
-        
+
     }
     // 没有获取到文件返回false
     return result;
 }
-
-
-
 
 
 $("#file").change(function () {
@@ -399,12 +387,11 @@ function copyImgPath(path, mediaType) {
             result = "<a href='" + path + "' >点击下载</a>"
             console.log("附件")
         }
-    } 
+    }
     copyText(result, function () {
         Toast("成功复制到剪切板！", 'success')
     })
 }
-
 
 
 function deleteAttachment(id) {
@@ -428,7 +415,7 @@ function deleteAttachment(id) {
 let totalPages;
 //分页加载附件数据
 function loadAttachment(page) {
-    let address = protocol + "//" + url + ":8080/api/attachment?page="+page;
+    let address = protocol + "//" + url + ":8080/api/attachment?page=" + page;
     fetch(address, {
         headers: {
             'user-agent': 'Mozilla/4.0 MDN Example',
@@ -458,7 +445,7 @@ function loadAttachment(page) {
 }
 
 $('.attachment').pagination({
-    pageCount:totalPages,
+    pageCount: totalPages,
     jump: true,
     callback: function (api) {
         var data = {
@@ -467,7 +454,7 @@ $('.attachment').pagination({
             say: 'oh'
         };
         console.log(data.page)
-        loadAttachment(data.page-1)
+        loadAttachment(data.page - 1)
     }
 
 });
@@ -489,7 +476,6 @@ function attachmentPanel() {
 }
 
 
-
 // 打开附件快捷键
 document.addEventListener("keydown", function (event) {
     if (event.altKey && event.keyCode === 67) {
@@ -503,9 +489,9 @@ $("#attachment").click(function () { attachmentPanel(); })
  * 保存文章
  */
 function save() {
-    if (createArticle()) {
-
-        let jsonData = JSON.stringify(createArticle())
+    let article = createArticle();
+    if (article) {
+        let jsonData = JSON.stringify(article)
         // console.log(jsonData)
         if (cmsWrite.articleId) {
             $.ajax({
@@ -564,20 +550,20 @@ document.addEventListener("keydown", function (event) {
 })
 
 /***************************************** */
-function uploadPanel(){
+function uploadPanel() {
     if ($("#uploadPanel").css("display") == "none") {
         $("#uploadPanel").slideToggle("fast");
-        $("body").css("overflow","hidden");
-    }else{
+        $("body").css("overflow", "hidden");
+    } else {
         $("#uploadPanel").slideToggle("fast");
-        $("body").css("overflow","auto");
+        $("body").css("overflow", "auto");
     }
 }
 
 
 $("#uploadFile").click(function (event) {
     uploadPanel()
-   
+
 
 })
 document.addEventListener("keydown", function (event) {
