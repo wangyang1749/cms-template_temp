@@ -249,14 +249,14 @@ $("#submitCreate").click(function () {
             Toast("发布文章时，文章分类不能为空", 'error')
             return
         }
+        let address = protocol + "//" + url + ":8080/api/article"
         $.ajax({
-            url: protocol + "//" + url + ":8080/api/article",
+            url: address,
             headers: {
                 'Content-Type': 'application/json;charset=utf8',
                 'Authorization': 'Bearer ' + token,
                 'Accept': 'application/json'
             },
-            dataType: "json",
             type: 'POST',
             data: JSON.stringify(params),
             success: function (data) {
